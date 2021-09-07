@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+<div class="acc_title" onclick="AccFunc('Settings')">
+  <i class="fa fa-fw fa-cog"></i>System Settings 
+  <i class="fa fa-caret-down"></i>
+</div>
+<div id="Settings" class="w3-hide">
+  <a href="#" class="w3-bar-item w3-button">
+    <i class="fa fa-fw fa-home"></i>Organisation Master
+  </a><br>
+  <a href="#" class="w3-bar-item w3-button">
+    <i class="fa fa-fw fa-sitemap"></i>Branch Master
+  </a><br>
+  <a href="{% url 'user_master' %}" class="w3-bar-item w3-button">
+    <i class="fa fa-fw fa-user"></i>User Master
+  </a>
+  <a href="#" class="w3-bar-item w3-button">
+    <i class="fa fa-fw fa-user"></i>User Roles
+  </a>
+</div>
+<div class="acc_title" onclick="AccFunc('configSettings')">
+  <i class="fa fa-fw fa-wrench"></i>
+  Config settings 
+  <i class="fa fa-caret-down"></i>
+</div>
+<div id="configSettings" class="w3-hide">
+  <a href="#" class="w3-bar-item w3-button">
+    <i class="fa fa-fw fa-cog"></i>General settings
+  </a><br>
+</div>    
+{% endblock sidebar %} 

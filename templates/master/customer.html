@@ -1,0 +1,364 @@
+{% extends "main_base.html" %}
+
+{% block content %}
+
+<h3>CUSTOMER MASTER</h3>
+
+<button onclick="show_modal()" class="btn btn-primary">Add</button>
+
+<div id="myModal" class="_modal">
+    <div class="_modal-content">        
+        <span class="_close">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">CUSTOMER MASTER</h5>
+            
+{{selectedCustomerDetails}}
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#customer_info" type="button" role="tab" aria-selected="true">Customer</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#credentials" type="button" role="tab" aria-selected="true">Credentials</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#bank" type="button" role="tab" aria-selected="true">Bank</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
+                </li>
+            </ul>
+        
+            <div class="tab-content">
+                <div id="customer_info" class="tab-pane fade in active show">
+                    <form> 
+                    <div class="acc_title" onclick="AccFunc('customerDetails')">
+                        Customer Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="customerDetails">
+                        <div class="row">
+                            <div class="col-sm-2 mb-1">
+                                <label>Customer</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Mr.</option>
+                                    <option>Mrs.</option>
+                                    <option>Ms.</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>First Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Last Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>DOB</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Gender</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>        
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Co-owner</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Mr.</option>
+                                    <option>Mrs.</option>
+                                    <option>Ms.</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>First Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Last Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>DOB</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Gender</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>        
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Email</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Mobile No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Whatsapp No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Father/Husband</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Mr.</option>
+                                    <option>Mrs.</option>
+                                    <option>Ms.</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 mb-1">
+                                <label>Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Relation</label>
+                                <label class="mandat_symbol">*</label>
+                                <select class="form-control" required>
+                                    <option>Father</option>
+                                    <option>Husband</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('address')">
+                        Address details
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="address">
+                        <div class="row">
+                            <div class="col-sm-6 mb-1">
+                                <label>Address Line 1</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-6 mb-1">
+                                <label>Address Line 1</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-6 mb-1">
+                                <label>Address Line 2</label>
+                                <input type="text" class="form-control" tabindex="1">
+                            </div>
+                            <div class="col-sm-6 mb-1">
+                                <label>Address Line 2</label>
+                                <input type="text" class="form-control" tabindex="1">
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>State </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>City </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>State </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>City </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Pin code </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Pin code </label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+                <div id="credentials" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-6 mb-1">
+                            <label>User Name</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="text" class="form-control" required>
+
+                            <label>Password</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="text" class="form-control" required>
+
+                            <label>Passport photo</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="file" required>                                
+                        </div>
+                        <div class="col-sm-6 mb-1"> 
+                            <div style="
+                        background-color:grey ; 
+                        border: 1px solid black;
+                        width: 200px;
+                        height: 200px;"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-1">
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div class="col-sm-6 mb-1">
+                        </div>
+                    </div>                         
+                </div>
+                <div id="bank" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-6 mb-1">
+                            <label>Bank Name</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 mb-1">
+                            <label>Branch Name</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6 mb-1">
+                            <label>Account Type</label>
+                            <label class="mandat_symbol">*</label>
+                            <select required class="form-control">
+                                <option>SAVINGS</option>
+                                <option>CURRENT</option>
+                                <option>CASH CREDIT</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 mb-1">
+                            <label>Account No</label>
+                            <label class="mandat_symbol">*</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div id="docs" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-4 mb-1">
+                            <label>Doc Type</label>
+                            <label class="mandat_symbol">*</label><br>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Doc No.</label>
+                            <label class="mandat_symbol">*</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>AADHAR CARD</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>PAN CARD</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>VOTER ID CARD</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>GST</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" required>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>OTHER DOCS</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>    
+                    </form>
+                </div>
+            </div>   
+        </div>    
+        <div class="modal-footer">
+
+        </div>
+    </div>
+</div>
+
+<table id="sampleTable" class="table table-striped sampleTable">
+    <thead>
+        <tr>
+            <th>CUSTOMER</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customerDetails %}
+        <tr>
+            <td>
+                {{ customer.customer_salutation }} {{ customer.customer_fname }}  {{ customer.customer_mname }} {{ customer.customer_lname }}
+            </td>
+            <td>View</td>
+            <td><a href="#" class="btn btn-primary" onclick="show_modal('/modify_customer/{{customer.customer_fname}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AUM ASSETS AND PROJECTS</title>
+
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <style>
+      body{
+        background-color: #f0f2f5;
+      }
+
+      a{
+        text-decoration: none;
+      }
+    
+      a:hover{
+        text-decoration: underline;
+      }
+
+      #logo{
+        color: #1877F2;
+        text-align: center;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      #login{
+        height: 50%;
+      }
+
+    </style>
+    
+  </head>
+  <body>
+    <div class="row container">
+      <div class="col-md-6" id="logo">
+        AUM ASSETS AND PROJECTS
+      </div>
+      <div class="col-md-4 card form-signin text-center" id="login">        
+          {{ error_msg }}
+          <form method="POST" action="{% url 'login' %}"> 
+            {% csrf_token %}               
+            <div>
+              <input type="text" class="form-control" name="username" placeholder="Username">              
+            </div>
+            <div>
+              <input type="password" class="form-control" name="password" placeholder="Password">
+            </div>
+            
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>    
+          </form>
+          <a href="#">Forgotten Password?</a> 
+      </div>
+    </div>
+  </body>
+</html>
