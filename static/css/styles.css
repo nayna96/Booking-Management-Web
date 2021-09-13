@@ -52,6 +52,10 @@ h3 {
 }
 
 .disable{
-    pointer-events:none;
-    background:grey;
-    }
+    pointer-events: none;
+    background: grey;
+}
+
+.file{
+    color: "transparent";
+}

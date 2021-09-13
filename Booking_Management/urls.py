@@ -22,23 +22,37 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('login', views.organisation_login, name='org_login'),
     path('home', views.home, name='home'),
-    #settings
-    path('settings', views.settings, name='settings'),
-    path('user_master', views.user_master, name='user_master'),
+
     #master
-    path('project_master', views.project_master, name='project_master'),
-    path('block_master', views.block_master, name='block_master'),
-    path('flat_master', views.flat_master, name='flat_master'),
+    re_path('project_master/$', views.project_master, name='project_master'),
+    path('project_master/<str:project_name>', views.project_master, name='project_master'),
+
+    re_path('block_master/$', views.block_master, name='block_master'), 
+    path('block_master/<str:block_name>', views.block_master, name='block_master'),
+    
+    re_path('flat_master/$', views.flat_master, name='flat_master'),
+    path('flat_master/<str:flat_name>', views.flat_master, name='flat_master'),
 
     re_path('customer_master/$', views.customer_master, name='customer_master'),
     path('customer_master/<str:customer_name>', views.customer_master, name='customer_master'),
 
-    path('bank_master', views.bank_master, name='bank_master'),
+    re_path('bank_master/$', views.bank_master, name='bank_master'),
+    path('bank_master/<str:bank_name>', views.bank_master, name='bank_master'),
+    
     #transaction
-    path('booking_entry', views.booking_entry, name='booking_entry'),
-    path('customer_request', views.customer_request, name='customer_request'),
+    re_path('booking_entry/$', views.booking_entry, name='booking_entry'),
+    path('booking_entry/<str:reference_id>', views.booking_entry, name='booking_entry'),
+    
+    re_path('customer_request/$', views.customer_request, name='customer_request'),
+    path('customer_request/<str:reference_id>', views.customer_request, name='customer_request'),
+    
     #reports
     path('flat_booking_status', views.flat_booking_status, name='flat_booking_status'),
+    
+    #settings
+    path('settings', views.settings, name='settings'),
+    path('user_master', views.user_master, name='user_master'),
+    
     #download file
     path('view/<str:dbName>/<str:fileName>', views.view_file, name='view_file')
 ]

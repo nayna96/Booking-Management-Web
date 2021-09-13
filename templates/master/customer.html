@@ -384,8 +384,8 @@
                             <input type="text" name="aadhar_no" id="aadhar_no" maxlength="12" class="form-control" required>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" name="aadhar_card" id="aadhar_card" style="color: transparent" onchange="updateList('aadhar_card', 'aadharCard', false)" >
-                            <div id="aadharCard">
+                            <input type="file" name="aadhar_card" id="aadhar_card" class="file" onchange="updateList('aadhar_card', 'aadharCard', false)" >
+                            <div id="aadharCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
@@ -397,8 +397,8 @@
                             <input type="text" name="pan_no" id="pan_no" maxlength="10" class="form-control" required>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" name="pan_card" id="pan_card" style="color: transparent" onchange="updateList('pan_card', 'panCard', false)" >
-                            <div id="panCard">
+                            <input type="file" name="pan_card" id="pan_card" class="file" onchange="updateList('pan_card', 'panCard', false)" >
+                            <div id="panCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
@@ -409,8 +409,8 @@
                             <input type="text" name="voter_id" id="voter_id" maxlength="10" class="form-control">
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" name="voter_id_card" id="voter_id_card" style="color: transparent" onchange="updateList('voter_id_card', 'voterIDCard', false)" >
-                            <div id="voterIDCard">
+                            <input type="file" name="voter_id_card" id="voter_id_card" class="file" onchange="updateList('voter_id_card', 'voterIDCard', false)" >
+                            <div id="voterIDCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
@@ -421,8 +421,8 @@
                             <input type="text" name="gst_no" id="gst_no" maxlength="15" class="form-control">
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" name="gst_doc" id="gst_doc" style="color: transparent" onchange="updateList('gst_doc', 'gstDoc', false)" >
-                            <div id="gstDoc">
+                            <input type="file" name="gst_doc" id="gst_doc" class="file" onchange="updateList('gst_doc', 'gstDoc', false)" >
+                            <div id="gstDoc" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
@@ -432,8 +432,8 @@
                         <div class="col-sm-4 mb-1">
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="other_docs" id="other_docs" style="color: transparent" onchange="updateList('other_docs', 'otherDocs', true)" />
-                            <div id="otherDocs">
+                            <input type="file" multiple name="other_docs" id="other_docs" class="file" onchange="updateList('other_docs', 'otherDocs', true)" />
+                            <div id="otherDocs" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
@@ -463,7 +463,7 @@
                 {{ customer.customer_salutation }} {{ customer.customer_fname }} {{ customer.customer_mname }} {{ customer.customer_lname }}
             </td>
             <td>View</td>
-            <td><a class="btn btn-primary" onclick="showCustomers_Data('/customer_master/{{customer.customer_fname}} {{ customer.customer_mname }} {{ customer.customer_lname }}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><a class="btn btn-primary" onclick="showCustomerData('/customer_master/{{customer.customer_fname}} {{ customer.customer_mname }} {{ customer.customer_lname }}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}

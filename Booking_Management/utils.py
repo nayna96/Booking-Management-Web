@@ -1,16 +1,34 @@
 from . import db
 
-def getUserData(request, _id=None):
-    id = db.getNextId("Settings", "UserMaster")
+def getProjectData(request, _id=None):
+    id = db.getNextId("Master", "Project")
     doc = {}
-    doc["_id"] = "U" + str(id) if _id == None else _id
-    doc["username"] = request.POST.get("username")
-    doc["password"] = request.POST.get("password")
-    doc["user_type"] = request.POST.get("user_type")
-    doc["full_name"] = request.POST.get("ful_name")
-    doc["designation"] = request.POST.get("designation")
+    doc["_id"] = "P" + str(id) if _id == None else _id
+    doc["project_name"] = request.POST.get("project_name")                
+    doc["addLine1"] = request.POST.get("addLine1")
+    doc["addLine2"] = request.POST.get("addLine2")
+    doc["district"] = request.POST.get("district")
+    doc["city"] = request.POST.get("city")
+    doc["state"] = request.POST.get("state")
+    doc["pin"] = request.POST.get("pin")
+    doc["devAuth_approval_no"] = request.POST.get("devAuth_approval_no")
+    doc["devAuth_approval_fromdate"] = request.POST.get("devAuth_approval_fromdate")
+    doc["devAuth_approval_todate"] = request.POST.get("devAuth_approval_todate")
+    doc["renewal_devAuth_approval_no"] = request.POST.get("renewal_devAuth_approval_no")
+    doc["renewal_devAuth_approval_fromdate"] = request.POST.get("renewal_devAuth_approval_fromdate")
+    doc["renewal_devAuth_approval_todate"] = request.POST.get("renewal_devAuth_approval_todate")
+    doc["rera_certificate_no"] = request.POST.get("rera_certificate_no")
+    doc["rera_certificate_fromdate"] = request.POST.get("rera_certificate_fromdate")
+    doc["rera_certificate_todate"] = request.POST.get("rera_certificate_todate")
+    doc["renewal_rera_certificate_no"] = request.POST.get("renewal_rera_certificate_no")
+    doc["renewal_rera_certificate_fromdate"] = request.POST.get("renewal_rera_certificate_fromdate")
+    doc["renewal_rera_certificate_todate"] = request.POST.get("renewal_rera_certificate_todate")    
 
-    return doc
+def getBlockData(request, _id=None):
+    pass
+
+def getFlatData(request, _id=None):
+    pass
 
 def getCustomerData(request, _id=None):
     id = db.getNextId("Master", "Customer")
@@ -94,3 +112,26 @@ def getCustomerData(request, _id=None):
     }
 
     return [doc, files]
+
+def getBankData(request, _id=None):
+    id = db.getNextId("Master", "Bank")
+    doc = {}
+    doc["_id"] = "B" + str(id) if _id == None else _id   
+
+def getBookingEntry(request, _id=None):
+    pass
+
+def getCustomerRequest(request, _id=None):
+    pass
+
+def getUserData(request, _id=None):
+    id = db.getNextId("Settings", "UserMaster")
+    doc = {}
+    doc["_id"] = "U" + str(id) if _id == None else _id
+    doc["username"] = request.POST.get("username")
+    doc["password"] = request.POST.get("password")
+    doc["user_type"] = request.POST.get("user_type")
+    doc["full_name"] = request.POST.get("ful_name")
+    doc["designation"] = request.POST.get("designation")
+
+    return doc

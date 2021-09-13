@@ -38,13 +38,33 @@ def user_master(request):
         return HttpResponseRedirect(request.path_info)
     return render(request, 'settings/user_master.html', {"userDetails":userDetails})
 
-def project_master(request):
-    return render(request, 'master/project.html')
-
-def block_master(request):
+def project_master(request, project_name=None):
+    projectDetails = db.getProjects()
+    if request.is_ajax():
+        selectedProjectDetails = db.getProjectByName(project_name)
+        files = db.GetFilesByMetaData("Master", selectedProjectDetails["_id"])
+        response =  {
+            "selectedProjectDetails": selectedProjectDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+    elif request.method == "POST":
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getprojectData(request, _id)
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Project", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Project", doc, files) 
+        return HttpResponseRedirect(request.path_info)
+    return render(request, 'master/project.html', 
+    {
+        "projectDetails":projectDetails
+    })
+    
+def block_master(request, block_name=None):
     return render(request, 'master/block.html')
 
-def flat_master(request):
+def flat_master(request, flat_name=None):
     return render(request, 'master/flat.html')
 
 def customer_master(request, customer_name=None):
@@ -74,13 +94,13 @@ def customer_master(request, customer_name=None):
         "castes_list": castes_list
     })
 
-def bank_master(request):
+def bank_master(request, bank_name=None):
     return render(request, 'master/bank.html')
 
-def booking_entry(request):
+def booking_entry(request, reference_id=None):
     return render(request, 'transaction/booking_entry.html')
 
-def customer_request(request):    
+def customer_request(request, reference_id=None):    
     return render(request, 'transaction/customer_request.html')
 
 def flat_booking_status(request):

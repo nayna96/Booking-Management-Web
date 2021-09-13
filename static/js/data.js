@@ -1,4 +1,55 @@
-function showCustomers_Data(_url){
+function showProjectData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
+}
+
+function showBlockData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
+}
+
+function showFlatData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
+}
+
+function showCustomerData(_url){
   show_modal()
   if(_url != undefined && _url.length > 0){
     $.ajax({      
@@ -6,20 +57,19 @@ function showCustomers_Data(_url){
       enctype: 'multipart/form-data',    
       success: function(response){
         var _id = response["selectedCustomerDetails"]["_id"];
-        $("#_id").val(_id);
-
+        document.getElementById("_id").value = _id;
         document.getElementById("customer_salutation").value = response["selectedCustomerDetails"]["customer_salutation"];
         document.getElementById("customer_fname").value = response["selectedCustomerDetails"]["customer_fname"];
         document.getElementById("customer_mname").value = response["selectedCustomerDetails"]["customer_mname"];
         document.getElementById("customer_lname").value = response["selectedCustomerDetails"]["customer_lname"];
-        document.getElementById('customer_dob').value = response["selectedCustomerDetails"]["customer_dob"];
+        document.getElementById("customer_dob").value = response["selectedCustomerDetails"]["customer_dob"];
         document.getElementById("customer_gender").value = response["selectedCustomerDetails"]["customer_gender"];
 
         document.getElementById("co-owner_salutation").value = response["selectedCustomerDetails"]["co-owner_salutation"];
         document.getElementById("co-owner_fname").value = response["selectedCustomerDetails"]["co-owner_fname"];
         document.getElementById("co-owner_mname").value = response["selectedCustomerDetails"]["co-owner_mname"];
         document.getElementById("co-owner_lname").value = response["selectedCustomerDetails"]["co-owner_lname"];
-        document.getElementById('co-owner_dob').value = response["selectedCustomerDetails"]["co-owner_dob"];
+        document.getElementById("co-owner_dob").value = response["selectedCustomerDetails"]["co-owner_dob"];
         document.getElementById("co-owner_gender").value = response["selectedCustomerDetails"]["co-owner_gender"];
 
         document.getElementById("email").value = response["selectedCustomerDetails"]["email"];
@@ -70,7 +120,7 @@ function showCustomers_Data(_url){
         document.getElementById("voter_id").value = response["selectedCustomerDetails"]["voter_id"];
         document.getElementById("gst_no").value = response["selectedCustomerDetails"]["gst_no"];
 
-        showFiles(response["files"])
+        showFiles("Master", "Customer", response["files"])
       }, 
       error: function(error) {
         console.log(error)
@@ -81,63 +131,70 @@ function showCustomers_Data(_url){
   document.getElementById("btn").name = "Update";        
 }
 
-function showFiles(files_dt) {      
-  files_dt.forEach ((file) =>
-  {
-    var docName = file.metadata["doc_name"];
-    var _path = file.filename;
-      switch (docName)
-      {
-          case "passport_photo":
-            
-            break;
-          case "aadhar_card":
-            UpdateDiv("aadharCard", _path)
-            break;
-          case "pan_card":
-            UpdateDiv("panCard", _path)  
-            break;
-          case "voter_id_card":
-            UpdateDiv("voterIDCard", _path)    
-            break;
-          case "gst_doc":
-            UpdateDiv("gstDoc", _path)    
-            break;
-          case "other_docs":
-            UpdateDiv("otherDocs", _path)                  
-              break;
-          default:
-              break;
+function showBankData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
       }
-  });
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
 }
 
-function UpdateDiv(divID, file){
-  var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
-  var myNewListItem = document.createElement('li');
-  myNewListItem.innerHTML = "<a href='#' onclick=viewFile('/view/Master/" + encodeURIComponent(file) + "')>" + file + "</a>"
-  myList.appendChild(myNewListItem);
+function showBookingEntry(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
 }
 
-function viewFile(_url){
-  $.ajax({      
-    url: _url
-  });
+function showCustomerRequest(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
 }
 
-function resetDiv(){
-  var div = document.getElementById("aadharCard");
-  div.innerHTML = "<ul></ul>";
-
-  var div = document.getElementById("panCard");
-  div.innerHTML = "<ul></ul>";
-
-  var div = document.getElementById("voterIDCard");
-  div.innerHTML = "<ul></ul>";
-
-  var div = document.getElementById("gstDoc");
-  div.innerHTML = "<ul></ul>";
-
-  var div = document.getElementById("otherDocs");
-  div.innerHTML = "<ul></ul>";
+function showUserData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
 }
