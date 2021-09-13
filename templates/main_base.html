@@ -5,7 +5,7 @@
   <i class="fa fa-fw fa-cog"></i>Master 
   <i class="fa fa-caret-down"></i>
 </div>
-<div id="Master" class="w3-hide">
+<div id="Master" class="w3-show">
   <a href="{% url 'project_master' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-home"></i>Project
   </a><br>
@@ -14,13 +14,13 @@
   </a><br>
   <a href="{% url 'flat_master' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-user"></i>Flat
-  </a>
+  </a><br>
   <a href="{% url 'customer_master' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-user"></i>Customer            
-  </a>
+  </a><br>
   <a href="{% url 'bank_master' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-user"></i>Bank
-  </a>
+  </a><br>
 </div>
 
 <div class="acc_title" onclick="AccFunc('Transaction')">
@@ -28,13 +28,13 @@
   Transaction
   <i class="fa fa-caret-down"></i>
 </div>
-<div id="Transaction" class="w3-hide">
+<div id="Transaction" class="w3-show">
   <a href="{% url 'booking_entry' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-cog"></i>Booking Entry
-  </a>
+  </a><br>
   <a href="{% url 'customer_request' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-cog"></i>Customer Request
-  </a>
+  </a><br>
 </div>
 
 <div class="acc_title" onclick="AccFunc('Report')">
@@ -42,9 +42,9 @@
   Report
   <i class="fa fa-caret-down"></i>
 </div>
-<div id="Report" class="w3-hide">
+<div id="Report" class="w3-show">
   <a href="{% url 'flat_booking_status' %}" class="w3-bar-item w3-button">
     <i class="fa fa-fw fa-cog"></i>Flat Booking Status
-  </a>                    
+  </a><br>                    
 </div>
 {% endblock sidebar %} 

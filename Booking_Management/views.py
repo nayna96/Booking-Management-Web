@@ -1,7 +1,8 @@
-import re
-from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect
-from . import db
+from django.shortcuts import render
+from django.http import HttpResponseRedirect, JsonResponse
+from . import db, utils
+import json
+from bson import json_util
 
 def home(request):    
     return render(request, 'index.html')
@@ -32,12 +33,7 @@ def settings(request):
 def user_master(request):
     userDetails = db.getUsers()
     if request.method == "POST":
-        doc = {}
-        doc["username"] = request.POST.get("username")
-        doc["password"] = request.POST.get("password")
-        doc["user_type"] = request.POST.get("user_type")
-        doc["full_name"] = request.POST.get("ful_name")
-        doc["designation"] = request.POST.get("designation")
+        doc  = utils.getUserData(request)
         db.InsertData("Settings", "UserMaster", doc) 
         return HttpResponseRedirect(request.path_info)
     return render(request, 'settings/user_master.html', {"userDetails":userDetails})
@@ -51,18 +47,31 @@ def block_master(request):
 def flat_master(request):
     return render(request, 'master/flat.html')
 
-def customer_master(request):
+def customer_master(request, customer_name=None):
     customerDetails = db.getCustomers()
-    return render(request, 'master/customer.html', {"customerDetails":customerDetails})
-
-def modify_customer(request, customer_name):
-    customer_name = "KOUSHAL KISHORE AGRAWALLA"
-    customerDetails = db.getCustomers()
-    selectedCustomerDetails = db.getCustomerByName(customer_name)
+    occupations_list = db.getOccupations()
+    castes_list = db.getCastes()
+    if request.is_ajax():
+        selectedCustomerDetails = db.getCustomerByName(customer_name)
+        files = db.GetFilesByMetaData("Master", selectedCustomerDetails["_id"])
+        response =  {
+            "selectedCustomerDetails": selectedCustomerDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+    elif request.method == "POST":
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getCustomerData(request, _id)
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Customer", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Customer", doc, files) 
+        return HttpResponseRedirect(request.path_info)
     return render(request, 'master/customer.html', 
     {
         "customerDetails":customerDetails,
-        "selectedCustomerDetails": selectedCustomerDetails
+        "occupations_list": occupations_list,
+        "castes_list": castes_list
     })
 
 def bank_master(request):
@@ -76,3 +85,7 @@ def customer_request(request):
 
 def flat_booking_status(request):
     return render(request, 'report/flat_booking_status.html')
+
+def view_file(request, dbName, fileName):
+    db.ViewFile(dbName, fileName)
+    return JsonResponse({})

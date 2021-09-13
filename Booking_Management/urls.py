@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -30,8 +30,8 @@ urlpatterns = [
     path('block_master', views.block_master, name='block_master'),
     path('flat_master', views.flat_master, name='flat_master'),
 
-    path('customer_master', views.customer_master, name='customer_master'),
-    path('modify_customer/<str:customer_name>', views.modify_customer, name='modify_customer'),
+    re_path('customer_master/$', views.customer_master, name='customer_master'),
+    path('customer_master/<str:customer_name>', views.customer_master, name='customer_master'),
 
     path('bank_master', views.bank_master, name='bank_master'),
     #transaction
@@ -39,4 +39,6 @@ urlpatterns = [
     path('customer_request', views.customer_request, name='customer_request'),
     #reports
     path('flat_booking_status', views.flat_booking_status, name='flat_booking_status'),
+    #download file
+    path('view/<str:dbName>/<str:fileName>', views.view_file, name='view_file')
 ]
