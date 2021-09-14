@@ -321,7 +321,7 @@
                             <input type="password" name="password" id="password" class="form-control">
 
                             <label>Passport photo</label>
-                            <input type="file" name="passport_photo" id="passport_photo" onchange="showImage(this);"> 
+                            <input type="file" name="passport_photo" id="passport_photo" onchange="showImage(this);"/> 
                         </div>
                         <div class="col-sm-6 mb-1"> 
                             <div>                                
@@ -368,71 +368,86 @@
                 </div>
                 <div id="docs" class="tab-pane fade">
                     <div class="row">
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>Doc Type</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>Doc No.</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
+                            <label>Upload</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
+                            <label>Files</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <label>AADHAR CARD</label>
                             <label class="mandat_symbol">*</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <input type="text" name="aadhar_no" id="aadhar_no" maxlength="12" class="form-control" required>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" name="aadhar_card" id="aadhar_card" class="file" onchange="updateList('aadhar_card', 'aadharCard', false)" >
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="aadhar_card" id="aadhar_card" class="file" onchange="updateList('aadhar_card', 'aadharCard', false)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <div id="aadharCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>PAN CARD</label>
                             <label class="mandat_symbol">*</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <input type="text" name="pan_no" id="pan_no" maxlength="10" class="form-control" required>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" name="pan_card" id="pan_card" class="file" onchange="updateList('pan_card', 'panCard', false)" >
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="pan_card" id="pan_card" class="file" onchange="updateList('pan_card', 'panCard', false)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <div id="panCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>VOTER ID CARD</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <input type="text" name="voter_id" id="voter_id" maxlength="10" class="form-control">
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" name="voter_id_card" id="voter_id_card" class="file" onchange="updateList('voter_id_card', 'voterIDCard', false)" >
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="voter_id_card" id="voter_id_card" class="file" onchange="updateList('voter_id_card', 'voterIDCard', false)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <div id="voterIDCard" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>GST</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <input type="text" name="gst_no" id="gst_no" maxlength="15" class="form-control">
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" name="gst_doc" id="gst_doc" class="file" onchange="updateList('gst_doc', 'gstDoc', false)" >
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="gst_doc" id="gst_doc" class="file" onchange="updateList('gst_doc', 'gstDoc', false)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <div id="gstDoc" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <label>OTHER DOCS</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
+
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="other_docs" id="other_docs" class="file" onchange="updateList('other_docs', 'otherDocs', true)" />
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" multiple name="other_docs" id="other_docs" class="file" onchange="updateList('other_docs', 'otherDocs', true)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <div id="otherDocs" class="filesList">
                                 <ul></ul>
                             </div>

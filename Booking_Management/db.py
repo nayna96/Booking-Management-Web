@@ -27,7 +27,26 @@ def getUsers(dbName="Settings", collectionName="UserMaster"):
     return userDetails
 
 def getProjects(dbName="Master", collectionName="Project"):
-    return None
+    projectDetails = []
+    db = client[dbName]
+    collection = db[collectionName]
+
+    for x in collection.find({}):
+        projectDetails.append(x)
+    return projectDetails
+
+def getProjectByName(project_name, dbName="Master", collectionName="Project"):
+    projectDetails = []
+
+    db = client[dbName]
+    collection = db[collectionName]
+    query = { "project_name": project_name }
+
+    documents = collection.find(query)
+
+    for document in documents:
+        projectDetails.append(document)    
+    return projectDetails[0]
 
 def getOccupations(dbName="Master", collectionName="Customer"):
     occupations_list = []
@@ -64,12 +83,12 @@ def getCustomerByName(customer_name, dbName="Master", collectionName="Customer")
 
     db = client[dbName]
     collection = db[collectionName]
-    myquery = [
+    query = [
         { "customer_fname": fname },
         { "customer_mname": mname },
         { "customer_lname": lname }]
 
-    documents = collection.find({"$and": myquery})
+    documents = collection.find({"$and": query})
 
     for document in documents:
         customerDetails.append(document)    

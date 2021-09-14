@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from . import db, utils
 import json
 from bson import json_util
+from .forms import *
 
 def home(request):    
     return render(request, 'index.html')
@@ -40,6 +41,10 @@ def user_master(request):
 
 def project_master(request, project_name=None):
     projectDetails = db.getProjects()
+    
+    approved_banks_formset = ApprovedBankFormSet(prefix='fs1')
+    project_land_formset = ProjectLandFormSet(prefix='fs2') #LISTVIEW
+
     if request.is_ajax():
         selectedProjectDetails = db.getProjectByName(project_name)
         files = db.GetFilesByMetaData("Master", selectedProjectDetails["_id"])
@@ -48,16 +53,28 @@ def project_master(request, project_name=None):
             "files": json.loads(json_util.dumps(files))
         }
         return JsonResponse(response)
-    elif request.method == "POST":
-        _id = request.POST.get("_id")
-        [doc, files] = utils.getprojectData(request, _id)
-        if 'Save' in request.POST:
-            db.InsertData("Master", "Project", doc, files)
-        elif 'Update' in request.POST:
-            db.UpdateData("Master", "Project", doc, files) 
-        return HttpResponseRedirect(request.path_info)
+
+    if request.method == 'POST':        
+        approved_banks_formset = ApprovedBankFormSet(request.POST, prefix='fs1')
+        project_land_formset = ProjectLandFormSet(request.POST, prefix='fs2')
+
+        if approved_banks_formset.is_valid() and project_land_formset.is_valid():
+            _id = request.POST.get("_id")
+            [doc, files] = utils.getProjectData(_id, 
+            request=request, 
+            approved_banks=approved_banks_formset.cleaned_data, 
+            project_land = project_land_formset.cleaned_data)
+
+            if 'Save' in request.POST:
+                db.InsertData("Master", "Project", doc, files)
+            elif 'Update' in request.POST:
+                db.UpdateData("Master", "Project", doc, files) 
+            return HttpResponseRedirect(request.path_info)
+    
     return render(request, 'master/project.html', 
-    {
+    {        
+        "approved_banks_formset": approved_banks_formset,
+        "project_land_formset": project_land_formset,
         "projectDetails":projectDetails
     })
     

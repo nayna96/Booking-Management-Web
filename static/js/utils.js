@@ -5,6 +5,44 @@ function showProjectData(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedProjectDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("project_name").value = response["selectedProjectDetails"]["project_name"];
+        document.getElementById("addLine1").value = response["selectedProjectDetails"]["addLine1"];
+        document.getElementById("addLine2").value = response["selectedProjectDetails"]["addLine2"];
+        document.getElementById("district").value = response["selectedProjectDetails"]["district"];
+        document.getElementById("city").value = response["selectedProjectDetails"]["city"];
+        document.getElementById("state").value = response["selectedProjectDetails"]["state"];
+        document.getElementById("pin").value = response["selectedProjectDetails"]["pin"];
+
+        approved_banks = response["selectedProjectDetails"]["approved_banks"];
+        for(var i=0; i<approved_banks.length; i++){
+          $("#id_fs1-" + i + "-bank_name").val(approved_banks[i]["bank_name"]);
+        }
+
+        landarea = response["selectedProjectDetails"]["landarea"];
+        for(var i=0; i<landarea.length; i++){
+          $("#id_fs2-" + i + "-mouza").val(landarea[i]["mouza"]);
+          $("#id_fs2-" + i + "-khata_no").val(landarea[i]["khata_no"]);
+          $("#id_fs2-" + i + "-plot_no").val(landarea[i]["plot_no"]);
+          $("#id_fs2-" + i + "-kisam").val(landarea[i]["kisam"]);
+          $("#id_fs2-" + i + "-area").val(landarea[i]["area"]);
+        }
+
+        document.getElementById("devAuth_approval_no").value = response["selectedProjectDetails"]["devAuth_approval_no"];
+        document.getElementById("devAuth_approval_fromdate").value = response["selectedProjectDetails"]["devAuth_approval_fromdate"];
+        document.getElementById("devAuth_approval_todate").value = response["selectedProjectDetails"]["devAuth_approval_todate"];
+        document.getElementById("renewal_devAuth_approval_no").value = response["selectedProjectDetails"]["renewal_devAuth_approval_no"];
+        document.getElementById("renewal_devAuth_approval_fromdate").value = response["selectedProjectDetails"]["renewal_devAuth_approval_fromdate"];
+        document.getElementById("renewal_devAuth_approval_todate").value = response["selectedProjectDetails"]["renewal_devAuth_approval_todate"];
+        document.getElementById("rera_certificate_no").value = response["selectedProjectDetails"]["rera_certificate_no"];
+        document.getElementById("rera_certificate_fromdate").value = response["selectedProjectDetails"]["rera_certificate_fromdate"];
+        document.getElementById("rera_certificate_todate").value = response["selectedProjectDetails"]["rera_certificate_todate"];
+        document.getElementById("renewal_rera_certificate_no").value = response["selectedProjectDetails"]["renewal_rera_certificate_no"];
+        document.getElementById("renewal_rera_certificate_fromdate").value = response["selectedProjectDetails"]["renewal_rera_certificate_fromdate"];
+        document.getElementById("renewal_rera_certificate_todate").value = response["selectedProjectDetails"]["renewal_rera_certificate_todate"];
+
+        showFiles("Master", "Project", response["files"])
       },
       error: function(error) {
         console.log(error)

@@ -10,10 +10,248 @@
     <div class="_modal-content">        
         <span class="_close">&times;</span>
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">PROJECT MASTER</h5>
-            
+            <h5 class="modal-title" id="exampleModalLongTitle">PROJECT MASTER</h5>            
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="project_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="acc_title" onclick="AccFunc('projectDetails')">
+                        Project Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="projectDetails" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-4 mb-1">
+                                <label>Project Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="form-control" required>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Address Line 1</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="addLine1" id="addLine1" class="form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Address Line 2</label>
+                                <input type="text" name="addLine2" id="addLine2" class="form-control" tabindex="1">
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>District</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="district" id="district" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>City</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="city" id="city" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>State</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="state" id="state" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Pin code</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="pin" id="pin" maxlength="6" class="form-control" tabindex="4" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Approved Bank</label>                                
+                                <div id="approvedBanksFormset">
+                                    {% if approved_banks_formset and approved_banks_formset.forms %}
+                                        {% for form in approved_banks_formset.forms %}
+                                            {{ form.bank_name }} 
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                {{ approved_banks_formset.management_form }}                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('projectLand')">
+                        Land Details
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="projectLand" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-2 mb-1">
+                                Mouza
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                Khata No
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                Plot No
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Kisam 
+                                <label class="mandat_symbol">*</label>
+                            </div>   
+                            <div class="col-sm-2 mb-1">
+                                Area
+                                <label class="mandat_symbol">*</label> 
+                            </div>
+                            {{ project_land_formset.management_form }}
+                            <div id="projectLandFormset" style="display: inherit;">   
+                                {% if project_land_formset and project_land_formset.forms %}
+                                {% for form in project_land_formset.forms %}
+                                    <div class="col-sm-2 mb-1">{{ form.mouza }}</div>                    
+                                    <div class="col-sm-3 mb-1">{{ form.khata_no }}</div>
+                                    <div class="col-sm-3 mb-1">{{ form.plot_no }}</div>
+                                    <div class="col-sm-2 mb-1">{{ form.kisam }}</div>
+                                    <div class="col-sm-2 mb-1">{{ form.area }}</div>                                        
+                                {% endfor %}
+                                {% endif %}                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('projectReg')">
+                        Registration Details
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="projectReg" class="w3-hide">
+                        <div class="row">
+                            <div class="col-sm-6 mb-1" style="font-weight: bold;">Development Authority Approval</div>
+                            <div class="col-sm-6 mb-1" style="font-weight: bold;">RERA Certificate</div>
+                            <div class="col-sm-2 mb-1">
+                                <label>No.</label>
+                                <input type="text" name="devAuth_approval_no" id="devAuth_approval_no" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>From Date</label>
+                                <input type="date" name="devAuth_approval_fromdate" id="devAuth_approval_fromdate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>To Date</label>
+                                <input type="date" name="devAuth_approval_todate" id="devAuth_approval_todate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>No.</label>
+                                <input type="text" name="rera_certificate_no" id="rera_certificate_no" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>From Date</label>
+                                <input type="date" name="rera_certificate_fromdate" id="rera_certificate_fromdate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>To Date</label>
+                                <input type="date" name="rera_certificate_todate" id="rera_certificate_todate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
+                            <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
+                            <div class="col-sm-2 mb-1">
+                                <label>No.</label>
+                                <input type="text" name="renewal_devAuth_approval_no" id="renewal_devAuth_approval_no" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>From Date</label>
+                                <input type="date" name="renewal_devAuth_approval_fromdate" id="renewal_devAuth_approval_fromdate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>To Date</label>
+                                <input type="date" name="renewal_devAuth_approval_todate" id="renewal_devAuth_approval_todate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>No.</label>
+                                <input type="text" name="renewal_rera_certificate_no" id="renewal_rera_certificate_no" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>From Date</label>
+                                <input type="date" name="renewal_rera_certificate_fromdate" id="renewal_rera_certificate_fromdate" class="form-control" tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>To Date</label>
+                                <input type="date" name="renewal_rera_certificate_todate" id="renewal_rera_certificate_todate" class="form-control" tabindex="4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="docs" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-4 mb-1">
+                            <label>Doc Type</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Upload</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Files</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Land Documents</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="landDocs" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Agreements</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateList('agreements_doc', 'agreementsDoc', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="agreementsDoc" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Power of Attorney</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="pow" id="pow" class="file" onchange="updateList('pow', 'Pow', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="Pow" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Development Authority Approval</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="dev_auth_approval" id="dev_auth_approval" class="file" onchange="updateList('dev_auth_approval', 'devAuthApproval', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="devAuthApproval" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>RERA Certificate</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="rera_certificate" id="rera_certificate" class="file" onchange="updateList('rera_certificate', 'reraCertificate', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="reraCertificate" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div>            
         <div class="modal-footer">
 
         </div>
@@ -31,6 +269,7 @@
         {% for project in projectDetails %}
         <tr>
             <td>
+                {{ project.project_name }}
             </td>
             <td>View</td>
             <td><a class="btn btn-primary" onclick="showProjectData('/project_master/{{project.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
@@ -39,5 +278,17 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script type="text/javascript">
+$('#approvedBanksFormset').formset({
+  prefix: '{{ approved_banks_formset.prefix }}',
+  formCssClass: 'dynamic-formset1'
+});
+  
+$('#projectLandFormset').formset({
+  prefix: '{{ project_land_formset.prefix }}',
+  formCssClass: 'dynamic-formset2'
+});
+</script>
 
 {% endblock content %}
