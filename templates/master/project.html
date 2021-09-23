@@ -35,47 +35,55 @@
                             <div class="col-sm-4 mb-1">
                                 <label>Project Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="form-control" required>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Address Line 1</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="addLine1" id="addLine1" class="form-control" tabindex="1" required>
+                                <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Address Line 2</label>
-                                <input type="text" name="addLine2" id="addLine2" class="form-control" tabindex="1">
+                                <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>District</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="district" id="district" class="form-control" tabindex="4" required>
+                                <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>City</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="city" id="city" class="form-control" tabindex="4" required>
+                                <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>State</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="state" id="state" class="form-control" tabindex="4" required>
+                                <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Pin code</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pin" id="pin" maxlength="6" class="form-control" tabindex="4" required>
+                                <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
                             </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Approved Bank</label>                                
-                                <div id="approvedBanksFormset">
-                                    {% if approved_banks_formset and approved_banks_formset.forms %}
-                                        {% for form in approved_banks_formset.forms %}
-                                            {{ form.bank_name }} 
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                                {{ approved_banks_formset.management_form }}                
+                            <div class="col-sm-12 mb-1">
+                                Approved Banks
+                                <label class="mandat_symbol">*</label> 
+                            </div>
+                            <div class="col-sm-12 mb-1">
+                                <input type="text" id="fs1-fields" name="fs1-fields" value="1" hidden/>
+                            </div>                              
+							<div class="row">
+                                <div style="display: inherit;" id="fs1-0" class="fs1 formset">			
+                                    <div class="col-sm-6 mb-1">
+                                        <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="8">
+                                    </div>                     
+                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                                
+                            </div>						
+                            <div class="row">
+								<a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
                             </div>
                         </div>
                     </div>
@@ -89,11 +97,11 @@
                                 Mouza
                                 <label class="mandat_symbol">*</label>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-2 mb-1">
                                 Khata No
                                 <label class="mandat_symbol">*</label>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-2 mb-1">
                                 Plot No
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -105,17 +113,38 @@
                                 Area
                                 <label class="mandat_symbol">*</label> 
                             </div>
-                            {{ project_land_formset.management_form }}
-                            <div id="projectLandFormset" style="display: inherit;">   
-                                {% if project_land_formset and project_land_formset.forms %}
-                                {% for form in project_land_formset.forms %}
-                                    <div class="col-sm-2 mb-1">{{ form.mouza }}</div>                    
-                                    <div class="col-sm-3 mb-1">{{ form.khata_no }}</div>
-                                    <div class="col-sm-3 mb-1">{{ form.plot_no }}</div>
-                                    <div class="col-sm-2 mb-1">{{ form.kisam }}</div>
-                                    <div class="col-sm-2 mb-1">{{ form.area }}</div>                                        
-                                {% endfor %}
-                                {% endif %}                                
+                            <div class="col-sm-12 mb-1">
+                                <input type="text" id="fs2-fields" name="fs2-fields" value="1" hidden/>
+                            </div>
+                            <div class="row">
+                                <a href="javascript:void(0)" onclick="addRow('fs2')">add another</a>
+                            </div>  
+                            <div class="row">
+                                <div style="display: inherit;" id="fs2-0" class="fs2">			
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="9">
+                                    </div>                    
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs2-0-khata_no" class="allcaps form-control" required id="fs2-0-khata_no" tabindex="10">
+                                    </div>
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs2-0-plot_no" class="allcaps form-control" required id="fs2-0-plot_no" tabindex="11">
+                                    </div>
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs2-0-kisam" class="allcaps form-control" required id="fs2-0-kisam" tabindex="12">
+                                    </div>
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs2-0-area" class="allnums form-control" onkeydown="addArea(event)" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="13">
+                                    </div>                                        
+                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-2" style="text-align: right;">
+                                <input type="text" placeholder="Total Area" class="form-control" id="total_area" disabled/>
                             </div>
                         </div>
                     </div>
@@ -129,53 +158,53 @@
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">RERA Certificate</div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="devAuth_approval_no" id="devAuth_approval_no" class="form-control" tabindex="4">
+                                <input type="text" name="devAuth_approval_no" id="devAuth_approval_no" class="allcaps form-control" tabindex="14">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="devAuth_approval_fromdate" id="devAuth_approval_fromdate" class="form-control" tabindex="4">
+                                <input type="date" name="devAuth_approval_fromdate" id="devAuth_approval_fromdate" class="form-control" tabindex="15">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="devAuth_approval_todate" id="devAuth_approval_todate" class="form-control" tabindex="4">
+                                <input type="date" name="devAuth_approval_todate" id="devAuth_approval_todate" class="form-control" tabindex="16">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="rera_certificate_no" id="rera_certificate_no" class="form-control" tabindex="4">
+                                <input type="text" name="rera_certificate_no" id="rera_certificate_no" class="allcaps form-control" tabindex="17">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="rera_certificate_fromdate" id="rera_certificate_fromdate" class="form-control" tabindex="4">
+                                <input type="date" name="rera_certificate_fromdate" id="rera_certificate_fromdate" class="form-control" tabindex="18">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="rera_certificate_todate" id="rera_certificate_todate" class="form-control" tabindex="4">
+                                <input type="date" name="rera_certificate_todate" id="rera_certificate_todate" class="form-control" tabindex="19">
                             </div>
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="renewal_devAuth_approval_no" id="renewal_devAuth_approval_no" class="form-control" tabindex="4">
+                                <input type="text" name="renewal_devAuth_approval_no" id="renewal_devAuth_approval_no" class="allcaps form-control" tabindex="20">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="renewal_devAuth_approval_fromdate" id="renewal_devAuth_approval_fromdate" class="form-control" tabindex="4">
+                                <input type="date" name="renewal_devAuth_approval_fromdate" id="renewal_devAuth_approval_fromdate" class="form-control" tabindex="21">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="renewal_devAuth_approval_todate" id="renewal_devAuth_approval_todate" class="form-control" tabindex="4">
+                                <input type="date" name="renewal_devAuth_approval_todate" id="renewal_devAuth_approval_todate" class="form-control" tabindex="22">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="renewal_rera_certificate_no" id="renewal_rera_certificate_no" class="form-control" tabindex="4">
+                                <input type="text" name="renewal_rera_certificate_no" id="renewal_rera_certificate_no" class="allcaps form-control" tabindex="23">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="renewal_rera_certificate_fromdate" id="renewal_rera_certificate_fromdate" class="form-control" tabindex="4">
+                                <input type="date" name="renewal_rera_certificate_fromdate" id="renewal_rera_certificate_fromdate" class="form-control" tabindex="24">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="renewal_rera_certificate_todate" id="renewal_rera_certificate_todate" class="form-control" tabindex="4">
+                                <input type="date" name="renewal_rera_certificate_todate" id="renewal_rera_certificate_todate" class="form-control" tabindex="25">
                             </div>
                         </div>
                     </div>
@@ -247,7 +276,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
                     </form>
                 </div>
             </div>
@@ -258,7 +287,7 @@
     </div>
 </div>
 
-<table id="sampleTable" class="table table-striped sampleTable">
+<table id="fancyTable" class="table table-striped fancyTable">
     <thead>
         <tr>
             <th>PROJECT</th>
@@ -279,16 +308,163 @@
     </tbody>
 </table>
 
-<script type="text/javascript">
-$('#approvedBanksFormset').formset({
-  prefix: '{{ approved_banks_formset.prefix }}',
-  formCssClass: 'dynamic-formset1'
+<script>
+//DATE VALIDATION
+
+//MAX DATE
+date = getMaxDate();
+document.getElementById("devAuth_approval_fromdate").setAttribute("max", date);
+document.getElementById("renewal_devAuth_approval_fromdate").setAttribute("max", date);
+
+document.getElementById("rera_certificate_fromdate").setAttribute("max", date);
+document.getElementById("renewal_rera_certificate_fromdate").setAttribute("max", date);
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll("input[id$='_fromdate']").forEach(el => {
+        el.addEventListener('focusout',function (e) {
+            maxdateValidation(e);
+        });
+    });
 });
-  
-$('#projectLandFormset').formset({
-  prefix: '{{ project_land_formset.prefix }}',
-  formCssClass: 'dynamic-formset2'
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll("input[type=date]").forEach(el => {
+        el.addEventListener('focusout',function (e) {
+            if(!dateValidation(e)){
+                e.target.value = "";
+            }
+        });
+    });
 });
+
+function maxdateValidation(e){
+    if(e.target.value > date){
+        e.target.value = "";
+        alert("Date is greater than max date");
+    } 
+}
+
+function dateValidation(e){
+    if ($("#devAuth_approval_todate").val().length > 0 && $("#devAuth_approval_fromdate").val().length > 0)
+    {
+        if ($("#devAuth_approval_todate").val() <= $("#devAuth_approval_fromdate").val())
+        {
+            alert("From date should be less than to date");
+            return false;
+        }
+    } 
+
+    if ($("#rera_certificate_todate").val().length > 0 && $("#rera_certificate_fromdate").val().length > 0)
+    {
+        if ($("#rera_certificate_todate").val() <= $("#rera_certificate_fromdate").val())
+        {
+            alert("From date should be less than to date");
+            return false;
+        }
+    } 
+
+    if ($("#renewal_devAuth_approval_todate").val().length > 0 && $("#renewal_devAuth_approval_fromdate").val().length > 0)
+    {
+        if ($("#renewal_devAuth_approval_todate").val() <= $("#renewal_devAuth_approval_fromdate").val())
+        {
+            alert("From date should be less than to date");
+            return false;
+        }
+    } 
+
+    if ($("#renewal_rera_certificate_todate").val().length > 0 && $("#renewal_rera_certificate_fromdate").val().length > 0)
+    {
+        if ($("#renewal_rera_certificate_todate").val() <= $("#renewal_rera_certificate_fromdate").val())
+        {
+            alert("From date should be less than to date");
+            return false;
+        }
+    } 
+
+    if($("#rera_certificate_fromdate").val().length > 0 && $("#devAuth_approval_fromdate").val().length > 0)
+    {
+        if($("#rera_certificate_fromdate").val() <= $("#devAuth_approval_fromdate").val())
+        {
+            alert("RERA Registration From date should be greater than Dev Auth Approv From date");
+            return false;
+        }
+    } 
+
+    if($("#renewal_devAuth_approval_fromdate").val().length > 0 && $("#devAuth_approval_fromdate").val().length > 0)
+    {
+        if($("#renewal_devAuth_approval_fromdate").val() <= $("#devAuth_approval_fromdate").val())
+        {
+            alert("Renewal Dev Auth Approv From date should be greater than Dev Auth Approv From date");
+            return false;
+        }
+    } 
+
+    if($("#renewal_rera_certificate_fromdate").val().length > 0 && $("#rera_certificate_fromdate").val().length > 0)
+    {
+        if($("#renewal_rera_certificate_fromdate").val() <= $("#rera_certificate_fromdate").val())
+        {
+            alert("Renewal RERA Registration From date should be greater than RERA Registration From date");
+            return false;
+        }
+    } 
+
+    if($("#renewal_rera_certificate_fromdate").val().length > 0 && $("#renewal_devAuth_approval_fromdate").val().length > 0)
+    {
+        if($("#renewal_rera_certificate_fromdate").val() <= $("#renewal_devAuth_approval_fromdate").val())
+        {
+            alert("Renewal RERA Registration From date should be greater than Renewal Dev Auth Approv From date");
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function addArea(e){
+    if(e.which == 13) {
+        addRow("fs2");
+    }
+}
+
+function formatArea(e){
+    area = e.target.value;
+    if (!area.includes(".")) {
+        if(area.length <= 3) {
+            area = "0." + area.padStart(3, '0');
+        } else {
+            n = area.length;
+            //area = area.Insert(n - 3, ".");
+            var ch = ".";
+            var position = n-3;
+            var area = [area.slice(0, position), ch, area.slice(position)].join('');
+        }
+    } else {
+        area = area.split('.')[0] + "." +area.split('.')[1].padStart(3, '0');
+    }
+    e.target.value = area;
+
+    sum = 0;
+    area_els = $("input[id^='fs2-'][id$='-area']");        
+    for(let i=0; i<area_els.length; i++){
+        sum += Number(area_els[i].value);
+    }
+    $("#total_area").val(parseFloat(sum).toFixed(3));
+}
+
+function formValidation(){
+    if(!requiredValidation()){
+        return false
+    }
+
+    if($("#pin").val().length < 6){
+        alert("Please enter  a valid pin code!");
+        return false;
+    }
+
+    alert("Data saved sucessfully!");
+    return true;
+}
+
 </script>
 
 {% endblock content %}

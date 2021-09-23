@@ -9,63 +9,6 @@ function AccFunc(id) {
   }
 }
 
-$(".sampleTable").fancyTable({
-  sortColumn:0,
-  pagination: true,
-  perPage:10,
-  globalSearch:true
-});
-
-$(function() {
-  $('input[type=text]').keyup(function() {
-      this.value = this.value.toUpperCase();
-  });
-});
-
-function setGender(e, id){
-  var salutation = e.target.value;
-  if(salutation == "MR."){
-    document.getElementById(id).value = "MALE";
-  } else if(salutation == "MRS." || salutation == "MS."){
-    document.getElementById(id).value = "FEMALE";
-  }
-}
-
-function copyPresentAddress(){
-  var checkBox = document.getElementById("copy_present");
-  if (checkBox.checked == true){
-    $("#pe_addLine1").val($("#pr_addLine1").val());
-    $("#pe_addLine2").val($("#pr_addLine2").val());
-    $("#pe_state").val($("#pr_state").val());
-    $("#pe_district").val($("#pr_district").val());
-    $("#pe_city").val($("#pr_city").val());
-    $("#pe_pincode").val($("#pr_pincode").val());
-  } else {
-    $("#pe_addLine1").val("");
-    $("#pe_addLine2").val("");
-    $("#pe_state").val("");
-    $("#pe_district").val("");
-    $("#pe_city").val("");
-    $("#pe_pincode").val("");
-  }
-}
-
-function copyFrom(e){
-  var val = e.target.value;
-  $("#contact_p_phone_no").val($("#mobile_no").val());
-  if(val == "CUSTOMER"){
-    $("#contact_p_salutation").val($("#customer_salutation").val());
-    $("#contact_p_name").val($("#customer_fname").val() + " " + $("#customer_mname").val() + " " + $("#customer_lname").val()); 
-  } else if(val == "CO-OWNER"){
-    $("#contact_p_salutation").val($("#co-owner_salutation").val());
-    $("#contact_p_name").val($("#co-owner_fname").val() + " " + $("#co-owner_mname").val() + " " + $("#co-owner_lname").val());
-  } else if(val == ""){
-    $("#contact_p_salutation").val("");
-    $("#contact_p_name").val("");
-    $("#contact_p_phone_no").val("");
-  }
-}
-
 function showImage(input) {
   if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -81,36 +24,9 @@ function showImage(input) {
   }
 }
   
-function updateList(file, divID, toappend) {
-  var input = document.getElementById(file);
-  var div = document.getElementById(divID);
-
-  var children = "";
-  for (var i = 0; i < input.files.length; ++i) {
-    item = input.files.item(i).name;
-    if (!listContains(divID, item)){
-      children += '<li>' + item + '</li>';
-    }
-  }
-
-  if(toappend == false){
-    div.innerHTML = '<ul>'+children+'</ul>';
-  } else if(toappend == true){
-    var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
-    myList.innerHTML += children;
-  }
-}
-
-function listContains(divId, item){
-  $("#" + divId + "ul li").each((id, elem) => {
-    if (elem.innerText == item) {
-      found = true;
-    }
-  });
-}
-
 function show_modal(){
-  resetDiv();
+  resetFileDiv();
+  resetFormSet();
   document.getElementById("form").reset();
 
   var modal = document.getElementById("myModal");
@@ -127,3 +43,75 @@ function show_modal(){
   document.getElementById("btn").value = "Save";
   document.getElementById("btn").name = "Save";    
 } 
+
+function getMaxDate(){
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  } 
+      
+  today = yyyy + '-' + mm + '-' + dd;
+  
+  return today
+}
+
+//Move to next tab on Enter
+document.addEventListener('keydown', function (event) {
+  if (event.key === "Enter" && event.target.nodeName === 'INPUT') {
+    var form = event.target.form;
+    var index = Array.prototype.indexOf.call(form, event.target);
+    form.elements[index + 1].focus();
+    event.preventDefault();
+  }
+});
+
+function requiredValidation(){
+  var requiredElements = document.getElementById("form").querySelectorAll("[required]");
+
+  var s = "";
+  for (var i = 0; i < requiredElements.length; i++) {
+    var e = requiredElements[i];
+    s += e.value.length? "" : e.id + ": Not Filled" + "\n";
+  }
+
+  if(s.length > 0){
+    alert(s);
+    return false;
+  }
+
+  return true;
+}
+
+$(document).ready(function() {
+  $("#fancyTable").fancyTable({
+    sortColumn:0,
+    pagination: true,
+    perPage:10,
+    globalSearch:true
+  });
+
+  //ALLSTRING
+  $('body').on('input', '.allstring', function() {
+    this.value = this.value.toUpperCase();
+    this.value = this.value.replace(/[^a-zA-Z .]/g, '').replace(/(\..*)\./g, '$1');
+  });
+
+  //ALLCAPS STRING
+  $('body').on('input', '.allcaps', function() {
+    this.value = this.value.toUpperCase();
+  });
+  
+  //ALLNUMS 
+  $('body').on('input', '.allnums', function() {
+    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+  });
+
+});

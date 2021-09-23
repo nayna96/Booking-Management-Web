@@ -1,9 +1,9 @@
 from . import db
 
-def getProjectData(_id=None, **kwargs):
+def getProjectData(_id, **kwargs):
     id = db.getNextId("Master", "Project")
     doc = {}
-    doc["_id"] = "P" + str(id) if _id == None else _id
+    doc["_id"] = "P" + str(id) if len(_id) == 0 else _id
     doc["project_name"] = kwargs["request"].POST.get("project_name")                
     doc["addLine1"] = kwargs["request"].POST.get("addLine1")
     doc["addLine2"] = kwargs["request"].POST.get("addLine2")
@@ -11,8 +11,29 @@ def getProjectData(_id=None, **kwargs):
     doc["city"] = kwargs["request"].POST.get("city")
     doc["state"] = kwargs["request"].POST.get("state")
     doc["pin"] = kwargs["request"].POST.get("pin")
-    doc["approved_banks"] = kwargs["approved_banks"]
-    doc["landarea"] = kwargs["project_land"]
+
+    n = int(kwargs["request"].POST.get("fs1-fields"))
+    approved_banks = []
+    for i in range(n):
+        dt={
+            "bank_name": kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name")
+        }
+        approved_banks.append(dt)
+    doc["approved_banks"] = approved_banks
+    
+    n = int(kwargs["request"].POST.get("fs2-fields"))
+    landarea = []
+    for i in range(n):
+        dt = {
+            "mouza": kwargs["request"].POST.get("fs2-" + str(i) + "-mouza"),
+            "khata_no": kwargs["request"].POST.get("fs2-" + str(i) + "-khata_no"),
+            "plot_no": kwargs["request"].POST.get("fs2-" + str(i) + "-plot_no"),
+            "kisam": kwargs["request"].POST.get("fs2-" + str(i) + "-kisam"),
+            "area": kwargs["request"].POST.get("fs2-" + str(i) + "-area")
+        }
+        landarea.append(dt)
+    doc["landarea"] = landarea
+    
     doc["devAuth_approval_no"] = kwargs["request"].POST.get("devAuth_approval_no")
     doc["devAuth_approval_fromdate"] = kwargs["request"].POST.get("devAuth_approval_fromdate")
     doc["devAuth_approval_todate"] = kwargs["request"].POST.get("devAuth_approval_todate")

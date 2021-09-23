@@ -464,7 +464,7 @@
     </div>
 </div>
 
-<table id="sampleTable" class="table table-striped sampleTable">
+<table id="fancyTable" class="table table-striped fancyTable">
     <thead>
         <tr>
             <th>CUSTOMER</th>
@@ -484,5 +484,53 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script>
+    
+function setGender(e, id){
+  var salutation = e.target.value;
+  if(salutation == "MR."){
+    document.getElementById(id).value = "MALE";
+  } else if(salutation == "MRS." || salutation == "MS."){
+    document.getElementById(id).value = "FEMALE";
+  }
+}
+
+function copyPresentAddress(){
+  var checkBox = document.getElementById("copy_present");
+  if (checkBox.checked == true){
+    $("#pe_addLine1").val($("#pr_addLine1").val());
+    $("#pe_addLine2").val($("#pr_addLine2").val());
+    $("#pe_state").val($("#pr_state").val());
+    $("#pe_district").val($("#pr_district").val());
+    $("#pe_city").val($("#pr_city").val());
+    $("#pe_pincode").val($("#pr_pincode").val());
+  } else {
+    $("#pe_addLine1").val("");
+    $("#pe_addLine2").val("");
+    $("#pe_state").val("");
+    $("#pe_district").val("");
+    $("#pe_city").val("");
+    $("#pe_pincode").val("");
+  }
+}
+
+function copyFrom(e){
+  var val = e.target.value;
+  $("#contact_p_phone_no").val($("#mobile_no").val());
+  if(val == "CUSTOMER"){
+    $("#contact_p_salutation").val($("#customer_salutation").val());
+    $("#contact_p_name").val($("#customer_fname").val() + " " + $("#customer_mname").val() + " " + $("#customer_lname").val()); 
+  } else if(val == "CO-OWNER"){
+    $("#contact_p_salutation").val($("#co-owner_salutation").val());
+    $("#contact_p_name").val($("#co-owner_fname").val() + " " + $("#co-owner_mname").val() + " " + $("#co-owner_lname").val());
+  } else if(val == ""){
+    $("#contact_p_salutation").val("");
+    $("#contact_p_name").val("");
+    $("#contact_p_phone_no").val("");
+  }
+}
+
+</script>
 
 {% endblock content %}

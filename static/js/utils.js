@@ -15,19 +15,41 @@ function showProjectData(_url){
         document.getElementById("state").value = response["selectedProjectDetails"]["state"];
         document.getElementById("pin").value = response["selectedProjectDetails"]["pin"];
 
+        //APPROVED BANKS
         approved_banks = response["selectedProjectDetails"]["approved_banks"];
-        for(var i=0; i<approved_banks.length; i++){
-          $("#id_fs1-" + i + "-bank_name").val(approved_banks[i]["bank_name"]);
+        var length = document.getElementsByClassName("fs1").length;
+        $("#fs1-fields").val(length);
+
+        for(var i=0; i< approved_banks.length -1; i++){
+          if(length != approved_banks.length){          
+            addRow("fs1");
+          }
         }
 
-        landarea = response["selectedProjectDetails"]["landarea"];
-        for(var i=0; i<landarea.length; i++){
-          $("#id_fs2-" + i + "-mouza").val(landarea[i]["mouza"]);
-          $("#id_fs2-" + i + "-khata_no").val(landarea[i]["khata_no"]);
-          $("#id_fs2-" + i + "-plot_no").val(landarea[i]["plot_no"]);
-          $("#id_fs2-" + i + "-kisam").val(landarea[i]["kisam"]);
-          $("#id_fs2-" + i + "-area").val(landarea[i]["area"]);
+        for(var i=0; i<approved_banks.length; i++){
+          $("#fs1-" + i + "-bank_name").val(approved_banks[i]["bank_name"]);
         }
+        //End APPROVED BANKS
+
+        //LAND AREA
+        landarea = response["selectedProjectDetails"]["landarea"];
+        var length = document.getElementsByClassName("fs2").length;
+        $("#fs2-fields").val(length);
+
+        for(var i=0; i< landarea.length -1; i++){
+          if(length != landarea.length){          
+            addRow("fs2");
+          }
+        }
+        
+        for(var i=0; i<landarea.length; i++){          
+          $("#fs2-" + i + "-mouza").val(landarea[i]["mouza"]);
+          $("#fs2-" + i + "-khata_no").val(landarea[i]["khata_no"]);
+          $("#fs2-" + i + "-plot_no").val(landarea[i]["plot_no"]);
+          $("#fs2-" + i + "-kisam").val(landarea[i]["kisam"]);
+          $("#fs2-" + i + "-area").val(landarea[i]["area"]);
+        }
+        // End LAND AREA
 
         document.getElementById("devAuth_approval_no").value = response["selectedProjectDetails"]["devAuth_approval_no"];
         document.getElementById("devAuth_approval_fromdate").value = response["selectedProjectDetails"]["devAuth_approval_fromdate"];

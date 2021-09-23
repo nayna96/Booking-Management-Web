@@ -54,9 +54,37 @@ function viewFile(_url){
     });
 }
   
-function resetDiv(id){
+function resetFileDiv(id){
     var divs = document.getElementsByClassName("filesList");
     for(var i=0; i<divs.length; i++){
         divs[i].innerHTML = "<ul></ul>";
     }
+}
+
+function updateList(file, divID, toappend) {
+    var input = document.getElementById(file);
+    var div = document.getElementById(divID);
+  
+    var children = "";
+    for (var i = 0; i < input.files.length; ++i) {
+      item = input.files.item(i).name;
+      if (!listContains(divID, item)){
+        children += '<li>' + item + '</li>';
+      }
+    }
+  
+    if(toappend == false){
+      div.innerHTML = '<ul>'+children+'</ul>';
+    } else if(toappend == true){
+      var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
+      myList.innerHTML += children;
+    }
+  }
+  
+function listContains(divId, item){
+    $("#" + divId + "ul li").each((id, elem) => {
+      if (elem.innerText == item) {
+        found = true;
+      }
+    });
 }
