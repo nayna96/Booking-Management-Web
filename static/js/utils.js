@@ -49,6 +49,8 @@ function showProjectData(_url){
           $("#fs2-" + i + "-kisam").val(landarea[i]["kisam"]);
           $("#fs2-" + i + "-area").val(landarea[i]["area"]);
         }
+
+        totalArea();
         // End LAND AREA
 
         document.getElementById("devAuth_approval_no").value = response["selectedProjectDetails"]["devAuth_approval_no"];

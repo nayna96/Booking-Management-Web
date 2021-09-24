@@ -500,6 +500,10 @@ function formatArea(e){
     }
     e.target.value = area;
 
+    totalArea();    
+}
+
+function totalArea(){
     sum = 0;
     area_els = $("input[id^='fs2-'][id$='-area']");        
     for(let i=0; i<area_els.length; i++){

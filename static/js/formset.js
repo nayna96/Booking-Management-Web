@@ -39,6 +39,8 @@ function resetFormSet(){
     formsets.forEach((formset)=>{
         divs = document.getElementsByClassName(formset);
         var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
-        result.splice(1, divs.length);
+        for(var i=1; i<result.length; i++){
+            result[i][1].remove();
+        }
     });
 }
