@@ -38,14 +38,7 @@ function resetFormSet(){
     formsets = ["fs1", "fs2"]
     formsets.forEach((formset)=>{
         divs = document.getElementsByClassName(formset);
-        for(i=1; i<divs.length; i++){
-            divs[i].remove();
-        }
+        var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
+        result.splice(1, divs.length);
     });
 }
-
-$('').on('keypress',function(e) {
-    if(e.which == 13) {
-        
-    }
-});

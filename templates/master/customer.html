@@ -468,7 +468,7 @@
     <thead>
         <tr>
             <th>CUSTOMER</th>
-            <th colspan="3">Actions</th>
+            <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -477,7 +477,6 @@
             <td>
                 {{ customer.customer_salutation }} {{ customer.customer_fname }} {{ customer.customer_mname }} {{ customer.customer_lname }}
             </td>
-            <td>View</td>
             <td><a class="btn btn-primary" onclick="showCustomerData('/customer_master/{{customer.customer_fname}} {{ customer.customer_mname }} {{ customer.customer_lname }}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>

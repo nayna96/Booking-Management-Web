@@ -26,6 +26,44 @@
                     <form method="POST" id="form" enctype="multipart/form-data">
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
                     <div class="acc_title" onclick="AccFunc('projectDetails')">
                         Project Details 
                         <i class="fa fa-caret-down"></i>
@@ -84,6 +122,26 @@
                             </div>						
                             <div class="row">
 								<a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('projectStatus')">
+                        Project Status 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="projectStatus" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-3 mb-1">                                
+                                <input type="radio" id="company_project" name="project_status" tabindex="9" value="Company Project" onclick="showSharePct(false)"/>
+                                <label for="company_project">Company Project</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <input type="radio" id="sharing_project" name="project_status" tabindex="10" value="Sharing Project" onclick="showSharePct(true)"/>
+                                <label for="sharing_project">Sharing Project</label>
+                            </div>
+                            <div class="col-sm-3 mb-1" id="sharingPct" style="display: none;">
+                                <label>Sharing percent</label>
+                                <input type="text" name="sharing_pct" id="sharing_pct" tabindex="11" class="form-control"/>
                             </div>
                         </div>
                     </div>
@@ -291,7 +349,7 @@
     <thead>
         <tr>
             <th>PROJECT</th>
-            <th colspan="3">Actions</th>
+            <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -300,7 +358,6 @@
             <td>
                 {{ project.project_name }}
             </td>
-            <td>View</td>
             <td><a class="btn btn-primary" onclick="showProjectData('/project_master/{{project.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
@@ -463,6 +520,11 @@ function formValidation(){
 
     alert("Data saved sucessfully!");
     return true;
+}
+
+function showSharePct(val){
+    disptype = val ? "block": "none";
+    document.getElementById("sharingPct").style.display = disptype;
 }
 
 </script>

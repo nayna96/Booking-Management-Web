@@ -52,17 +52,17 @@ function showProjectData(_url){
         // End LAND AREA
 
         document.getElementById("devAuth_approval_no").value = response["selectedProjectDetails"]["devAuth_approval_no"];
-        document.getElementById("devAuth_approval_fromdate").value = response["selectedProjectDetails"]["devAuth_approval_fromdate"];
-        document.getElementById("devAuth_approval_todate").value = response["selectedProjectDetails"]["devAuth_approval_todate"];
+        document.getElementById("devAuth_approval_fromdate").value = formatDate(response["selectedProjectDetails"]["devAuth_approval_fromdate"]);
+        document.getElementById("devAuth_approval_todate").value =formatDate(response["selectedProjectDetails"]["devAuth_approval_todate"]);
         document.getElementById("renewal_devAuth_approval_no").value = response["selectedProjectDetails"]["renewal_devAuth_approval_no"];
-        document.getElementById("renewal_devAuth_approval_fromdate").value = response["selectedProjectDetails"]["renewal_devAuth_approval_fromdate"];
-        document.getElementById("renewal_devAuth_approval_todate").value = response["selectedProjectDetails"]["renewal_devAuth_approval_todate"];
+        document.getElementById("renewal_devAuth_approval_fromdate").value = formatDate(response["selectedProjectDetails"]["renewal_devAuth_approval_fromdate"]);
+        document.getElementById("renewal_devAuth_approval_todate").value = formatDate(response["selectedProjectDetails"]["renewal_devAuth_approval_todate"]);
         document.getElementById("rera_certificate_no").value = response["selectedProjectDetails"]["rera_certificate_no"];
-        document.getElementById("rera_certificate_fromdate").value = response["selectedProjectDetails"]["rera_certificate_fromdate"];
-        document.getElementById("rera_certificate_todate").value = response["selectedProjectDetails"]["rera_certificate_todate"];
+        document.getElementById("rera_certificate_fromdate").value = formatDate(response["selectedProjectDetails"]["rera_certificate_fromdate"]);
+        document.getElementById("rera_certificate_todate").value = formatDate(response["selectedProjectDetails"]["rera_certificate_todate"]);
         document.getElementById("renewal_rera_certificate_no").value = response["selectedProjectDetails"]["renewal_rera_certificate_no"];
-        document.getElementById("renewal_rera_certificate_fromdate").value = response["selectedProjectDetails"]["renewal_rera_certificate_fromdate"];
-        document.getElementById("renewal_rera_certificate_todate").value = response["selectedProjectDetails"]["renewal_rera_certificate_todate"];
+        document.getElementById("renewal_rera_certificate_fromdate").value = formatDate(response["selectedProjectDetails"]["renewal_rera_certificate_fromdate"]);
+        document.getElementById("renewal_rera_certificate_todate").value = formatDate(response["selectedProjectDetails"]["renewal_rera_certificate_todate"]);
 
         showFiles("Master", "Project", response["files"])
       },

@@ -63,6 +63,17 @@ function getMaxDate(){
   return today
 }
 
+function formatDate(dateString){
+  var dateParts = dateString.split("-");
+  var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+  var dd = String(dateObj.getDate()).padStart(2, '0');
+  var mm = String(dateObj.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = dateObj.getFullYear();
+
+  date = yyyy + '-' + mm + '-' + dd;
+  return date;
+}
+
 //Move to next tab on Enter
 document.addEventListener('keydown', function (event) {
   if (event.key === "Enter" && event.target.nodeName === 'INPUT') {
