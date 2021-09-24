@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*ug-cn1s_+b+glym6=7px63zq8y6zb^$l7y4rs)!k47c^)d=7e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['aum-assets.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['aum-asset.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
