@@ -124,14 +124,14 @@ function showCustomerData(_url){
         document.getElementById("customer_fname").value = response["selectedCustomerDetails"]["customer_fname"];
         document.getElementById("customer_mname").value = response["selectedCustomerDetails"]["customer_mname"];
         document.getElementById("customer_lname").value = response["selectedCustomerDetails"]["customer_lname"];
-        document.getElementById("customer_dob").value = response["selectedCustomerDetails"]["customer_dob"];
+        document.getElementById("customer_dob").value = formatDate(response["selectedCustomerDetails"]["customer_dob"]);
         document.getElementById("customer_gender").value = response["selectedCustomerDetails"]["customer_gender"];
 
         document.getElementById("co-owner_salutation").value = response["selectedCustomerDetails"]["co-owner_salutation"];
         document.getElementById("co-owner_fname").value = response["selectedCustomerDetails"]["co-owner_fname"];
         document.getElementById("co-owner_mname").value = response["selectedCustomerDetails"]["co-owner_mname"];
         document.getElementById("co-owner_lname").value = response["selectedCustomerDetails"]["co-owner_lname"];
-        document.getElementById("co-owner_dob").value = response["selectedCustomerDetails"]["co-owner_dob"];
+        document.getElementById("co-owner_dob").value = formatDate(response["selectedCustomerDetails"]["co-owner_dob"]);
         document.getElementById("co-owner_gender").value = response["selectedCustomerDetails"]["co-owner_gender"];
 
         document.getElementById("email").value = response["selectedCustomerDetails"]["email"];
