@@ -76,6 +76,7 @@ def customer_master(request, customer_name=None):
     customerDetails = db.getCustomers()
     occupations_list = db.getOccupations()
     castes_list = db.getCastes()
+    
     if request.is_ajax():
         selectedCustomerDetails = db.getCustomerByName(customer_name)
         files = db.GetFilesByMetaData("Master", selectedCustomerDetails["_id"])
@@ -84,14 +85,17 @@ def customer_master(request, customer_name=None):
             "files": json.loads(json_util.dumps(files))
         }
         return JsonResponse(response)
-    elif request.method == "POST":
+    
+    if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getCustomerData(request, _id)
+        [doc, files] = utils.getCustomerData(_id, 
+        request=request)
         if 'Save' in request.POST:
             db.InsertData("Master", "Customer", doc, files)
         elif 'Update' in request.POST:
             db.UpdateData("Master", "Customer", doc, files) 
         return HttpResponseRedirect(request.path_info)
+        
     return render(request, 'master/customer.html', 
     {
         "customerDetails":customerDetails,

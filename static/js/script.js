@@ -77,6 +77,14 @@ function formatDate(dateString){
   return date;
 }
 
+function maxdateValidation(e){
+  today = getMaxDate();
+  if(e.target.value > today){
+      e.target.value = "";
+      alert("Date is greater than max date");
+  } 
+}
+
 //Move to next tab on Enter
 document.addEventListener('keydown', function (event) {
   if (event.key === "Enter" && event.target.nodeName === 'INPUT') {

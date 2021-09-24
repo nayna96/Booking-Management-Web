@@ -394,13 +394,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
-function maxdateValidation(e){
-    if(e.target.value > date){
-        e.target.value = "";
-        alert("Date is greater than max date");
-    } 
-}
-
 function dateValidation(e){
     if ($("#devAuth_approval_todate").val().length > 0 && $("#devAuth_approval_fromdate").val().length > 0)
     {
