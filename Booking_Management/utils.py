@@ -20,6 +20,9 @@ def getProjectData(_id, **kwargs):
         }
         approved_banks.append(dt)
     doc["approved_banks"] = approved_banks
+
+    doc["project_status"] =  kwargs["request"].POST.get("project_status") 
+    doc["sharing_pct"] =  kwargs["request"].POST.get("sharing_pct") 
     
     n = int(kwargs["request"].POST.get("fs2-fields"))
     landarea = []

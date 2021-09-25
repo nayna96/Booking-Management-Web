@@ -31,6 +31,17 @@ function showProjectData(_url){
         }
         //End APPROVED BANKS
 
+        var project_status = response["selectedProjectDetails"]["project_status"];
+        if(project_status == "Company Project"){
+          $("#company_project").prop("checked", true);
+          document.getElementById("sharingPct").style.display = "none";
+        } else if(project_status == "Sharing Project"){
+          $("#sharing_project").prop("checked", true);
+          document.getElementById("sharingPct").style.display = "block";
+        }
+
+        document.getElementById("sharing_pct").value = response["selectedProjectDetails"]["sharing_pct"];
+
         //LAND AREA
         landarea = response["selectedProjectDetails"]["landarea"];
         var length = document.getElementsByClassName("fs2").length;

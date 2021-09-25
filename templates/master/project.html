@@ -26,7 +26,7 @@
                     <form method="POST" id="form" enctype="multipart/form-data">
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
-                    <div class="row" hidden>
+                    <div class="row">
                         <div class="col-sm-1 mb-1" style="border: 1px solid;">
                             <input type="text" class="form-control" value="1">
                         </div>
@@ -70,12 +70,12 @@
                     </div>
                     <div id="projectDetails" class="w3-show">
                         <div class="row">
-                            <div class="col-sm-4 mb-1">
+                            <div class="col-sm-3 mb-1">
                                 <label>Project Name</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
                             </div>
-                            <div class="col-sm-4 mb-1">
+                            <div class="col-sm-5 mb-1">
                                 <label>Address Line 1</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
@@ -349,7 +349,10 @@
     <thead>
         <tr>
             <th>PROJECT</th>
-            <th colspan="2">Actions</th>
+            <th>ADDRESS LINE 2</th>
+            <th>CITY</th>
+            <th>PROJECT STATUS</th>
+            <th colspan="3">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -358,6 +361,10 @@
             <td>
                 {{ project.project_name }}
             </td>
+            <td>{{ project.addLine2 }}</td>
+            <td>{{ project.city }}</td>
+            <td>{{ project.project_status }}</td>
+            <td><a class="btn btn-primary" onclick="showProjectData('/project_master/{{project.project_name}}')">View</a></td>
             <td><a class="btn btn-primary" onclick="showProjectData('/project_master/{{project.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
