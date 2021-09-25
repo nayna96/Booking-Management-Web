@@ -26,7 +26,7 @@
                     <form method="POST" id="form" enctype="multipart/form-data">
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
-                    <div class="row">
+                    <div class="row" hidden>
                         <div class="col-sm-1 mb-1" style="border: 1px solid;">
                             <input type="text" class="form-control" value="1">
                         </div>
@@ -180,19 +180,19 @@
                             <div class="row">
                                 <div style="display: inherit;" id="fs2-0" class="fs2">			
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="9">
+                                        <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="12">
                                     </div>                    
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-khata_no" class="allcaps form-control" required id="fs2-0-khata_no" tabindex="10">
+                                        <input type="text" name="fs2-0-khata_no" class="allcaps form-control" required id="fs2-0-khata_no" tabindex="13">
                                     </div>
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-plot_no" class="allcaps form-control" required id="fs2-0-plot_no" tabindex="11">
+                                        <input type="text" name="fs2-0-plot_no" class="allcaps form-control" required id="fs2-0-plot_no" tabindex="14">
                                     </div>
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-kisam" class="allcaps form-control" required id="fs2-0-kisam" tabindex="12">
+                                        <input type="text" name="fs2-0-kisam" class="allcaps form-control" required id="fs2-0-kisam" tabindex="15">
                                     </div>
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-area" class="allnums form-control" onkeydown="addArea(event)" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="13">
+                                        <input type="text" name="fs2-0-area" class="allnums form-control" onkeydown="addArea(event)" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="16">
                                     </div>                                        
                                                                 
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -216,53 +216,53 @@
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">RERA Certificate</div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="devAuth_approval_no" id="devAuth_approval_no" class="allcaps form-control" tabindex="14">
+                                <input type="text" name="devAuth_approval_no" id="devAuth_approval_no" class="allcaps form-control" tabindex="17">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="devAuth_approval_fromdate" id="devAuth_approval_fromdate" class="form-control" tabindex="15">
+                                <input type="date" name="devAuth_approval_fromdate" id="devAuth_approval_fromdate" class="form-control" tabindex="18">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="devAuth_approval_todate" id="devAuth_approval_todate" class="form-control" tabindex="16">
+                                <input type="date" name="devAuth_approval_todate" id="devAuth_approval_todate" class="form-control" tabindex="19">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="rera_certificate_no" id="rera_certificate_no" class="allcaps form-control" tabindex="17">
+                                <input type="text" name="rera_certificate_no" id="rera_certificate_no" class="allcaps form-control" tabindex="20">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="rera_certificate_fromdate" id="rera_certificate_fromdate" class="form-control" tabindex="18">
+                                <input type="date" name="rera_certificate_fromdate" id="rera_certificate_fromdate" class="form-control" tabindex="21">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="rera_certificate_todate" id="rera_certificate_todate" class="form-control" tabindex="19">
+                                <input type="date" name="rera_certificate_todate" id="rera_certificate_todate" class="form-control" tabindex="22">
                             </div>
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">Renewal(if any)</div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="renewal_devAuth_approval_no" id="renewal_devAuth_approval_no" class="allcaps form-control" tabindex="20">
+                                <input type="text" name="renewal_devAuth_approval_no" id="renewal_devAuth_approval_no" class="allcaps form-control" tabindex="23">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="renewal_devAuth_approval_fromdate" id="renewal_devAuth_approval_fromdate" class="form-control" tabindex="21">
+                                <input type="date" name="renewal_devAuth_approval_fromdate" id="renewal_devAuth_approval_fromdate" class="form-control" tabindex="24">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="renewal_devAuth_approval_todate" id="renewal_devAuth_approval_todate" class="form-control" tabindex="22">
+                                <input type="date" name="renewal_devAuth_approval_todate" id="renewal_devAuth_approval_todate" class="form-control" tabindex="25">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>No.</label>
-                                <input type="text" name="renewal_rera_certificate_no" id="renewal_rera_certificate_no" class="allcaps form-control" tabindex="23">
+                                <input type="text" name="renewal_rera_certificate_no" id="renewal_rera_certificate_no" class="allcaps form-control" tabindex="26">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>From Date</label>
-                                <input type="date" name="renewal_rera_certificate_fromdate" id="renewal_rera_certificate_fromdate" class="form-control" tabindex="24">
+                                <input type="date" name="renewal_rera_certificate_fromdate" id="renewal_rera_certificate_fromdate" class="form-control" tabindex="27">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>To Date</label>
-                                <input type="date" name="renewal_rera_certificate_todate" id="renewal_rera_certificate_todate" class="form-control" tabindex="25">
+                                <input type="date" name="renewal_rera_certificate_todate" id="renewal_rera_certificate_todate" class="form-control" tabindex="28">
                             </div>
                         </div>
                     </div>
