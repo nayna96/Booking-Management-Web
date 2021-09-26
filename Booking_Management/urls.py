@@ -51,6 +51,7 @@ urlpatterns = [
     
     #settings
     path('settings', views.settings, name='settings'),
+    path('organisation_master', views.organisation_master, name='organisation_master'),
     path('user_master', views.user_master, name='user_master'),
     
     #download file
