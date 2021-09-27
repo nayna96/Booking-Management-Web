@@ -18,6 +18,12 @@
                     <button class="nav-link active" data-toggle="tab" href="#organisation_info" type="button" role="tab" aria-selected="true">Organisation</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#personal_details" type="button" role="tab" aria-selected="true">Personal Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#promoter_details" type="button" role="tab" aria-selected="true">Promoter's Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
                 </li>
             </ul>
@@ -100,6 +106,21 @@
                                     <option value="PRIVATE LIMITED COMPANY">Private Limited Company</option>
                                 </select>
                             </div>
+                            <div class="col-sm-3 mb-1 Partnership_LLP" style="display: none;">
+                                <label>Number of partners</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="number" name="no_partners" id="no_partners" onchange="cloneDetails('no_partners', 'partner\'s_details')" class="form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
+                                <label>No of directors</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="number" name="no_directors" id="no_directors" onchange="cloneDetails('no_directors', 'director\'s_details')" class="form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
+                                <label>No of promoters</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="number" name="no_promoters" id="no_promoters" onchange="cloneDetails('no_promoters', 'promoter\'s_details')" class="form-control" tabindex="1" required>
+                            </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Nature of Business</label>
                                 <label class="mandat_symbol">*</label>
@@ -142,7 +163,7 @@
                     </div>
                     <div id="addressDetails" class="w3-show">
                         <div class="row">
-                            <div class="col-sm-5 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>Address Line 1</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
@@ -151,22 +172,22 @@
                                 <label>Address Line 2</label>
                                 <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>City</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>District</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>State</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>Pin code</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
@@ -196,53 +217,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="acc_title" onclick="AccFunc('legalDetails')">
-                        Proprietor's and License Details
+                    <div class="acc_title" onclick="AccFunc('licenseDetails')">
+                        License Details
                         <i class="fa fa-caret-down"></i>
                     </div>                    
-                    <div id="legalDetails" class="w3-show">
-                        <div class="row" id="Proprietorship" style="display: none;">
-                            <div class="col-sm-4 mb-1">
-                                <label>Proprietor's Name</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Father's name</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <!--Passport phot-->
-                           <input type="checkbox"><label>Copy from address above</label> 
-                            <div class="col-sm-5 mb-1">
-                                <label>Address Line 1</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Address Line 2</label>
-                                <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>City</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>District</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>State</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Pin code</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
-                            </div>
+                    <div id="licenseDetails" class="w3-show">                        
+                        <div class="row">
                             <div class="col-sm-4 mb-1">
                                 <label>PAN No.</label>
                                 <label class="mandat_symbol">*</label>
@@ -257,133 +237,325 @@
                                 <label>GSTIN No.</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="gstin" id="gstin" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <!--<div class="col-sm-4 mb-1">
-                                <label>FSSI LICENSE No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="" id="" class="allstring form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>FSSI LICENSE Valid from</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="date" name="" id="" class="form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>FSSI LICENSE Valid upto</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="date" name="" id="" class="form-control" tabindex="1" required>
-                            </div>-->
-                            <div class="col-sm-3 mb-1">
-                                <label>Aadhar No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="aadhar_no" id="aadhar_no" class="allnums form-control" tabindex="1" required>
-                            </div>
+                            </div>                            
                         </div>
-                        <div class="row" id="Partnership_LLP" style="display: none;">
-                            <div class="col-sm-4 mb-1">
-                                <label>PAN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>TAN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="tan_no" id="tan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>GSTIN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="gstin" id="gstin" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Number of partners</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_partners" id="no_partners" class="form-control" tabindex="1" required>
-                            </div>
-                            <div class="row">
-                            <!--Partner's Details<br>-->
-                            <div class="col-sm-4 mb-1">
-                                <label>Partner's Name</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Father's name</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <!--Passport phot-->
-                            
-                            <div class="col-sm-5 mb-1">
-                                <label>Address Line 1</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Address Line 2</label>
-                                <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>City</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>District</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>State</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Pin code</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>PAN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Aadhar No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="row" id="Private_Limited_Company" style="display: none;">
-                            <div class="col-sm-3 mb-1">
-                                <label>PAN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
-                            </div>
+                        <div class="row Private_Limited_Company" style="display: none;">                            
                             <div class="col-sm-3 mb-1">
                                 <label>CIN No.</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>No of directors</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Name of directors</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>DIN No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>
+                <div id="personal_details" class="tab-pane fade">
+                    <div class="row Proprietorship" style="display: none;">
+                        <div class="row">
+                            <div class="col-sm-10 mb-1">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-1">
+                                        <label>Proprietor's Name</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                    </div>
+                                    <div class="col-sm-6 mb-1">
+                                        <label>Father's name</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                    </div>                                   
+                                    <div class="col-sm-6 mb-1">
+                                        <label>Address Line 1</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
+                                    </div>
+                                    <div class="col-sm-6 mb-1">
+                                        <label>Address Line 2</label>
+                                        <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>City</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>District</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>State</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>Pin code</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
+                                    </div>                    
+                                    <!--<div class="col-sm-4 mb-1">
+                                        <label>FSSI LICENSE No.</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="" id="" class="allstring form-control" tabindex="1" required>
+                                    </div>
+                                    <div class="col-sm-4 mb-1">
+                                        <label>FSSI LICENSE Valid from</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="date" name="" id="" class="form-control" tabindex="1" required>
+                                    </div>
+                                    <div class="col-sm-4 mb-1">
+                                        <label>FSSI LICENSE Valid upto</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="date" name="" id="" class="form-control" tabindex="1" required>
+                                    </div>-->
+                                    <div class="col-sm-3 mb-1">
+                                        <label>Aadhar No.</label>
+                                        <label class="mandat_symbol">*</label>
+                                        <input type="text" name="aadhar_no" id="aadhar_no" class="allnums form-control" tabindex="1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 mb-1"> 
+                                <div>                                
+                                    <img id="pic" src="#" style="width: 193px; height: 193px;" alt="passport_photo"/>
+                                    <input type="file"> 
+                                </div>
+                            </div>
+                        </div>                              
+                    </div>
+                    <div class="Partnership_LLP" style="display: none;">                    
+                        <div class="partner's_details">
+                            <label style="font-weight: bold;">Partner 1</label>
+                            <div class="row">                         
+                                <div class="col-sm-10 mb-1">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Partner's Name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Father's name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 1</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 2</label>
+                                            <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>City</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>District</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>State</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Pin code</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>PAN No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Aadhar No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Percent of Interest</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 mb-1"> 
+                                    <div>                                
+                                        <img id="pic" src="#" style="width: 193px; height: 193px;" alt="passport_photo"/>
+                                        <input type="file"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row Private_Limited_Company" style="display: none;">
+                        <div class="director's_details">
+                            <label style="font-weight: bold;">Director 1</label>
+                            <div class="row">                         
+                                <div class="col-sm-10 mb-1">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Director's Name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Father's name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 1</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 2</label>
+                                            <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>City</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>District</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>State</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Pin code</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>PAN No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Aadhar No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Director Type</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <select name="" id="" class="form-control" tabindex="1" required>
+                                                <option value="" selected disabled>-- Select --</option>
+                                                <option value="MANAGING DIRECTOR">Managing Director</option>
+                                                <option value="EXECUTIVE DIRECTOR">Executivr Director</option>
+                                            </select>
+                                            <!-- to be data list -->
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>DIN No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
+                                        </div>
+                                        valid upto
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 mb-1"> 
+                                    <div>                                
+                                        <img id="pic" src="#" style="width: 193px; height: 193px;" alt="passport_photo"/>
+                                        <input type="file"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div id="promoter_details" class="tab-pane fade">
+                    <div class="row Private_Limited_Company" style="display: none;">
+                        <div class="promoter's_details">
+                            <label style="font-weight: bold;">Promoter 1</label>
+                            <div class="row">                         
+                                <div class="col-sm-10 mb-1">
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Promoter's Name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Father's name</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 1</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="addLine1" id="addLine1" class="allcaps form-control" tabindex="2" required>
+                                        </div>
+                                        <div class="col-sm-6 mb-1">
+                                            <label>Address Line 2</label>
+                                            <input type="text" name="addLine2" id="addLine2" class="allcaps form-control" tabindex="3">
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>City</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="city" id="city" class="allstring form-control" tabindex="5" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>District</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="district" id="district" class="allstring form-control" tabindex="4" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>State</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="state" id="state" class="allstring form-control" tabindex="6" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Pin code</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>PAN No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Aadhar No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" tabindex="1" required>
+                                        </div>                                        
+                                        <div class="col-sm-3 mb-1">
+                                            <label>DIN No.</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
+                                        </div>
+                                        valid upto
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Number/Percent of Share</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="text" class="form-control">                                            
+                                            <!-- to be data list -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 mb-1"> 
+                                    <div>                                
+                                        <img id="pic" src="#" style="width: 193px; height: 193px;" alt="passport_photo"/>
+                                        <input type="file"> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>                                    
                 <div id="docs" class="tab-pane fade">
                     <div class="row">
                         <div class="col-sm-4 mb-1">
@@ -488,17 +660,61 @@
 function showLegalDetails(e){
     constitution = e.target.value;
     if(constitution == "PROPRIETORSHIP"){
-        $("#Proprietorship").show();
-        $("#Private_Limited_Company").hide();
-        $("#Partnership_LLP").hide();
+        $(".Proprietorship").show();
+        $(".Private_Limited_Company").hide();
+        $(".Partnership_LLP").hide();
     } else if(constitution == "PRIVATE LIMITED COMPANY"){
-        $("#Proprietorship").hide();
-        $("#Private_Limited_Company").show();
-        $("#Partnership_LLP").hide();
+        $(".Proprietorship").hide();
+        $(".Private_Limited_Company").show();
+        $(".Partnership_LLP").hide();
     } else if(constitution == "PARTNERSHIP" || constitution == "LLP"){
-        $("#Proprietorship").hide();
-        $("#Private_Limited_Company").hide();
-        $("#Partnership_LLP").show();
+        $(".Proprietorship").hide();
+        $(".Private_Limited_Company").hide();
+        $(".Partnership_LLP").show();
+    }
+}
+
+function clonePartnerDetails(){
+    var no_partners = Number($("#no_partners").val());
+    var no_divs = document.getElementsByClassName("partner's_details").length;
+    for(var i=1; i< (no_partners - no_divs + 1); i++){
+        var div = document.getElementsByClassName("partner's_details")[0],
+            clone = div.cloneNode(true); 
+        clone.firstElementChild.innerText = "Partner " + (i + 1);    
+        div.parentElement.appendChild(clone);
+    }
+
+    if(no_partners < no_divs){
+        var n = no_divs - no_partners;
+        var length = no_partners + n;
+
+        divs = document.getElementsByClassName("partner's_details");
+        var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
+        for(var i = no_partners; i < length; i++){
+            result[i][1].remove();
+        }         
+    }
+}
+
+function cloneDetails(id, className){
+    var no_partners = Number($(id).val());
+    var no_divs = document.getElementsByClassName(className).length;
+    for(var i=1; i< (no_partners - no_divs + 1); i++){
+        var div = document.getElementsByClassName(className)[0],
+            clone = div.cloneNode(true); 
+        clone.firstElementChild.innerText = "Partner " + (i + 1);    
+        div.parentElement.appendChild(clone);
+    }
+
+    if(no_partners < no_divs){
+        var n = no_divs - no_partners;
+        var length = no_partners + n;
+
+        divs = document.getElementsByClassName(className);
+        var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
+        for(var i = no_partners; i < length; i++){
+            result[i][1].remove();
+        }         
     }
 }
 

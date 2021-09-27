@@ -94,6 +94,9 @@ def getCustomerByName(customer_name, dbName="Master", collectionName="Customer")
         customerDetails.append(document)    
     return customerDetails[0]
 
+def getOrganisations():
+    pass
+
 def InsertData(dbName, collectionName, doc, files):
     db = InsertDoc(dbName, collectionName, doc)
     if files:
