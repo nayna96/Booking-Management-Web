@@ -697,7 +697,7 @@ function clonePartnerDetails(){
 }
 
 function cloneDetails(id, className){
-    var no_partners = Number($(id).val());
+    var no_partners = Number($("#"+ id).val());
     var no_divs = document.getElementsByClassName(className).length;
     for(var i=1; i< (no_partners - no_divs + 1); i++){
         var div = document.getElementsByClassName(className)[0],
