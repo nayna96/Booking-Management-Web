@@ -13,7 +13,347 @@
             <h5 class="modal-title" id="exampleModalLongTitle">BOOKING ENTRY</h5>
             
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="project_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('booking')">
+                        Booking
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="booking" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-3 mb-1">
+                                <label>Reference ID</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1"></div>
+                            <div class="col-sm-3 mb-1"></div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Booking Date</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="date" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Customer Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Address</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Phone No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Whatsapp No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('bookingDetails')">
+                        Booking Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="bookingDetails" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-3 mb-1">
+                                <label>Project Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Block Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Floor No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Flat Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Flat type/BHK</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Carpet Area</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Builtup area</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Super builtup-area</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Parking No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Parking Area</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Flat Condition</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 mb-1">
+                            <input type="text" id="fs1-fields" name="fs1-fields" value="1" hidden/>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 mb-1">
+                                Payment Date
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Payment Mode
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                Payment Details
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Bank Name
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Amount
+                                <label class="mandat_symbol">*</label>
+                            </div>                            
+                            <div class="col-sm-2 mb-1">                                                                
+                                
+                            </div>                                                          
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-1"> 
+                                <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
+                            </div>
+                        </div>
+                        <div>   
+                            <div class="row fs1" id="fs1-0">  			
+                                <div class="col-sm-2 mb-1">
+                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="12">
+                                </div>                    
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="13">
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="14">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs1-0-bank_name" class="form-control" required id="fs1-0-bank_name" tabindex="15">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs1-0-amount" class="form-control" required id="fs1-0-amount" tabindex="13">
+                                </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('paymentDetails')">
+                        Payment Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="paymentDetails" class="w3-hide">
+                        <div class="row">
+                            <div class="col-sm-4 mb-1">
+                                <label>Sellable Area</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-5 mb-1">
+                                <label>Rate</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Amount</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+
+                            </div>
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Car Parking Chgs.</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">                                
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>DG Chgs.</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+                            
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Transformer and Substation Chgs.</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Subtotal</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Discount</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Total</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Cash Discount</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Grand Total</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Additional GST %</label>
+                                <label class="mandat_symbol">*</label>
+                                <select>
+                                    <option value="1%">1%</option>
+                                    <option value="5%">5%</option>
+                                    <option value="12%">12%</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Payable Amount</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Less Booking Amount</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+
+                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                                <label>Loan amount</label>
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                            </div>
+                        </div>	                           						
+                    </div>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div> 
         <div class="modal-footer">
 
         </div>
