@@ -13,7 +13,160 @@
             <h5 class="modal-title" id="exampleModalLongTitle">BANK MASTER</h5>
             
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="project_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('bankDetails')">
+                        Bank Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="bankDetails" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-2 mb-1">
+                                <label>Bank Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="bank_name" id="bank_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Short Bank Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="short_bank_name" id="short_bank_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Branch</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="branch" id="branch" class="allcaps form-control" tabindex="2" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Address</label>
+                                <input type="text" name="address" id="address" class="allcaps form-control" tabindex="3">
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Pin code</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="pin_code" id="pin_code" maxlength="6" class="allnums form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Branch Manager</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="branch_manager" id="branch_manager" class="allstring form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Mobile No</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="branch_manager_phno" id="branch_manager_phno" maxlength="10" class="allnums form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Contact Person</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="contact_person" id="contact_person" class="allstring form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Mobile No</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="contact_person_phno" id="contact_person_phno" maxlength="10" class="allnums form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>IFSC Code</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="ifsc_code" id="ifsc_code" class="allcaps form-control" tabindex="7" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Rate of Interest</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="rate_of_interest" id="rate_of_interest" class="allnums form-control" tabindex="7" required>
+                            </div>
+                        </div>							
+                    </div>
+                </div>
+                <div id="docs" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-4 mb-1">
+                            <label>Doc Type</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Upload</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Files</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>List of Documents</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="list_docs" id="list_docs" class="file" onchange="updateList('list_docs', 'listDocs', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="listDocs" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Agreements</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateList('agreements_doc', 'agreementsDoc', true)"/>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <div id="agreementsDoc" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div>          
         <div class="modal-footer">
 
         </div>
