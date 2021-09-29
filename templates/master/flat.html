@@ -13,7 +13,172 @@
             <h5 class="modal-title" id="exampleModalLongTitle">FLAT MASTER</h5>
             
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="project_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('flatDetails')">
+                        Flat Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="flatDetails" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-4 mb-1">
+                                <label>Project Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Block Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="block_name" id="block_name" class="allcaps form-control" tabindex="2" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Floor No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="floor_no" id="floor_no" class="allcaps form-control" tabindex="3" required>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('flats')">
+                        Flats
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="flats" class="w3-show">
+                        <div class="col-sm-12 mb-1">
+                            <input type="text" id="fs1-fields" name="fs1-fields" value="1" hidden/>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1 mb-1">
+                                Flat No.
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Flat Type/BHK
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Ownership Status
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                Flat Status 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Carpet Area 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Builtup Area 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Superbuiltup Area 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Parking No. 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">
+                                Parking Area 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">                                                                
+                                
+                            </div>                                                          
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-1"> 
+                                <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
+                            </div>
+                        </div>
+                        <div>   
+                            <div class="row fs1" id="fs1-0">  			
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="12">
+                                </div>                    
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="13">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs1-0-ownership_status" class="allcaps form-control" required id="fs1-0-ownership_status" tabindex="14">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="15">
+                                </div>
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="13">
+                                </div>
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-builtup_area" class="form-control" required id="fs1-0-builtup_area" tabindex="14">
+                                </div>
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-superbuiltup_area" class="form-control" required id="fs1-0-superbuiltup_area" tabindex="15">
+                                </div>
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-parking_no" class="form-control" required id="fs1-0-parking_no" tabindex="15">
+                                </div>
+                                <div class="col-sm-1 mb-1">
+                                    <input type="text" name="fs1-0-parking_area" class="form-control" required id="fs1-0-parking_area" tabindex="15">
+                                </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                              
+                            </div>
+                        </div>                        
+                    </div>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="modal-footer">
 
         </div>
