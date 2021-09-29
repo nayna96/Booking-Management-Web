@@ -13,7 +13,132 @@
             <h5 class="modal-title" id="exampleModalLongTitle">BLOCK MASTER</h5>
             
         </div>
-        <div class="modal-body"></div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="project_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('blockDetails')">
+                        Block Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="blockDetails" class="w3-show">
+                        <div class="row">
+                            <div class="col-sm-4 mb-1">
+                                <label>Project Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Number of Blocks</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="number" name="no_blocks" id="no_blocks" min="1" class="form-control" tabindex="2" required>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('blocks')">
+                        Land Details
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="blocks" class="w3-show">
+                        <div class="col-sm-12 mb-1">
+                            <input type="text" id="fs1-fields" name="fs1-fields" value="1" hidden/>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 mb-1">
+                                Block Name/No.
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                No. of Floors
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                Floor No.
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                No. of Flats 
+                                <label class="mandat_symbol">*</label>
+                            </div>
+                            <div class="col-sm-1 mb-1">                                                                
+                                
+                            </div>                                                          
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-1"> 
+                                <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
+                            </div>
+                        </div>
+                        <div>   
+                            <div class="row fs1" id="fs1-0">  			
+                                <div class="col-sm-3 mb-1">
+                                    <input type="text" name="fs1-0-block_name" class="allcaps form-control" required id="fs1-0-block_name" tabindex="12">
+                                </div>                    
+                                <div class="col-sm-2 mb-1">
+                                    <input type="number" name="fs1-0-no_floors" class="form-control" min="1" required id="fs1-0-khata_no" tabindex="13">
+                                </div>
+                                <div class="col-sm-4 mb-1">
+                                    <input type="text" name="fs1-0-floor_no" class="allcaps form-control" required id="fs1-0-plot_no" tabindex="14">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="number" name="fs1-0-no_flats" class="form-control" min="1" required id="fs1-0-kisam" tabindex="15">
+                                </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                              
+                            </div>
+                        </div>                        
+                    </div>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="modal-footer">
 
         </div>

@@ -1,7 +1,8 @@
 function addRow(className){
     var div = document.getElementsByClassName(className)[0],
-        clone = div.cloneNode(true);     
-    var id = div.parentElement.lastElementChild.getAttribute('id');
+        clone = div.cloneNode(true);
+    var length = $("." + className).length;     
+    var id = $("." + className)[length -1].id;
     var num = Number(id.split("-")[1]) + 1;
     var OuterId = id.split("-")[0] + "-" + num;
     clone.id = OuterId;
@@ -24,11 +25,10 @@ function addRow(className){
 
 function removeRow(e){
     var parentDiv = e.target.parentElement.parentElement;
-    if(parentDiv.childElementCount > 1){
-        var div = e.target.parentElement;
-        div.remove();
+    var className = parentDiv.classList[1];
+    if($("." + className).length > 1){
+        parentDiv.remove();
         
-        className = e.target.parentElement.classList[0];
         nofields = Number(document.getElementById(className + "-fields").value);
         document.getElementById(className + "-fields").value = (nofields - 1).toString(); 
     }

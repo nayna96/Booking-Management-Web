@@ -150,8 +150,11 @@
                         <i class="fa fa-caret-down"></i>
                     </div>
                     <div id="projectLand" class="w3-show">
+                        <div class="col-sm-12 mb-1">
+                            <input type="text" id="fs2-fields" name="fs2-fields" value="1" hidden/>
+                        </div>
                         <div class="row">
-                            <div class="col-sm-2 mb-1">
+                            <div class="col-sm-3 mb-1">
                                 Mouza
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -171,36 +174,39 @@
                                 Area
                                 <label class="mandat_symbol">*</label> 
                             </div>
-                            <div class="col-sm-12 mb-1">
-                                <input type="text" id="fs2-fields" name="fs2-fields" value="1" hidden/>
+                            <div class="col-sm-1 mb-1">                                                                
+                                
                             </div>
-                            <div class="row">
+                        </div>    
+                        <div class="row">
+                            <div class="col-sm-12 mb-1"> 
                                 <a href="javascript:void(0)" onclick="addRow('fs2')">add another</a>
-                            </div>  
-                            <div class="row">
-                                <div style="display: inherit;" id="fs2-0" class="fs2">			
-                                    <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="12">
-                                    </div>                    
-                                    <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-khata_no" class="allcaps form-control" required id="fs2-0-khata_no" tabindex="13">
-                                    </div>
-                                    <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-plot_no" class="allcaps form-control" required id="fs2-0-plot_no" tabindex="14">
-                                    </div>
-                                    <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-kisam" class="allcaps form-control" required id="fs2-0-kisam" tabindex="15">
-                                    </div>
-                                    <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs2-0-area" class="allnums form-control" onkeydown="addArea(event)" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="16">
-                                    </div>                                        
-                                                                
-                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
-                                </div>                                
                             </div>
                         </div>
+                        <div>  
+                            <div class="row fs2" id="fs2-0">                            		
+                                <div class="col-sm-3 mb-1">
+                                    <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="12">
+                                </div>                    
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs2-0-khata_no" class="allcaps form-control" required id="fs2-0-khata_no" tabindex="13">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs2-0-plot_no" class="allcaps form-control" required id="fs2-0-plot_no" tabindex="14">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs2-0-kisam" class="allcaps form-control" required id="fs2-0-kisam" tabindex="15">
+                                </div>
+                                <div class="col-sm-2 mb-1">
+                                    <input type="text" name="fs2-0-area" class="allnums form-control" onkeydown="addArea(event)" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="16">
+                                </div>                                                                                                    
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                </div>                                 
+                            </div>
+                        </div>                        
                         <div class="row">
-                            <div class="col-md-8"></div>
+                            <div class="col-md-9"></div>
                             <div class="col-md-2" style="text-align: right;">
                                 <input type="text" placeholder="Total Area" class="form-control" id="total_area" disabled/>
                             </div>
