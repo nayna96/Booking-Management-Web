@@ -104,26 +104,33 @@
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="pin" id="pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="7" required>
                             </div>
-                            <div class="col-sm-12 mb-1">
-                                Approved Banks
-                                <label class="mandat_symbol">*</label> 
-                            </div>
+                        </div>
+                        <div>
                             <div class="col-sm-12 mb-1">
                                 <input type="text" id="fs1-fields" name="fs1-fields" value="1" hidden/>
-                            </div>                              
-							<div class="row">
-                                <div style="display: inherit;" id="fs1-0" class="fs1 formset">			
-                                    <div class="col-sm-6 mb-1">
-                                        <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="8">
-                                    </div>                     
-                                                                
-                                    <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
-                                </div>                                
-                            </div>						
-                            <div class="row">
-								<a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-sm-2 mb-1">
+                                    Approved Banks
+                                    <label class="mandat_symbol">*</label> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mb-1"> 
+                                    <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
+                                </div>
+                            </div>
+                            <div>  
+                                <div class="row fs1" id="fs1-0">
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="8">
+                                    </div>
+                                    <div class="col-sm-1 mb-1">                                                                
+                                        <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
+                                    </div>  
+                                </div>
+                            </div> 
+                        </div>							
                     </div>
                     <div class="acc_title" onclick="AccFunc('projectStatus')">
                         Project Status 
