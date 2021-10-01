@@ -30,9 +30,20 @@ def view_file(request, dbName, fileName):
     db.ViewFile(dbName, fileName)
     return JsonResponse({})
 
+def load_blocks(request, project_name=None):
+    project_name = request.GET.get('project_name')
+    blocks = db.getBlocksListByProject(project_name)
+    return render(request, 'master/dropdown/load_blocks.html', {'blocks': blocks})
+
+def load_floors(request, project_name=None, block_name=None):
+    project_name = request.GET.get('project_name')
+    block_name = request.GET.get('block_name')
+    floors = db.getFloorsListByBlock(project_name, block_name)
+    return render(request, 'master/dropdown/load_floors.html', {'floors': floors})
+
 #master
 def project_master(request, project_name=None):
-    projectDetails = db.getProjects()
+    projectDetails = db.getDetails("Master", "Project")
 
     if request.is_ajax():
         selectedProjectDetails = db.getProjectByName(project_name)
@@ -59,14 +70,68 @@ def project_master(request, project_name=None):
         "projectDetails":projectDetails
     })
     
-def block_master(request, block_name=None):
-    return render(request, 'master/block.html')
+def block_master(request, project_name=None):
+    blockDetails = db.getDetails("Master", "Block")
+    projects_list =  db.getProjects()
 
-def flat_master(request, flat_name=None):
-    return render(request, 'master/flat.html')
+    if request.is_ajax():
+        selectedBlockDetails = db.getBlockDetailsByProject(project_name)
+        files = db.GetFilesByMetaData("Master", selectedBlockDetails["_id"])
+        response =  {
+            "selectedBlockDetails": selectedBlockDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+
+    if request.method == 'POST':        
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getBlockData(_id, 
+        request=request)
+
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Block", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Block", doc, files) 
+        return HttpResponseRedirect(request.path_info)
+    
+    return render(request, 'master/block.html', 
+    {        
+        "blockDetails":blockDetails,
+        "projects_list": projects_list
+    })
+
+def flat_master(request, project_name=None, block_name=None, floor_no=None):
+    flatDetails = db.getDetails("Master", "Flat")
+    projects_list =  db.getProjects("Master", "Block")
+
+    if request.is_ajax():
+        selectedFlatDetails = db.getFlatDetailsByFloor(project_name, block_name, floor_no)
+        files = db.GetFilesByMetaData("Master", selectedFlatDetails["_id"])
+        response =  {
+            "selectedFlatDetails": selectedFlatDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+
+    if request.method == 'POST':        
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getFlatData(_id, 
+        request=request)
+
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Flat", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Flat", doc, files) 
+        return HttpResponseRedirect(request.path_info)
+    
+    return render(request, 'master/flat.html', 
+    {        
+        "flatDetails": flatDetails,
+        "projects_list": projects_list
+    })
 
 def customer_master(request, customer_name=None):
-    customerDetails = db.getCustomers()
+    customerDetails = db.getDetails("Master", "Customer")
     occupations_list = db.getOccupations()
     castes_list = db.getCastes()
     
@@ -115,7 +180,7 @@ def settings(request):
     return render(request, "settings/index.html")
 
 def organisation_master(request, org_name=None):
-    organisationDetails = db.getOrganisations()
+    organisationDetails = db.getDetails("Master", "Organisation")
 
     if request.is_ajax():
         selectedOrganisationDetails = db.getOrganisationByName(org_name)
@@ -143,7 +208,7 @@ def organisation_master(request, org_name=None):
     })
 
 def user_master(request):
-    userDetails = db.getUsers()
+    userDetails = db.getDetails("Master", "User")
     if request.method == "POST":
         doc  = utils.getUserData(request)
         db.InsertData("Settings", "UserMaster", doc) 

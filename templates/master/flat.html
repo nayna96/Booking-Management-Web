@@ -16,12 +16,15 @@
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                    <button class="nav-link active" data-toggle="tab" href="#flat_info" type="button" role="tab" aria-selected="true">Project</button>
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="project_info" class="tab-pane fade in active show">
-                    <form method="POST" id="form" enctype="multipart/form-data">
+                <div id="flat_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data"
+                    data-blocks-url = "{% url 'load_blocks' %}"
+                    data-floors-url="{% url 'load_floors' %}">
+
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
                     <div class="row" hidden>
@@ -71,17 +74,26 @@
                             <div class="col-sm-4 mb-1">
                                 <label>Project Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="project_name" id="project_name" class="form-control" tabindex="1" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                {% for project in projects_list %}
+                                    <option value="{{project}}">{{project}}</option>
+                                {% endfor %}
+                                </select>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Block Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="block_name" id="block_name" class="allcaps form-control" tabindex="2" required>
+                                <select name="block_name" id="block_name" class="form-control" tabindex="2" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Floor No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="floor_no" id="floor_no" class="allcaps form-control" tabindex="3" required>
+                                <select name="floor_no" id="floor_no" class="form-control" tabindex="3" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                </select>
                             </div>                           
                         </div>
                     </div>
@@ -142,31 +154,31 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="12">
+                                    <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="4">
                                 </div>                    
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="13">
+                                    <input type="text" name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="5">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-ownership_status" class="allcaps form-control" required id="fs1-0-ownership_status" tabindex="14">
+                                    <input type="text" name="fs1-0-ownership_status" class="allcaps form-control" required id="fs1-0-ownership_status" tabindex="6">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="15">
+                                    <input type="text" name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="7">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="13">
+                                    <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="8">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-builtup_area" class="form-control" required id="fs1-0-builtup_area" tabindex="14">
+                                    <input type="text" name="fs1-0-builtup_area" class="form-control" required id="fs1-0-builtup_area" tabindex="9">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-superbuiltup_area" class="form-control" required id="fs1-0-superbuiltup_area" tabindex="15">
+                                    <input type="text" name="fs1-0-superbuiltup_area" class="form-control" required id="fs1-0-superbuiltup_area" tabindex="10">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-parking_no" class="form-control" required id="fs1-0-parking_no" tabindex="15">
+                                    <input type="text" name="fs1-0-parking_no" class="form-control" required id="fs1-0-parking_no" tabindex="11">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-parking_area" class="form-control" required id="fs1-0-parking_area" tabindex="15">
+                                    <input type="text" name="fs1-0-parking_area" class="form-control" required id="fs1-0-parking_area" tabindex="12">
                                 </div>
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -188,16 +200,19 @@
 <table id="fancyTable" class="table table-striped fancyTable">
     <thead>
         <tr>
-            <th>FLAT</th>
+            <th>PROJECT</th>
+            <th>BLOCK NAME</th>
+            <th>FLOOR NO</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for flat in flatDetails %}
         <tr>
-            <td>
-            </td>
-            <td><a class="btn btn-primary" onclick="showFlatData('/flat_master/{{flat.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td>{{ flat.project_name }}</td>
+            <td>{{ flat.block_name }}</td>
+            <td>{{ flat.floor_no }}</td>
+            <td><a class="btn btn-primary" onclick="showFlatData('/flat_master/{{flat.project_name}}/{{ flat.block_name }}/{{ flat.floor_no }}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}

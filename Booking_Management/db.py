@@ -1,125 +1,287 @@
 from pymongo import MongoClient
 from gridfs import GridFS
 
-#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
 except:
     pass
 
-def getNextId(dbName, collectionName):
-    db = client[dbName]
-    collection = db[collectionName]
+def ifExistsDoc(db_name, collection_name, dt):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filters = []     
+    for k,v in dt.items():           
+        filter = { k : v }
+        filters.Add(filter)            
+
+        result = collection.find({"$and": filters})
+
+        if (result.Count() > 0):        
+            return True
+            
+        return False
+        
+def getNextId(db_name, collection_name):
+    db = client[db_name]
+    collection = db[collection_name]
     return collection.count() + 1
 
-def verifyUser(username, password, dbName="Settings", collectionName="UserMaster"):
+def verifyUser(username, password, db_name="Settings", collection_name="UserMaster"):
     return True
 
-def getUsers(dbName="Settings", collectionName="UserMaster"):
-    userDetails = []
-    db = client[dbName]
-    collection = db[collectionName]
+def getDetails(db_name, collection_name):
+    details = []
+    db = client[db_name]
+    collection = db[collection_name]
 
     for x in collection.find({}):
-        userDetails.append(x)
-    return userDetails
+        details.append(x)
+    return details
 
-def getProjects(dbName="Master", collectionName="Project"):
-    projectDetails = []
-    db = client[dbName]
-    collection = db[collectionName]
+#Project Master
+def getProjects(db_name="Master", collection_name="Project"):
+    lst = []
 
-    for x in collection.find({}):
-        projectDetails.append(x)
-    return projectDetails
+    db = client[db_name]
+    collection = db[collection_name]
 
-def getProjectByName(project_name, dbName="Master", collectionName="Project"):
-    projectDetails = []
+    filter = {}
+    fields = {"project_name":1, "_id":0}
 
-    db = client[dbName]
-    collection = db[collectionName]
-    query = { "project_name": project_name }
-
-    documents = collection.find(query)
+    documents = collection.find(filter, fields)
 
     for document in documents:
-        projectDetails.append(document)    
+        lst.append(document["project_name"])
+
+    return lst
+
+def getProjectByName(project_name, db_name="Master", collection_name="Project"):
+    projectDetails = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "project_name": project_name }
+    documents = collection.find(filter)
+
+    for document in documents:
+        projectDetails.append(document)
+
     return projectDetails[0]
 
-def getOccupations(dbName="Master", collectionName="Customer"):
+#Block Master
+def getBlockDetailsByProject(project_name, db_name="Master", collection_name="Block"):
+    lst = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "project_name": project_name }
+    documents = collection.find(filter)
+
+    for document in documents:
+        lst.append(document)
+    
+    return lst[0]
+
+def getBlocksListByProject(project_name, db_name="Master", collection_name="Block"):
+    blocks_list = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "project_name": project_name }
+    documents = collection.find(filter)
+
+    for document in documents:
+        blocks = document["blocks"]
+        for block in blocks:
+            blocks_list.append(block["block_name"])
+
+    return list(set(blocks_list))
+        
+def getFloorsListByBlock(project_name, block_name, 
+                        db_name="Master", collection_name="Block"):
+    floors_list = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "project_name": project_name }
+    documents = collection.find(filter)
+
+    for document in documents:
+        blocks = document["blocks"]
+        for block in blocks:
+            if block["block_name"] == block_name:
+                floors_list.append(block["floor_no"])
+
+    return floors_list
+
+def getFlatDetailsByFloor(project_name, block_name, floor_no, 
+                        db_name="Master", collection_name="Flat"):
+    
+    lst = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = [
+        { "project_name": project_name },
+        { "block_name":block_name },
+        { "floor_no": floor_no }
+    ]
+    documents = collection.find({"$and": filter})
+
+    for document in documents:
+        lst.append(document)
+    
+    return lst[0]
+    
+'''def getFlatsByProjectName(db_name, collection_name, project_name):
+    db = client[db_name]
+    collection = db[collection_name]
+    result = collection.Find(a => a["project_name"] == projectName)
+
+    for item in result.ToEnumerable():
+        entry.Add(item.ToDictionary())
+    
+    return entry
+
+def getNoFlatsByFloor(db_name, collection_name, 
+    project_name, block_name, floor_no):
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    var projectfilter = Builders<BsonDocument>.Filter.Eq("project_name", projectName);
+    List<BsonDocument> lst = collection.Find(projectfilter).ToList();
+
+    if (lst.Count > 0)
+    {
+        BsonArray array = (BsonArray)lst[0]["blocks"];
+        no_flats = array.FirstOrDefault(l => l["block_name"] == blockName && l["floor_no"] == floorNo)["no_flats"];
+    }
+
+    return no_flats;
+}
+
+
+
+def getFlatDetailsByFlatNo(db_name, collection_name,
+    project_name, block_name, floor_no, flat_no):
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = [
+        { "project_name": project_name },
+        { "block_name":block_name },
+        { "floor_no": floor_no }
+    ]
+
+    List<BsonDocument> lst = collection.Find(Builders<BsonDocument>.Filter.And(projectfilter, blockfilter, floorfilter)).ToList();
+    List<BsonValue> flatDetails = new List<BsonValue>()
+    if (lst.Count > 0):
+        array = lst[0]["flats"]
+        flatDetails = array.Where(l => l["flat_no"] == flatNo).ToList()
+    
+    if (flatDetails.Count > 0):
+        return flatDetails[0]
+    else:
+        return None
+    
+def updateFlatStatus(db_name, collection_name,
+    project_name, block_name, floor_no, flat_no, flat_atatus):
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = [
+        { "project_name": project_name },
+        { "block_name":block_name },
+        { "floor_no": floor_no }
+    ]
+
+    filter = Builders<BsonDocument>.Filter.And(projectfilter, blockfilter, floorfilter)
+    #collection.find({"$and": filter})
+
+    update = Builders<BsonDocument>.Update.Set("flats.$[f].flat_status", flatStatus);
+
+    arrayFilters = new[]
+    {
+            new BsonDocumentArrayFilterDefinition<BsonDocument>(
+                new BsonDocument("f.flat_no",
+                new BsonDocument("$in", new BsonArray(new [] { flatNo})))),
+    };
+
+    collection.UpdateOne(filter, update, new UpdateOptions { ArrayFilters = arrayFilters });'''
+
+#Customer Master
+def getOccupations(db_name="Master", collection_name="Customer"):
     occupations_list = []
-    db = client[dbName]
-    collection = db[collectionName]
+    db = client[db_name]
+    collection = db[collection_name]
     for item in collection.find({}):
         if item["occupation"] != "BUSINESS" and  item["occupation"] != "SELF-EMPLOYED" and item["occupation"] != "SERVICE" :
             occupations_list.append(item["occupation"])    
     return list(set(occupations_list))
 
-def getCastes(dbName="Master", collectionName="Customer"):
+def getCastes(db_name="Master", collection_name="Customer"):
     castes_list = []
-    db = client[dbName]
-    collection = db[collectionName]
+    db = client[db_name]
+    collection = db[collection_name]
     for item in collection.find({}):
         if item["caste"] != "SC" and  item["caste"] != "ST" :
             castes_list.append(item["caste"])    
     return list(set(castes_list))
 
-def getCustomers(dbName="Master", collectionName="Customer"):
-    customerDetails = []
-    db = client[dbName]
-    collection = db[collectionName]
-
-    for x in collection.find({}):
-        customerDetails.append(x)
-    return customerDetails
-
-def getCustomerByName(customer_name, dbName="Master", collectionName="Customer"):
+def getCustomerByName(customer_name, db_name="Master", collection_name="Customer"):
     customerDetails = []
     fname = customer_name.split(' ')[0]
     mname = customer_name.split(' ')[1]
     lname = customer_name.split(' ')[2]
 
-    db = client[dbName]
-    collection = db[collectionName]
-    query = [
+    db = client[db_name]
+    collection = db[collection_name]
+    filter = [
         { "customer_fname": fname },
         { "customer_mname": mname },
         { "customer_lname": lname }]
 
-    documents = collection.find({"$and": query})
+    documents = collection.find({"$and": filter})
 
     for document in documents:
         customerDetails.append(document)    
     return customerDetails[0]
 
-def getOrganisations():
-    pass
-
-def InsertData(dbName, collectionName, doc, files):
-    db = InsertDoc(dbName, collectionName, doc)
+def InsertData(db_name, collection_name, doc, files):
+    db = InsertDoc(db_name, collection_name, doc)
     if files:
         for file in files:
             pass
             #UploadFile(db, file, doc)
 
-def InsertDoc(dbName, collectionName, doc):
-    db = client[dbName]
-    collection = db[collectionName]
+def InsertDoc(db_name, collection_name, doc):
+    db = client[db_name]
+    collection = db[collection_name]
     collection.insert_one(doc)
     return db
 
-def UpdateData(dbName, collectionName, doc, files_dt):
-    db = UpdateDoc(dbName, collectionName, doc)
+def UpdateData(db_name, collection_name, doc, files_dt):
+    db = UpdateDoc(db_name, collection_name, doc)
     if files_dt:
         for files in files_dt:
             if files_dt[files]:
                 UploadFile(db, files_dt[files], doc)
 
-def UpdateDoc(dbName, collectionName, doc):
-    db = client[dbName]
-    collection = db[collectionName]
+def UpdateDoc(db_name, collection_name, doc):
+    db = client[db_name]
+    collection = db[collection_name]
     filter = { "_id": doc["_id"] }
 
     for el in doc:
@@ -139,8 +301,8 @@ def UploadFile(db, files, doc):
         fs.put(data, filename=file.name, 
         metadata=meta_data)
 
-def DownloadFile(dbName, fileName):    
-    db = client[dbName]
+def DownloadFile(db_name, fileName):    
+    db = client[db_name]
     fs = GridFS(db)
     filter = { "filename": fileName }    
     file = db.fs.files.find_one(filter)
@@ -155,15 +317,15 @@ def DownloadFile(dbName, fileName):
     output.close()
     return True
 
-def ViewFile(dbName, fileName):
-    if DownloadFile(dbName, fileName):
+def ViewFile(db_name, fileName):
+    if DownloadFile(db_name, fileName):
         path = "C:/Temp/" + fileName
         import os
         os.system('"' + path + '"')
 
-def GetFilesByMetaData(dbName, _id):
+def GetFilesByMetaData(db_name, _id):
     files_lst = []
-    db = client[dbName]
+    db = client[db_name]
     fs = GridFS(db)
     files = db.fs.files.find({})
     for file in files:

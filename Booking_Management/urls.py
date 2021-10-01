@@ -28,10 +28,10 @@ urlpatterns = [
     path('project_master/<str:project_name>', views.project_master, name='project_master'),
 
     re_path('block_master/$', views.block_master, name='block_master'), 
-    path('block_master/<str:block_name>', views.block_master, name='block_master'),
+    path('block_master/<str:project_name>', views.block_master, name='block_master'),
     
     re_path('flat_master/$', views.flat_master, name='flat_master'),
-    path('flat_master/<str:flat_name>', views.flat_master, name='flat_master'),
+    path('flat_master/<str:project_name>/<str:block_name>/<str:floor_no>', views.flat_master, name='flat_master'),
 
     re_path('customer_master/$', views.customer_master, name='customer_master'),
     path('customer_master/<str:customer_name>', views.customer_master, name='customer_master'),
@@ -53,6 +53,13 @@ urlpatterns = [
     path('settings', views.settings, name='settings'),
     path('organisation_master', views.organisation_master, name='organisation_master'),
     path('user_master', views.user_master, name='user_master'),
+
+    #load data
+    path('load-blocks/$', views.load_blocks, name='load_blocks'),
+    path('load-blocks/<str:project_name>', views.load_blocks, name='load_blocks'),
+
+    path('load-floors/$', views.load_floors, name='load_floors'),
+    path('load-floors/<str:project_name>/<str:block_name>', views.load_floors, name='load_floors'),
     
     #download file
     path('view/<str:dbName>/<str:fileName>', views.view_file, name='view_file')

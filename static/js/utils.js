@@ -95,6 +95,28 @@ function showBlockData(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedBlockDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("project_name").value = response["selectedBlockDetails"]["project_name"];
+        document.getElementById("no_blocks").value = response["selectedBlockDetails"]["no_blocks"];
+
+        //BLOCKS
+        blocks = response["selectedBlockDetails"]["blocks"];
+        var length = document.getElementsByClassName("fs1").length;
+        $("#fs1-fields").val(length);
+
+        for(var i=0; i< blocks.length -1; i++){
+          if(length != blocks.length){          
+            addRow("fs1");
+          }
+        }
+        
+        for(var i=0; i<blocks.length; i++){          
+          $("#fs1-" + i + "-block_name").val(blocks[i]["block_name"]);
+          $("#fs1-" + i + "-no_floors").val(blocks[i]["no_floors"]);
+          $("#fs1-" + i + "-floor_no").val(blocks[i]["floor_no"]);
+          $("#fs1-" + i + "-no_flats").val(blocks[i]["no_flats"]);
+        }
       },
       error: function(error) {
         console.log(error)
@@ -112,6 +134,34 @@ function showFlatData(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedFlatDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("project_name").value = response["selectedFlatDetails"]["project_name"];
+        document.getElementById("block_name").value = response["selectedFlatDetails"]["block_name"];
+        document.getElementById("floor_no").value = response["selectedFlatDetails"]["floor_no"];
+
+        //FLATS
+        flats = response["selectedFlatDetails"]["flats"];
+        var length = document.getElementsByClassName("fs1").length;
+        $("#fs1-fields").val(length);
+
+        for(var i=0; i< flats.length -1; i++){
+          if(length != flats.length){          
+            addRow("fs1");
+          }
+        }
+        
+        for(var i=0; i<flats.length; i++){          
+          $("#fs1-" + i + "-flat_no").val(flats[i]["flat_no"]);
+          $("#fs1-" + i + "-flat_type").val(flats[i]["flat_type"]);
+          $("#fs1-" + i + "-ownership_status").val(flats[i]["ownership_status"]);
+          $("#fs1-" + i + "-flat_status").val(flats[i]["flat_status"]);
+          $("#fs1-" + i + "-carpet_area").val(flats[i]["carpet_area"]);
+          $("#fs1-" + i + "-builtup_area").val(flats[i]["builtup_area"]);
+          $("#fs1-" + i + "-superbuiltup_area").val(flats[i]["superbuiltup_area"]);
+          $("#fs1-" + i + "-parking_no").val(flats[i]["parking_no"]);
+          $("#fs1-" + i + "-parking_area").val(flats[i]["parking_area"]);
+        }
       },
       error: function(error) {
         console.log(error)

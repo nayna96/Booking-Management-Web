@@ -136,4 +136,36 @@ $(document).ready(function() {
     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
   });
 
+  $("#project_name").change(function () {
+    var block_url = $("#form").attr("data-blocks-url");
+    var project_name = $(this).val();
+
+    $.ajax({
+      url: block_url,
+      data: {
+        'project_name': project_name
+      },
+      success: function(result){
+          $("#block_name").html(result);
+      }
+    });
+  })
+
+  $("#block_name").change(function () {
+    var floor_url = $("#form").attr("data-floors-url");
+    var project_name = $("#project_name").val();
+    var block_name = $(this).val();
+
+    $.ajax({
+      url: floor_url,
+      data: {
+        'project_name': project_name,
+        'block_name': block_name
+      },
+      success: function(result){
+          $("#floor_no").html(result);
+      }
+    });
+  })
+
 });
