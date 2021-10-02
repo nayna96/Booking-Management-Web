@@ -18,9 +18,9 @@
                     <button class="nav-link active" data-toggle="tab" href="#organisation_info" type="button" role="tab" aria-selected="true">Organisation</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" data-toggle="tab" href="#personal_details" type="button" role="tab" aria-selected="true">Personal Details</button>
+                    <button class="nav-link" data-toggle="tab" href="#personal_details" id="details_tab" type="button" role="tab" aria-selected="true">Details</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li class="nav-item Private_Limited_Company" role="presentation" style="display: none;">
                     <button class="nav-link" data-toggle="tab" href="#promoter_details" type="button" role="tab" aria-selected="true">Promoter's Details</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -109,17 +109,17 @@
                             <div class="col-sm-3 mb-1 Partnership_LLP" style="display: none;">
                                 <label>Number of partners</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_partners" id="no_partners" onchange="cloneDetails('no_partners', 'partner\'s_details')" class="form-control" tabindex="1" required>
+                                <input type="number" name="no_partners" id="no_partners" onchange="cloneDetails('no_partners', ['partner\'s_details', 'partner\'s_docs'])" class="form-control" tabindex="1" required>
                             </div>
                             <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
                                 <label>No of directors</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_directors" id="no_directors" onchange="cloneDetails('no_directors', 'director\'s_details')" class="form-control" tabindex="1" required>
+                                <input type="number" name="no_directors" id="no_directors" onchange="cloneDetails('no_directors', ['director\'s_details', 'director\'s_docs'])" class="form-control" tabindex="1" required>
                             </div>
                             <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
                                 <label>No of promoters</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_promoters" id="no_promoters" onchange="cloneDetails('no_promoters', 'promoter\'s_details')" class="form-control" tabindex="1" required>
+                                <input type="number" name="no_promoters" id="no_promoters" onchange="cloneDetails('no_promoters', ['promoter\'s_details', 'promoter\'s_docs'])" class="form-control" tabindex="1" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Nature of Business</label>
@@ -463,7 +463,11 @@
                                             <label class="mandat_symbol">*</label>
                                             <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
                                         </div>
-                                        valid upto
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Valid upto</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="date" name="tan_no" id="tan_no" class="form-control" tabindex="1" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-2 mb-1"> 
@@ -537,7 +541,11 @@
                                             <label class="mandat_symbol">*</label>
                                             <input type="text" name="tan_no" id="tan_no" class="allstring form-control" tabindex="1" required>
                                         </div>
-                                        valid upto
+                                        <div class="col-sm-3 mb-1">
+                                            <label>Valid upto</label>
+                                            <label class="mandat_symbol">*</label>
+                                            <input type="date" name="tan_no" id="tan_no" class="form-control" tabindex="1" required>
+                                        </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Number/Percent of Share</label>
                                             <label class="mandat_symbol">*</label>
@@ -556,73 +564,230 @@
                         </div>                        
                     </div>
                 </div>                                    
-                <div id="docs" class="tab-pane fade">
+                <div id="docs" class="tab-pane fade">                   
                     <div class="row">
-                        <div class="col-sm-4 mb-1">
-                            <label>Doc Type</label>
+                        <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Doc Type</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Upload</label>
+                        <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Doc No.</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Files</label>
+                        <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Upload</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Land Documents</label>
+                        <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Files</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
+                            <label>PAN No.</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" id="pan_no" class="form-control"/> 
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
                         </div>
-                        <div class="col-sm-4 mb-1">
+                        <div class="col-sm-3 mb-1">
                             <div id="landDocs" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Agreements</label>
+                        <div class="col-sm-3 mb-1">
+                            <label>TAN No.</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateList('agreements_doc', 'agreementsDoc', true)"/>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" id="pan_no" class="form-control"/> 
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <div id="agreementsDoc" class="filesList">
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <div id="landDocs" class="filesList">
+                                <ul></ul>
+                            </div>
+                        </div>    
+                        <div class="col-sm-3 mb-1">
+                            <label>GSTIN No.</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" id="pan_no" class="form-control"/> 
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <div id="landDocs" class="filesList">
                                 <ul></ul>
                             </div>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Power of Attorney</label>
+                    </div>           
+                    <div class="Proprietorship row" style="display: none;">
+                        <div class="col-sm-3 mb-1">
+                            <label>Aadhar No.</label>
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="pow" id="pow" class="file" onchange="updateList('pow', 'Pow', true)"/>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" id="pan_no" class="form-control"/> 
                         </div>
-                        <div class="col-sm-4 mb-1">
-                            <div id="Pow" class="filesList">
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <div id="landDocs" class="filesList">
                                 <ul></ul>
                             </div>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>Development Authority Approval</label>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="dev_auth_approval" id="dev_auth_approval" class="file" onchange="updateList('dev_auth_approval', 'devAuthApproval', true)"/>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <div id="devAuthApproval" class="filesList">
-                                <ul></ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <label>RERA Certificate</label>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="rera_certificate" id="rera_certificate" class="file" onchange="updateList('rera_certificate', 'reraCertificate', true)"/>
-                        </div>
-                        <div class="col-sm-4 mb-1">
-                            <div id="reraCertificate" class="filesList">
-                                <ul></ul>
+                        </div>    
+                    </div>
+                    <div class="Partnership_LLP" style="display: none;">
+                        <div class="partner's_docs">
+                            <label style="font-weight: bold;">Partner 1</label>
+                            <div class="row">
+                                <div class="col-sm-3 mb-1">
+                                    <label>PAN No.</label>
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <input type="text" id="pan_no" class="form-control"/> 
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <div id="landDocs" class="filesList">
+                                        <ul></ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <label>Aadhar No.</label>
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <input type="text" id="pan_no" class="form-control"/> 
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                </div>
+                                <div class="col-sm-3 mb-1">
+                                    <div id="landDocs" class="filesList">
+                                        <ul></ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="Private_Limited_Company" style="display: none;">
+                        <div class="row">
+                            <div class="col-sm-3 mb-1">
+                                <label>CIN No.</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <input type="text" id="pan_no" class="form-control"/> 
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <div id="landDocs" class="filesList">
+                                    <ul></ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="director's_docs">
+                                <label style="font-weight: bold;">Director 1</label>
+                                <div class="row">
+                                    <div class="col-sm-3 mb-1">
+                                        <label>PAN No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>Aadhar No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>DIN No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="promoter's_docs">
+                                <label style="font-weight: bold;">Promoter 1</label>
+                                <div class="row">
+                                    <div class="col-sm-3 mb-1">
+                                        <label>PAN No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>Aadhar No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <label>DIN No.</label>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="text" id="pan_no" class="form-control"/> 
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <input type="file" multiple name="land_docs" id="land_docs" class="file" onchange="updateList('land_docs', 'landDocs', true)"/>
+                                    </div>
+                                    <div class="col-sm-3 mb-1">
+                                        <div id="landDocs" class="filesList">
+                                            <ul></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                         
                     <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
                     </form>
                 </div>
@@ -660,62 +825,61 @@
 function showLegalDetails(e){
     constitution = e.target.value;
     if(constitution == "PROPRIETORSHIP"){
-        $(".Proprietorship").show();
+        $(".Proprietorship").show();        
+        $(".Partnership_LLP").hide();
         $(".Private_Limited_Company").hide();
-        $(".Partnership_LLP").hide();
-    } else if(constitution == "PRIVATE LIMITED COMPANY"){
-        $(".Proprietorship").hide();
-        $(".Private_Limited_Company").show();
-        $(".Partnership_LLP").hide();
+        
+        $("#details_tab").text("Proprietor's Details")
+
     } else if(constitution == "PARTNERSHIP" || constitution == "LLP"){
-        $(".Proprietorship").hide();
-        $(".Private_Limited_Company").hide();
+        $(".Proprietorship").hide();        
         $(".Partnership_LLP").show();
+        $(".Private_Limited_Company").hide();
+
+        $("#details_tab").text("Partner's Details")
+    
+    } else if(constitution == "PRIVATE LIMITED COMPANY"){
+        $(".Proprietorship").hide();        
+        $(".Partnership_LLP").hide();
+        $(".Private_Limited_Company").show();
+
+        $("#details_tab").text("Director's Details")
     }
 }
 
-function clonePartnerDetails(){
-    var no_partners = Number($("#no_partners").val());
-    var no_divs = document.getElementsByClassName("partner's_details").length;
-    for(var i=1; i< (no_partners - no_divs + 1); i++){
-        var div = document.getElementsByClassName("partner's_details")[0],
-            clone = div.cloneNode(true); 
-        clone.firstElementChild.innerText = "Partner " + (i + 1);    
-        div.parentElement.appendChild(clone);
-    }
+function cloneDetails(id, classList){
+    classList.forEach ((className) =>
+    {
+        var no_partners = Number($("#"+ id).val());
+        var no_divs = document.getElementsByClassName(className).length;
+        for(var i=1; i< (no_partners - no_divs + 1); i++){
+            var div = document.getElementsByClassName(className)[0],
+                clone = div.cloneNode(true);
+            
+            if(className.includes("partner")){
+                text = "Partner "
+            } else if(className.includes("director")){
+                text = "Director "
+            } else if(className.includes("promoter")){
+                text = "Promoter "
+            }
 
-    if(no_partners < no_divs){
-        var n = no_divs - no_partners;
-        var length = no_partners + n;
+            clone.firstElementChild.innerText = text + (i + 1);    
+            div.parentElement.appendChild(clone);
+        }
 
-        divs = document.getElementsByClassName("partner's_details");
-        var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
-        for(var i = no_partners; i < length; i++){
-            result[i][1].remove();
-        }         
-    }
-}
+        if(no_partners < no_divs){
+            var n = no_divs - no_partners;
+            var length = no_partners + n;
 
-function cloneDetails(id, className){
-    var no_partners = Number($("#"+ id).val());
-    var no_divs = document.getElementsByClassName(className).length;
-    for(var i=1; i< (no_partners - no_divs + 1); i++){
-        var div = document.getElementsByClassName(className)[0],
-            clone = div.cloneNode(true); 
-        clone.firstElementChild.innerText = "Partner " + (i + 1);    
-        div.parentElement.appendChild(clone);
-    }
+            divs = document.getElementsByClassName(className);
+            var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
+            for(var i = no_partners; i < length; i++){
+                result[i][1].remove();
+            }         
+        }
 
-    if(no_partners < no_divs){
-        var n = no_divs - no_partners;
-        var length = no_partners + n;
-
-        divs = document.getElementsByClassName(className);
-        var result = Object.keys(divs).map((key) => [Number(key), divs[key]]);
-        for(var i = no_partners; i < length; i++){
-            result[i][1].remove();
-        }         
-    }
+    });
 }
 
 function formValidation(){

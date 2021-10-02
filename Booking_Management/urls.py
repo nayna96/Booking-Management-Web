@@ -55,10 +55,10 @@ urlpatterns = [
     path('user_master', views.user_master, name='user_master'),
 
     #load data
-    path('load-blocks/$', views.load_blocks, name='load_blocks'),
+    re_path('load-blocks/$', views.load_blocks, name='load_blocks'),
     path('load-blocks/<str:project_name>', views.load_blocks, name='load_blocks'),
 
-    path('load-floors/$', views.load_floors, name='load_floors'),
+    re_path('load-floors/$', views.load_floors, name='load_floors'),
     path('load-floors/<str:project_name>/<str:block_name>', views.load_floors, name='load_floors'),
     
     #download file
