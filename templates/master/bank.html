@@ -16,14 +16,14 @@
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                    <button class="nav-link active" data-toggle="tab" href="#bank_info" type="button" role="tab" aria-selected="true">Project</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="project_info" class="tab-pane fade in active show">
+                <div id="bank_info" class="tab-pane fade in active show">
                     <form method="POST" id="form" enctype="multipart/form-data">
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
@@ -79,26 +79,26 @@
                             <div class="col-sm-2 mb-1">
                                 <label>Short Bank Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="short_bank_name" id="short_bank_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="short_bank_name" id="short_bank_name" class="allstring form-control" tabindex="2" required>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Branch</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="branch" id="branch" class="allcaps form-control" tabindex="2" required>
+                                <input type="text" name="branch" id="branch" class="allstring form-control" tabindex="3" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Address</label>
-                                <input type="text" name="address" id="address" class="allcaps form-control" tabindex="3">
+                                <input type="text" name="address" id="address" class="allcaps form-control" tabindex="4">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Pin code</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pin_code" id="pin_code" maxlength="6" class="allnums form-control" tabindex="7" required>
+                                <input type="text" name="pin_code" id="pin_code" maxlength="6" class="allnums form-control" tabindex="5" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Branch Manager</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="branch_manager" id="branch_manager" class="allstring form-control" tabindex="7" required>
+                                <input type="text" name="branch_manager" id="branch_manager" class="allstring form-control" tabindex="6" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Mobile No</label>
@@ -108,22 +108,22 @@
                             <div class="col-sm-3 mb-1">
                                 <label>Contact Person</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="contact_person" id="contact_person" class="allstring form-control" tabindex="7" required>
+                                <input type="text" name="contact_person" id="contact_person" class="allstring form-control" tabindex="8" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Mobile No</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="contact_person_phno" id="contact_person_phno" maxlength="10" class="allnums form-control" tabindex="7" required>
+                                <input type="text" name="contact_person_phno" id="contact_person_phno" maxlength="10" class="allnums form-control" tabindex="9" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>IFSC Code</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="ifsc_code" id="ifsc_code" class="allcaps form-control" tabindex="7" required>
+                                <input type="text" name="ifsc_code" id="ifsc_code" class="allcaps form-control" tabindex="10" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Rate of Interest</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="rate_of_interest" id="rate_of_interest" class="allnums form-control" tabindex="7" required>
+                                <input type="text" name="rate_of_interest" id="rate_of_interest" class="allnums form-control" tabindex="11" required>
                             </div>
                         </div>							
                     </div>
