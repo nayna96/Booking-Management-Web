@@ -150,22 +150,32 @@
     </div>
 </div>
 
-<table id="fancyTable" class="table table-striped fancyTable">
+<table id="fancyTable" class="table fancyTable">
     <thead>
         <tr>
             <th>PROJECT</th>
-            <th>No. of blocks</th>
+            <th>NO. OF BLOCKS</th>
+            <th>BLOCK NAME</th>
+            <th>NO. OF FLOORS</th>
+            <th>FLOOR NO.</th>
+            <th>NO. OF FLATS</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for block in blockDetails %}
-        <tr>
-            <td>{{block.project_name}}</td>
-            <td>{{block.no_blocks}}</td>
-            <td><a class="btn btn-primary" onclick="showBlockData('/block_master/{{block.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
-            <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
-        </tr>
+            {% for el in block.blocks %}
+            <tr>
+                <td>{{block.project_name}}</td>
+                <td>{{block.no_blocks}}</td>
+                <td>{{ el.block_name }}</td>
+                <td>{{ el.no_floors }}</td>
+                <td>{{ el.floor_no }}</td>
+                <td>{{ el.no_flats }}</td>
+                <td><a class="btn btn-primary" onclick="showBlockData('/block_master/{{block.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
+                <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
+            </tr>
+            {% endfor %}
         {% endfor %}
     </tbody>
 </table>

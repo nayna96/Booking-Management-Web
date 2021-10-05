@@ -1,6 +1,6 @@
 from . import db
 
-def getProjectData(_id, **kwargs):
+def getProjectData(_id=None, **kwargs):
     id = db.getNextId("Master", "Project")
     doc = {}
     doc["_id"] = "P" + str(id) if len(_id) == 0 else _id
@@ -67,10 +67,63 @@ def getProjectData(_id, **kwargs):
     return [doc, files]    
 
 def getBlockData(_id=None, **kwargs):
-    pass
+    project_name = kwargs["request"].POST.get("project_name")
+    p_id = db.getProjectByName(project_name)["_id"]
+
+    doc = {}
+    doc["_id"] = p_id + "B" if len(_id) == 0 else _id
+    doc["project_name"] = project_name
+    doc["no_blocks"] = kwargs["request"].POST.get("no_blocks")
+
+    n = int(kwargs["request"].POST.get("fs1-fields"))
+    blocks = []
+    for i in range(n):
+        dt = {
+            "block_name": kwargs["request"].POST.get("fs1-" + str(i) + "-block_name"),
+            "no_floors": kwargs["request"].POST.get("fs1-" + str(i) + "-no_floors"),
+            "floor_no": kwargs["request"].POST.get("fs1-" + str(i) + "-floor_no"),
+            "no_flats": kwargs["request"].POST.get("fs1-" + str(i) + "-no_flats")
+        }
+        blocks.append(dt)
+    doc["blocks"] = blocks
+
+    files = {}
+
+    return [doc, files]
 
 def getFlatData(_id=None, **kwargs):
-    pass
+    project_name = kwargs["request"].POST.get("project_name")
+    p_id = db.getProjectByName(project_name)["_id"]
+
+    block_name = kwargs["request"].POST.get("block_name")
+    floor_no = kwargs["request"].POST.get("floor_no")
+
+    doc = {}
+    doc["_id"] =  p_id + "_" + block_name + "_" + floor_no + "F" if len(_id) == 0 else _id
+    doc["project_name"] = project_name
+    doc["block_name"] = block_name
+    doc["floor_no"] = floor_no
+
+    n = int(kwargs["request"].POST.get("fs1-fields"))
+    flats = []
+    for i in range(n):
+        dt = {
+            "flat_no": kwargs["request"].POST.get("fs1-" + str(i) + "-flat_no"),
+            "flat_type": kwargs["request"].POST.get("fs1-" + str(i) + "-flat_type"),
+            "ownership_status": kwargs["request"].POST.get("fs1-" + str(i) + "-ownership_status"),
+            "flat_status": kwargs["request"].POST.get("fs1-" + str(i) + "-flat_status"),
+            "carpet_area": kwargs["request"].POST.get("fs1-" + str(i) + "-carpet_area"),
+            "builtup_area": kwargs["request"].POST.get("fs1-" + str(i) + "-builtup_area"),
+            "superbuiltup_area": kwargs["request"].POST.get("fs1-" + str(i) + "-superbuiltup_area"),
+            "parking_no": kwargs["request"].POST.get("fs1-" + str(i) + "-parking_no"),
+            "parking_area": kwargs["request"].POST.get("fs1-" + str(i) + "-parking_area")
+        }                            
+        flats.append(dt)
+    doc["flats"] = flats
+
+    files = {}
+
+    return [doc, files]
 
 def getCustomerData(_id=None, **kwargs):
     id = db.getNextId("Master", "Customer")
@@ -155,16 +208,108 @@ def getCustomerData(_id=None, **kwargs):
 
     return [doc, files]
 
-def getBankData(_id=None, **kwargs):
+def getBankData(_id=None, approved_projects=None, **kwargs):
     id = db.getNextId("Master", "Bank")
     doc = {}
-    doc["_id"] = "B" + str(id) if _id == None else _id   
+    doc["_id"] = "B" + str(id) if _id == None else _id
+    doc["bank_name"] =kwargs["request"].POST.get("bank_name")
+    doc["short_bank_name"] = kwargs["request"].POST.get("short_bank_name")
+    doc["branch"] = kwargs["request"].POST.get("branch")
+    doc["address"] = kwargs["request"].POST.get("address")
+    doc["pin_code"] = kwargs["request"].POST.get("pin_code")
+    doc["branch_manager"] = kwargs["request"].POST.get("branch_manager")
+    doc["branch_manager_phno"] = kwargs["request"].POST.get("branch_manager_phno")
+    doc["contact_person"] = kwargs["request"].POST.get("contact_person")
+    doc["contact_person_phno"] = kwargs["request"].POST.get("contact_person_phno")
+    doc["ifsc_code"] = kwargs["request"].POST.get("ifsc_code")
+    doc["rate_of_interest"] = kwargs["request"].POST.get("rate_of_interest")
+    doc["approved_projects"] = approved_projects if approved_projects != None else {}
+
+    list_docs = kwargs["request"].FILES.getlist("list_docs")
+    agreements_doc = kwargs["request"].FILES.getlist("agreements_doc")
+
+    files = {
+        "list_docs": list_docs, 
+        "agreements_doc": agreements_doc
+    }
+
+    return [doc, files]   
 
 def getBookingEntry(_id=None, **kwargs):
-    pass
+    doc = {}
+    reference_id = kwargs["request"].POST.get("reference_id")
+    doc["_id"] = reference_id if _id == None else _id
+    doc["booking_date"] = kwargs["request"].POST.get("booking_date") 
+    doc["customer_name"] = kwargs["request"].POST.get("customer_name") 
+    doc["landowner_company_share"] = kwargs["request"].POST.get("landowner_company_share") 
+    doc["project_name"] = kwargs["request"].POST.get("project_name") 
+    doc["block_name"] = kwargs["request"].POST.get("block_name") 
+    doc["floor_no"] = kwargs["request"].POST.get("floor_no") 
+    doc["flat_no"] = kwargs["request"].POST.get("flat_no") 
+    doc["flat_condn"] = kwargs["request"].POST.get("flat_condn")
+    doc["sellable_area"] = kwargs["request"].POST.get("sellable_area")
+    doc["sellable_area_rate"] = kwargs["request"].POST.get("sellable_area_rate")
+    doc["sellable_area_amount"] = kwargs["request"].POST.get("sellable_area_amount")
+    doc["car_parking_chgs"] = kwargs["request"].POST.get("car_parking_chgs")
+    doc["dg_chgs"] = kwargs["request"].POST.get("dg_chgs")
+    doc["trans_substation_chgs"] = kwargs["request"].POST.get("trans_substation_chgs")
+    doc["discount"] = kwargs["request"].POST.get("discount")
+    doc["cash_discount"] = kwargs["request"].POST.get("cash_discount")
+    doc["add_gst_pct"] = kwargs["request"].POST.get("add_gst_pct")
+
+    n = int(kwargs["request"].POST.get("fs1-fields"))
+    payment_details = []
+    for i in range(n):
+        dt = {
+            "payment_date": kwargs["request"].POST.get("fs1-" + str(i) + "-payment_date"),
+            "payment_mode": kwargs["request"].POST.get("fs1-" + str(i) + "-payment_mode"),
+            "payment_details": kwargs["request"].POST.get("fs1-" + str(i) + "-payment_details"),
+            "bank_name": kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name"),
+            "amount": kwargs["request"].POST.get("fs1-" + str(i) + "-amount")
+        }
+        payment_details.append(dt)
+    doc["payment_details"] = payment_details
+    
+    doc["less_booking_amount"] = kwargs["request"].POST.get("less_booking_amount")
+
+    files = {}
+
+    return [doc, files]
 
 def getCustomerRequest(_id=None, **kwargs):
-    pass
+    id = db.getNextId("Master", "Project")
+    doc = {}
+    doc["_id"] = "P" + str(id) if len(_id) == 0 else _id
+    doc["request_date"] = kwargs["request"].POST.get("request_date")
+    doc["customer_salutation"] = kwargs["request"].POST.get("customer_salutation")
+    doc["customer_fname"] = kwargs["request"].POST.get("customer_fname")
+    doc["customer_mname"] = kwargs["request"].POST.get("customer_mname")
+    doc["customer_lname"] = kwargs["request"].POST.get("customer_lname")
+    doc["customer_dob"] = kwargs["request"].POST.get("customer_dob")
+    doc["customer_gender"] = kwargs["request"].POST.get("customer_gender")
+    doc["mobile_no"] = kwargs["request"].POST.get("mobile_no")
+    doc["whatsapp_no"] = kwargs["request"].POST.get("whatsapp_no")
+    doc["email"] = kwargs["request"].POST.get("email")
+    doc["occupation"] = kwargs["request"].POST.get("occupation")
+    doc["contact_p_salutation"] = kwargs["request"].POST.get("contact_p_salutation")
+    doc["contact_p_name"] = kwargs["request"].POST.get("contact_p_name")
+    doc["contact_p_phone_no"] = kwargs["request"].POST.get("contact_p_phone_no")
+    doc["pr_addLine1"] = kwargs["request"].POST.get("pr_addLine1")
+    doc["pr_addLine2"] = kwargs["request"].POST.get("pr_addLine2")
+    doc["pr_city"] = kwargs["request"].POST.get("pr_city")
+    doc["pr_state"] = kwargs["request"].POST.get("pr_state")
+    doc["pr_pincode"] = kwargs["request"].POST.get("pr_pincode")
+    doc["project_name"] = kwargs["request"].POST.get("project_name")
+    doc["block_name"] = kwargs["request"].POST.get("block_name")
+    doc["floor_no"] = kwargs["request"].POST.get("floor_no")
+    doc["flat_no"] = kwargs["request"].POST.get("flat_no")
+    doc["to_be_hold_days"] = kwargs["request"].POST.get("to_be_hold_days")
+    doc["status"] = kwargs["request"].POST.get("status")
+    doc["reason_of_unhold"] = kwargs["request"].POST.get("reason_of_unhold")
+
+    files = {}
+
+    return [doc, files]
 
 def getUserData(_id=None, **kwargs):
     id = db.getNextId("Settings", "UserMaster")
@@ -176,4 +321,6 @@ def getUserData(_id=None, **kwargs):
     doc["full_name"] = kwargs["request"].POST.get("ful_name")
     doc["designation"] = kwargs["request"].POST.get("designation")
 
-    return doc
+    files = {}
+
+    return [doc, files]

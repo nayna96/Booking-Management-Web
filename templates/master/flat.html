@@ -197,24 +197,32 @@
     </div>
 </div>
 
-<table id="fancyTable" class="table table-striped fancyTable">
+<table id="fancyTable" class="table fancyTable">
     <thead>
         <tr>
             <th>PROJECT</th>
             <th>BLOCK NAME</th>
-            <th>FLOOR NO</th>
+            <th>FLOOR NO.</th>
+            <th>FLAT NO.</th>
+            <th>FLAT TYPE</th>
+            <th>FLAT STATUS</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for flat in flatDetails %}
-        <tr>
-            <td>{{ flat.project_name }}</td>
-            <td>{{ flat.block_name }}</td>
-            <td>{{ flat.floor_no }}</td>
+            {% for el in flat.flats %}
+            <tr>
+                <td>{{ flat.project_name }}</td>
+                <td>{{ flat.block_name }}</td>
+                <td>{{ flat.floor_no }}</td>            
+                <td>{{ el.flat_no }}</td>
+                <td>{{ el.flat_type }}</td>
+                <td>{{ el.flat_status }}</td>
             <td><a class="btn btn-primary" onclick="showFlatData('/flat_master/{{flat.project_name}}/{{ flat.block_name }}/{{ flat.floor_no }}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
+            {% endfor %}
         {% endfor %}
     </tbody>
 </table>

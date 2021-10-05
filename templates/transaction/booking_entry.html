@@ -360,19 +360,24 @@
     </div>
 </div>
 
-<table id="fancyTable" class="table table-striped fancyTable">
+<table id="fancyTable" class="table fancyTable">
     <thead>
         <tr>
             <th>REFERENCE ID</th>
+            <th>CUTOMER NAME</th>
+            <th>PROJECT NAME</th>
+            <th>FLAT NO.</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for entry in entries %}
         <tr>
-            <td>
-            </td>
-            <td><a class="btn btn-primary" onclick="showBookingEntry('/booking_entry/{{entry.reference_id}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td></td>
+            <td>{{ entry.customer_name }}</td>
+            <td>{{ entry.project_name }}</td>
+            <td>{{ entry.flat_no }}</td>
+            <td><a class="btn btn-primary" onclick="showBookingEntry('/booking_entry/{{entry.id}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}

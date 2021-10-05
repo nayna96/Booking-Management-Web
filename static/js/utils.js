@@ -261,6 +261,20 @@ function showBankData(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedBankDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("bank_name").value = response["selectedBankDetails"]["bank_name"];
+        document.getElementById("short_bank_name").value = response["selectedBankDetails"]["short_bank_name"];
+        document.getElementById("branch").value = response["selectedBankDetails"]["branch"];
+        document.getElementById("address").value = response["selectedBankDetails"]["address"];
+        document.getElementById("pin_code").value = response["selectedBankDetails"]["pin_code"];
+        document.getElementById("branch_manager").value = response["selectedBankDetails"]["branch_manager"];
+        document.getElementById("branch_manager_phno").value = response["selectedBankDetails"]["branch_manager_phno"];
+        document.getElementById("contact_person").value = response["selectedBankDetails"]["contact_person"];
+        document.getElementById("contact_person_phno").value = response["selectedBankDetails"]["contact_person_phno"];
+        document.getElementById("ifsc_code").value = response["selectedBankDetails"]["ifsc_code"];
+        document.getElementById("rate_of_interest").value = response["selectedBankDetails"]["rate_of_interest"];
+        document.getElementById("").value = response["selectedBankDetails"][""];
       },
       error: function(error) {
         console.log(error)
@@ -278,6 +292,46 @@ function showBookingEntry(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedBookingEntry"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("booking_date").value = response["selectedBookingEntry"]["booking_date"];
+        document.getElementById("customer_name").value = response["selectedBookingEntry"]["customer_name"];
+        document.getElementById("landowner_company_share").value = response["selectedBookingEntry"]["landowner_company_share"];
+        document.getElementById("project_name").value = response["selectedBookingEntry"]["project_name"];
+        document.getElementById("block_name").value = response["selectedBookingEntry"]["block_name"];
+        document.getElementById("floor_no").value = response["selectedBookingEntry"]["floor_no"];
+        document.getElementById("flat_no").value = response["selectedBookingEntry"]["flat_no"];
+        document.getElementById("flat_condn").value = response["selectedBookingEntry"]["flat_condn"];
+        document.getElementById("sellable_area").value = response["selectedBookingEntry"]["sellable_area"];
+        document.getElementById("sellable_area_rate").value = response["selectedBookingEntry"]["sellable_area_rate"];
+        document.getElementById("sellable_area_amount").value = response["selectedBookingEntry"]["sellable_area_amount"];
+        document.getElementById("car_parking_chgs").value = response["selectedBookingEntry"]["car_parking_chgs"];
+        document.getElementById("dg_chgs").value = response["selectedBookingEntry"]["dg_chgs"];
+        document.getElementById("trans_substation_chgs").value = response["selectedBookingEntry"]["trans_substation_chgs"];
+        document.getElementById("discount").value = response["selectedBookingEntry"]["discount"];
+        document.getElementById("cash_discount").value = response["selectedBookingEntry"]["cash_discount"];
+        document.getElementById("add_gst_pct").value = response["selectedBookingEntry"]["add_gst_pct"];
+
+        //PAYMENT DETAILS
+        payment_details = response["selectedBookingEntry"]["payment_details"];
+        var length = document.getElementsByClassName("fs1").length;
+        $("#fs1-fields").val(length);
+
+        for(var i=0; i< payment_details.length -1; i++){
+          if(length != payment_details.length){          
+            addRow("fs1");
+          }
+        }
+        
+        for(var i=0; i<payment_details.length; i++){          
+          $("#fs1-" + i + "-payment_date").val(payment_details[i]["payment_date"]);
+          $("#fs1-" + i + "-payment_mode").val(payment_details[i]["payment_mode"]);
+          $("#fs1-" + i + "-payment_details").val(payment_details[i]["payment_details"]);
+          $("#fs1-" + i + "-bank_name").val(payment_details[i]["bank_name"]);
+          $("#fs1-" + i + "-amount").val(payment_details[i]["amount"]);
+        }
+
+        document.getElementById("less_booking_amount").value = response["selectedBookingEntry"]["less_booking_amount"];
       },
       error: function(error) {
         console.log(error)
@@ -295,6 +349,34 @@ function showCustomerRequest(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedCustomerRequest"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("request_date").value = response["selectedCustomerRequest"]["request_date"];
+        document.getElementById("customer_salutation").value = response["selectedCustomerRequest"]["customer_salutation"];
+        document.getElementById("customer_fname").value = response["selectedCustomerRequest"]["customer_fname"];
+        document.getElementById("customer_mname").value = response["selectedCustomerRequest"]["customer_mname"];
+        document.getElementById("customer_lname").value = response["selectedCustomerRequest"]["customer_lname"];
+        document.getElementById("customer_dob").value = response["selectedCustomerRequest"]["customer_dob"];
+        document.getElementById("customer_gender").value = response["selectedCustomerRequest"]["customer_gender"];
+        document.getElementById("mobile_no").value = response["selectedCustomerRequest"]["mobile_no"];
+        document.getElementById("whatsapp_no").value = response["selectedCustomerRequest"]["whatsapp_no"];
+        document.getElementById("email").value = response["selectedCustomerRequest"]["email"];
+        document.getElementById("occupation").value = response["selectedCustomerRequest"]["occupation"];
+        document.getElementById("contact_p_salutation").value = response["selectedCustomerRequest"]["contact_p_salutation"];
+        document.getElementById("contact_p_name").value = response["selectedCustomerRequest"]["contact_p_name"];
+        document.getElementById("contact_p_phone_no").value = response["selectedCustomerRequest"]["contact_p_phone_no"];
+        document.getElementById("pr_addLine1").value = response["selectedCustomerRequest"]["pr_addLine1"];
+        document.getElementById("pr_addLine2").value = response["selectedCustomerRequest"]["pr_addLine2"];
+        document.getElementById("pr_city").value = response["selectedCustomerRequest"]["pr_city"];
+        document.getElementById("pr_state").value = response["selectedCustomerRequest"]["pr_state"];
+        document.getElementById("pr_pincode").value = response["selectedCustomerRequest"]["pr_pincode"];
+        document.getElementById("project_name").value = response["selectedCustomerRequest"]["project_name"];
+        document.getElementById("block_name").value = response["selectedCustomerRequest"]["block_name"];
+        document.getElementById("floor_no").value = response["selectedCustomerRequest"]["floor_no"];
+        document.getElementById("flat_no").value = response["selectedCustomerRequest"]["flat_no"];
+        document.getElementById("to_be_hold_days").value = response["selectedCustomerRequest"]["to_be_hold_days"];
+        document.getElementById("status").value = response["selectedCustomerRequest"]["status"];
+        document.getElementById("reason_of_unhold").value = response["selectedCustomerRequest"]["reason_of_unhold"];
       },
       error: function(error) {
         console.log(error)

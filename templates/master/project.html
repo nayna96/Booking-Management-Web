@@ -112,7 +112,6 @@
                             <div class="row">
                                 <div class="col-sm-2 mb-1">
                                     Approved Banks
-                                    <label class="mandat_symbol">*</label> 
                                 </div>
                             </div>
                             <div class="row">
@@ -123,7 +122,12 @@
                             <div>  
                                 <div class="row fs1" id="fs1-0">
                                     <div class="col-sm-2 mb-1">
-                                        <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="8">
+                                        <select name="fs1-0-bank_name" class="form-control" id="fs1-0-bank_name" tabindex="8">
+                                            <option value="" selected>-- Select --</option>
+                                        {% for bank in banks_list %}
+                                            <option>{{ bank }}</option>
+                                        {% endfor %}
+                                        </select>
                                     </div>
                                     <div class="col-sm-1 mb-1">                                                                
                                         <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -139,7 +143,7 @@
                     <div id="projectStatus" class="w3-show">
                         <div class="row">
                             <div class="col-sm-3 mb-1">                                
-                                <input type="radio" id="company_project" name="project_status" tabindex="9" value="Company Project" onclick="showSharePct(false)"/>
+                                <input type="radio" id="company_project" name="project_status" tabindex="9" value="Company Project" required onclick="showSharePct(false)"/>
                                 <label for="company_project">Company Project</label>
                             </div>
                             <div class="col-sm-3 mb-1">
@@ -358,7 +362,7 @@
     </div>
 </div>
 
-<table id="fancyTable" class="table table-striped fancyTable">
+<table id="fancyTable" class="table fancyTable">
     <thead>
         <tr>
             <th>PROJECT</th>
@@ -527,12 +531,25 @@ function totalArea(){
 
 function formValidation(){
     if(!requiredValidation()){
-        return false
+        return false;
     }
 
     if($("#pin").val().length < 6){
         alert("Please enter  a valid pin code!");
         return false;
+    }
+
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "project_name": $("#project_name").val() }
+        ]
+
+        ifExists("Master", "Project", dt).done(function(response){
+            if(response["result"]){
+                alert("Data for this project already exists!")
+                return false;
+            }
+        });
     }
 
     alert("Data saved sucessfully!");

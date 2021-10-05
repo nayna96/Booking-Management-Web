@@ -95,6 +95,20 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
+function ifExists(db_name, collection_name, dt){
+  dt = JSON.stringify(dt)
+  return $.ajax({      
+    url: "/ifexists/" + db_name + "/" + collection_name + "/" + dt,
+    async: false,
+    success: function(response){
+      
+    }, 
+    error: function(error) {
+      console.log(error)
+    }
+  });
+}
+
 function requiredValidation(){
   var requiredElements = document.getElementById("form").querySelectorAll("[required]");
 

@@ -60,7 +60,10 @@ urlpatterns = [
 
     re_path('load-floors/$', views.load_floors, name='load_floors'),
     path('load-floors/<str:project_name>/<str:block_name>', views.load_floors, name='load_floors'),
-    
+
+    #ifexistsdoc
+    path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
+
     #download file
-    path('view/<str:dbName>/<str:fileName>', views.view_file, name='view_file')
+    path('view/<str:db_name>/<str:file_name>', views.view_file, name='view_file')
 ]

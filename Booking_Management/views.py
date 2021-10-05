@@ -26,8 +26,21 @@ def organisation_login(request):
         return render(request, 'index.html', {"organisation": organisation})
     return render(request, 'organisation_login.html')
 
-def view_file(request, dbName, fileName):
-    db.ViewFile(dbName, fileName)
+def ifExists(request, db_name, collection_name, dt):
+    response =  {
+        "result": False
+    }
+
+    dt = json.loads(dt)
+    if db.ifExistsDoc(db_name, collection_name, dt):
+        response =  {
+           "result": True
+        } 
+
+    return JsonResponse(response)
+
+def view_file(request, db_name, file_name):
+    db.ViewFile(db_name, file_name)
     return JsonResponse({})
 
 def load_blocks(request, project_name=None):
@@ -44,15 +57,17 @@ def load_floors(request, project_name=None, block_name=None):
 #master
 def project_master(request, project_name=None):
     projectDetails = db.getDetails("Master", "Project")
+    banks_list =  db.getBanksList()
 
     if request.is_ajax():
-        selectedProjectDetails = db.getProjectByName(project_name)
-        files = db.GetFilesByMetaData("Master", selectedProjectDetails["_id"])
-        response =  {
-            "selectedProjectDetails": selectedProjectDetails,
-            "files": json.loads(json_util.dumps(files))
-        }
-        return JsonResponse(response)
+        if project_name != None:
+            selectedProjectDetails = db.getProjectByName(project_name)
+            files = db.GetFilesByMetaData("Master", selectedProjectDetails["_id"])
+            response =  {
+                "selectedProjectDetails": selectedProjectDetails,
+                "files": json.loads(json_util.dumps(files))
+            }
+            return JsonResponse(response)
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
@@ -67,12 +82,13 @@ def project_master(request, project_name=None):
     
     return render(request, 'master/project.html', 
     {        
-        "projectDetails":projectDetails
+        "projectDetails":projectDetails,
+        "banks_list": banks_list
     })
     
 def block_master(request, project_name=None):
     blockDetails = db.getDetails("Master", "Block")
-    projects_list =  db.getProjects()
+    projects_list =  db.getProjectsList()
 
     if request.is_ajax():
         selectedBlockDetails = db.getBlockDetailsByProject(project_name)
@@ -102,7 +118,7 @@ def block_master(request, project_name=None):
 
 def flat_master(request, project_name=None, block_name=None, floor_no=None):
     flatDetails = db.getDetails("Master", "Flat")
-    projects_list =  db.getProjects("Master", "Block")
+    projects_list =  db.getProjectsList("Master", "Block")
 
     if request.is_ajax():
         selectedFlatDetails = db.getFlatDetailsByFloor(project_name, block_name, floor_no)
@@ -162,11 +178,59 @@ def customer_master(request, customer_name=None):
     })
 
 def bank_master(request, bank_name=None):
-    return render(request, 'master/bank.html')
+    bankDetails = db.getDetails("Master", "Bank")
+    
+    if request.is_ajax():
+        selectedBankDetails = db.getCustomerByName(bank_name)
+        files = db.GetFilesByMetaData("Master", selectedBankDetails["_id"])
+        response =  {
+            "selectedBankDetails": selectedBankDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+    
+    if request.method == "POST":
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getBankData(_id, 
+        request=request)
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Bank", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Bank", doc, files) 
+        return HttpResponseRedirect(request.path_info)
+        
+    return render(request, 'master/bank.html', 
+    {
+        "bankDetails":bankDetails
+    })
 
 #transaction
 def booking_entry(request, reference_id=None):
-    return render(request, 'transaction/booking_entry.html')
+    entries = db.getDetails("Transaction", "BookingEntry")
+    
+    if request.is_ajax():
+        selectedBookingEntry = db.getBookingEntryByReferenceId(reference_id)
+        files = db.GetFilesByMetaData("Transaction", selectedBookingEntry["_id"])
+        response =  {
+            "selectedBookingEntry": selectedBookingEntry,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+    
+    if request.method == "POST":
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getBookingEntries(_id, 
+        request=request)
+        if 'Save' in request.POST:
+            db.InsertData("Transaction", "Booking Entry", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Transaction", "Booking Entry", doc, files) 
+        return HttpResponseRedirect(request.path_info)
+        
+    return render(request, 'transaction/booking_entry.html', 
+    {
+        "entries":entries
+    })
 
 def customer_request(request, reference_id=None):    
     return render(request, 'transaction/customer_request.html')

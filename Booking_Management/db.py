@@ -9,21 +9,16 @@ try:
 except:
     pass
 
-def ifExistsDoc(db_name, collection_name, dt):
+def ifExistsDoc(db_name, collection_name, filters):
     db = client[db_name]
     collection = db[collection_name]
 
-    filters = []     
-    for k,v in dt.items():           
-        filter = { k : v }
-        filters.Add(filter)            
+    count = collection.find({"$and": filters}).count()
 
-        result = collection.find({"$and": filters})
-
-        if (result.Count() > 0):        
-            return True
+    if count > 0:
+        return True
             
-        return False
+    return False
         
 def getNextId(db_name, collection_name):
     db = client[db_name]
@@ -43,7 +38,7 @@ def getDetails(db_name, collection_name):
     return details
 
 #Project Master
-def getProjects(db_name="Master", collection_name="Project"):
+def getProjectsList(db_name="Master", collection_name="Project"):
     lst = []
 
     db = client[db_name]
@@ -258,6 +253,22 @@ def getCustomerByName(customer_name, db_name="Master", collection_name="Customer
     for document in documents:
         customerDetails.append(document)    
     return customerDetails[0]
+
+def getBanksList(db_name="Master", collection_name="Bank"):
+    lst = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {}
+    fields = {"bank_name":1, "_id":0}
+
+    documents = collection.find(filter, fields)
+
+    for document in documents:
+        lst.append(document["bank_name"])
+
+    return lst
 
 def InsertData(db_name, collection_name, doc, files):
     db = InsertDoc(db_name, collection_name, doc)

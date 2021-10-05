@@ -173,18 +173,27 @@
     </div>
 </div>
 
-<table id="fancyTable" class="table table-striped fancyTable">
+<table id="fancyTable" class="table fancyTable">
     <thead>
         <tr>
             <th>BANK</th>
+            <th>BRANCH</th>
+            <th>BRANCH MANAGER</th>
+            <th>MOBILE NO.</th>
+            <th>CONTACT PERSON</th>
+            <th>MOBILE NO.</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for bank in bankDetails %}
         <tr>
-            <td>
-            </td>
+            <td>{{ bank.bank_name }}</td>
+            <td>{{ bank.branch }}</td>
+            <td>{{ bank.branch_manager }}</td>
+            <td>{{ bank.branch_manager_phno }}</td>
+            <td>{{ bank.contact_person }}</td>
+            <td>{{ bank.contact_person_phno }}</td>
             <td><a class="btn btn-primary" onclick="showBankData('/bank_master/{{bank.bank_name}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
