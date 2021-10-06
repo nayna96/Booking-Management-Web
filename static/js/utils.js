@@ -274,7 +274,13 @@ function showBankData(_url){
         document.getElementById("contact_person_phno").value = response["selectedBankDetails"]["contact_person_phno"];
         document.getElementById("ifsc_code").value = response["selectedBankDetails"]["ifsc_code"];
         document.getElementById("rate_of_interest").value = response["selectedBankDetails"]["rate_of_interest"];
-        document.getElementById("").value = response["selectedBankDetails"][""];
+
+        projects = ""
+        approved_projects = response["selectedBankDetails"]["approved_projects"];
+        for (var i=0; i<approved_projects.length; i++){
+          projects += approved_projects[0]["name"] + ",";
+        }
+        document.getElementById("approved_projects").value = projects;
       },
       error: function(error) {
         console.log(error)

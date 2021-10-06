@@ -261,15 +261,59 @@ def getBanksList(db_name="Master", collection_name="Bank"):
     collection = db[collection_name]
 
     filter = {}
-    fields = {"bank_name":1, "_id":0}
+    fields = {"short_bank_name":1, "_id":0}
 
     documents = collection.find(filter, fields)
 
     for document in documents:
-        lst.append(document["bank_name"])
+        lst.append(document["short_bank_name"])
 
     return lst
 
+def getBankDetailsByName(bank_name, db_name="Master", collection_name="Bank"):
+    bankDetails = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "bank_name": bank_name }
+    documents = collection.find(filter)
+
+    for document in documents:
+        bankDetails.append(document)
+
+    return bankDetails[0]
+
+def updateBankDetails(approved_banks, project_name, 
+                        db_name = "Master", collection_name = "Bank"):        
+    db = client[db_name]
+    collection = db[collection_name]
+
+    #remove selected project from all banks
+    lst = list(collection.find({}))
+    for el in lst:
+        array = el["approved_projects"]            
+            
+        doc = { "name" : project_name }
+        if doc in array:    
+            array.remove(doc)
+
+        filter = { "bank_name": el["bank_name"] }
+        update = { "$set": { "approved_projects" : array } }
+        collection.update_one(filter, update)
+
+    #add project name in required bank
+    for approved_bank in approved_banks:
+        if len(approved_bank) > 0:
+            filter1 = { "short_bank_name" : approved_bank }
+            array1 = list(collection.find(filter1))[0]["approved_projects"]
+           
+            doc1 = { "name" : project_name }
+            array1.append(doc1)            
+            
+            update1 = { "$set": { "approved_projects" : array1 } }
+            collection.update_one(filter1, update1)    
+        
 def InsertData(db_name, collection_name, doc, files):
     db = InsertDoc(db_name, collection_name, doc)
     if files:

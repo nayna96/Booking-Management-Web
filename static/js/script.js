@@ -115,6 +115,23 @@ function requiredValidation(){
   var s = "";
   for (var i = 0; i < requiredElements.length; i++) {
     var e = requiredElements[i];
+
+    checked = false
+    if(e.type == "radio"){
+      el_name = e.name
+      els = $("input[name=" + el_name + "]")
+      for(var j = 0; j < els.length; j++){
+        if(els[j].checked == true){
+          checked = true;
+          break;
+        }
+      }
+      
+      if(checked == false){
+        s += "Please select either one of " +  el_name + "\n";
+      }
+    }
+
     s += e.value.length? "" : e.id + ": Not Filled" + "\n";
   }
 

@@ -74,10 +74,18 @@ def project_master(request, project_name=None):
         [doc, files] = utils.getProjectData(_id, 
         request=request)
 
+        #toRemoveFiles = new Dictionary<string, string>();
+
         if 'Save' in request.POST:
             db.InsertData("Master", "Project", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Master", "Project", doc, files) 
+            db.UpdateData("Master", "Project", doc, files)
+
+        project_name = doc["project_name"]
+        approved_banks = doc["approved_banks"]
+        approved_banks_lst = [bank['bank_name'] for bank in approved_banks]
+        db.updateBankDetails(approved_banks_lst, project_name)
+
         return HttpResponseRedirect(request.path_info)
     
     return render(request, 'master/project.html', 
@@ -181,7 +189,7 @@ def bank_master(request, bank_name=None):
     bankDetails = db.getDetails("Master", "Bank")
     
     if request.is_ajax():
-        selectedBankDetails = db.getCustomerByName(bank_name)
+        selectedBankDetails = db.getBankDetailsByName(bank_name)
         files = db.GetFilesByMetaData("Master", selectedBankDetails["_id"])
         response =  {
             "selectedBankDetails": selectedBankDetails,

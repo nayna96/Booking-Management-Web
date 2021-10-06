@@ -125,6 +125,10 @@
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="rate_of_interest" id="rate_of_interest" class="allnums form-control" tabindex="11" required>
                             </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Approved Projects</label>
+                                <input type="text" name="approved_projects" id="approved_projects" class="form-control" tabindex="12" disabled>
+                            </div>
                         </div>							
                     </div>
                 </div>
@@ -182,6 +186,7 @@
             <th>MOBILE NO.</th>
             <th>CONTACT PERSON</th>
             <th>MOBILE NO.</th>
+            <th>APPROVED PROJECTS</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
@@ -194,6 +199,11 @@
             <td>{{ bank.branch_manager_phno }}</td>
             <td>{{ bank.contact_person }}</td>
             <td>{{ bank.contact_person_phno }}</td>
+            <td>
+            {% for project in bank.approved_projects %}
+                {{ project.name }} ,
+            {% endfor %}
+            </td>
             <td><a class="btn btn-primary" onclick="showBankData('/bank_master/{{bank.bank_name}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
