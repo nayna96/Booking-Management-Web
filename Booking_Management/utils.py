@@ -128,7 +128,7 @@ def getFlatData(_id=None, **kwargs):
 def getCustomerData(_id=None, **kwargs):
     id = db.getNextId("Master", "Customer")
     doc = {}
-    doc["_id"] = "C" + str(id) if _id == None else _id     
+    doc["_id"] = "C" + str(id) if len(_id) == 0 else _id     
     doc["customer_salutation"] = kwargs["request"].POST.get("customer_salutation")
     doc["customer_fname"] = kwargs["request"].POST.get("customer_fname")
     doc["customer_mname"] = kwargs["request"].POST.get("customer_mname")
@@ -211,7 +211,7 @@ def getCustomerData(_id=None, **kwargs):
 def getBankData(_id=None, approved_projects=None, **kwargs):
     id = db.getNextId("Master", "Bank")
     doc = {}
-    doc["_id"] = "B" + str(id) if _id == None else _id
+    doc["_id"] = "B" + str(id) if len(_id) == 0 else _id
     doc["bank_name"] =kwargs["request"].POST.get("bank_name")
     doc["short_bank_name"] = kwargs["request"].POST.get("short_bank_name")
     doc["branch"] = kwargs["request"].POST.get("branch")
@@ -223,7 +223,7 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
     doc["contact_person_phno"] = kwargs["request"].POST.get("contact_person_phno")
     doc["ifsc_code"] = kwargs["request"].POST.get("ifsc_code")
     doc["rate_of_interest"] = kwargs["request"].POST.get("rate_of_interest")
-    doc["approved_projects"] = approved_projects if approved_projects != None else {}
+    doc["approved_projects"] = approved_projects if approved_projects != None else []
 
     list_docs = kwargs["request"].FILES.getlist("list_docs")
     agreements_doc = kwargs["request"].FILES.getlist("agreements_doc")
@@ -238,7 +238,7 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
 def getBookingEntry(_id=None, **kwargs):
     doc = {}
     reference_id = kwargs["request"].POST.get("reference_id")
-    doc["_id"] = reference_id if _id == None else _id
+    doc["_id"] = reference_id if len(_id) == 0 else _id
     doc["booking_date"] = kwargs["request"].POST.get("booking_date") 
     doc["customer_name"] = kwargs["request"].POST.get("customer_name") 
     doc["landowner_company_share"] = kwargs["request"].POST.get("landowner_company_share") 
@@ -314,7 +314,7 @@ def getCustomerRequest(_id=None, **kwargs):
 def getUserData(_id=None, **kwargs):
     id = db.getNextId("Settings", "UserMaster")
     doc = {}
-    doc["_id"] = "U" + str(id) if _id == None else _id
+    doc["_id"] = "U" + str(id) if len(_id) == 0 else _id
     doc["username"] = kwargs["request"].POST.get("username")
     doc["password"] = kwargs["request"].POST.get("password")
     doc["user_type"] = kwargs["request"].POST.get("user_type")

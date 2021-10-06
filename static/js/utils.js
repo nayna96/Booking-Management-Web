@@ -278,7 +278,7 @@ function showBankData(_url){
         projects = ""
         approved_projects = response["selectedBankDetails"]["approved_projects"];
         for (var i=0; i<approved_projects.length; i++){
-          projects += approved_projects[0]["name"] + ",";
+          projects += approved_projects[i]["name"] + ",";
         }
         document.getElementById("approved_projects").value = projects;
       },
