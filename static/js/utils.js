@@ -203,7 +203,12 @@ function showCustomerData(_url){
         document.getElementById("father_husband's_name").value = response["selectedCustomerDetails"]["father_husband's_name"];
         document.getElementById("relation").value = response["selectedCustomerDetails"]["relation"];
 
-        document.getElementById("copy_present").value = response["selectedCustomerDetails"]["copy_present"];
+        copy_present = response["selectedCustomerDetails"]["copy_present"];
+        if(copy_present == "copy_present"){
+          document.getElementById("copy_present").checked = true;
+        } else{
+          document.getElementById("copy_present").checked = false;
+        }
 
         document.getElementById("pr_addLine1").value = response["selectedCustomerDetails"]["pr_addLine1"];
         document.getElementById("pr_addLine2").value = response["selectedCustomerDetails"]["pr_addLine2"];

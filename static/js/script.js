@@ -68,7 +68,13 @@ function formatDate(dateString){
   if(dateParts.length == 1){
     dateParts = dateString.split("/");
   }
-  var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+
+  if(dateParts[2].length == 4){
+    var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+  } else{
+    var dateObj = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]); 
+  }
+  
   var dd = String(dateObj.getDate()).padStart(2, '0');
   var mm = String(dateObj.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = dateObj.getFullYear();

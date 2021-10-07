@@ -157,12 +157,12 @@
                             <div class="col-sm-4 mb-1">
                                 <label>Mobile No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="mobile_no" id="mobile_no" maxlength="10" tabindex="14" class="allnums form-control" required>
+                                <input type="text" name="mobile_no" id="mobile_no" maxlength="10" tabindex="14" onfocusout="copyMobileNo()" class="allnums form-control" required>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Whatsapp No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="whatsapp_no" id="whatsapp_no" maxlength="10" tabindex="15" class="allnums form-control" required>
+                                <input type="text" name="whatsapp_no" id="whatsapp_no" maxlength="10" tabindex="15" class="allnums form-control">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Father/Husband</label>
@@ -203,12 +203,9 @@
                             <div class="col-sm-3 mb-1">
                                 <label style="font-weight: bold;">Permanent Address</label>
                             </div>
-                            <div class="col-sm-3 mb-1" style="text-align: right;">                                
-                                <label for="copy_present">
-                                    <input type="checkbox" name="copy_present" value="copy Present Address" id="copy_present" onclick="copyPresentAddress()" tabindex="25">
-                                    Copy Present Address
-                                </label>
-                                
+                            <div class="col-sm-3 mb-1" style="text-align: right;">
+                                <input type="checkbox" id="copy_present" name="copy_present" tabindex="25" value="Copy Present Address" onclick="copyPresentAddress()">                                
+                                <label for="copy_present">Copy Present Address</label>                                
                             </div>
                             <div class="col-sm-6 mb-1">
                                 <label>Address Line 1</label>
@@ -392,6 +389,7 @@
                             <label>Account Type</label>
                             <label class="mandat_symbol">*</label>
                             <select required name="account_type" id="account_type" tabindex="3" class="form-control">
+                                <option value="" selected disabled>-- Select --</option>
                                 <option>SAVINGS</option>
                                 <option>CURRENT</option>
                                 <option>CASH CREDIT</option>
@@ -555,6 +553,10 @@ function setGender(e, id){
   }
 }
 
+function copyMobileNo(){
+    $("#whatsapp_no").val($("#mobile_no").val());
+}
+
 function copyPresentAddress(){
   var checkBox = document.getElementById("copy_present");
   if (checkBox.checked == true){
@@ -605,7 +607,7 @@ function formValidation(){
         return false;
     }
 
-    if($("#whatsapp_no").val().length < 10){
+    if($("#whatsapp_no").val().length > 0 && $("#whatsapp_no").val().length < 10){
         alert("Please enter  a valid customer whatsapp no.!");
         return false;
     }
@@ -650,6 +652,22 @@ function formValidation(){
     {
         alert("Please enter  a valid email!");
         return false;
+    }
+
+    // IF EXISTS
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "customer_fname": $("#customer_fname").val() },
+            { "customer_mname": $("#customer_mname").val() },
+            { "customer_lname": $("#customer_lname").val() },
+        ]
+
+        ifExists("Master", "Customer", dt).done(function(response){
+            if(response["result"]){
+                alert("Data for this cutomer already exists!")
+                return false;
+            }
+        });
     }
 
     alert("Data saved sucessfully!");

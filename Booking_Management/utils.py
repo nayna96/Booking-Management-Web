@@ -151,7 +151,10 @@ def getCustomerData(_id=None, **kwargs):
     doc["father_husband's_name"] = kwargs["request"].POST.get("father_husband's_name")
     doc["relation"] = kwargs["request"].POST.get("relation")
 
-    doc["copy_present"] = kwargs["request"].POST.get("copy_present", None)
+    if "copy_present" in kwargs["request"].POST:
+        doc["copy_present"] = "copy_present"
+    else:
+        doc["copy_present"] = " "
 
     doc["pr_addLine1"] = kwargs["request"].POST.get("pr_addLine1")
     doc["pr_addLine2"] = kwargs["request"].POST.get("pr_addLine2")
