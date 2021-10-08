@@ -91,7 +91,7 @@
                             <div class="col-sm-3 mb-1">
                                 <label>Floor No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="floor_no" id="floor_no" class="form-control" tabindex="3" required>
+                                <select name="floor_no" id="floor_no" class="form-control" tabindex="3" required onchange="updateFlatNo()">
                                     <option value="" selected disabled>-- Select --</option>
                                 </select>
                             </div>                           
@@ -157,13 +157,27 @@
                                     <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="4">
                                 </div>                    
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="5">
+                                    <select name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="5">
+                                        <option value="" selected disabled>-- Select --</option>
+                                        <option value="2BHK">2BHK</option>
+                                        <option value="3BHK">3BHK</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-ownership_status" class="allcaps form-control" required id="fs1-0-ownership_status" tabindex="6">
+                                    <select name="fs1-0-ownership_status" class="allcaps form-control" required id="fs1-0-ownership_status" tabindex="6">
+                                        <option value="" selected disabled>-- Select --</option>
+                                        <option value="COMPANY SHARE">COMPANY SHARE</option>
+                                        <option value="LAND-OWNER SHARE">LAND-OWNER SHARE</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="7">
+                                    <select name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="7">
+                                        <option value="" selected disabled>-- Select --</option>
+                                        <option value="OPEN">OPEN</option>
+                                        <option value="RESERVED">RESERVED</option>
+                                        <option value="HOLD">HOLD</option>
+                                        <option value="BOOKED">BOOKED</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-1 mb-1">
                                     <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="8">
@@ -226,5 +240,53 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script type="text/javascript">
+function updateFlatNo(){
+    block_name = $("#block_name").val().split("-")[1];
+    floor_no = $("#floor_no").val()[0];
+
+    value = block_name + "-" + floor_no;
+    $("#fs1-0-flat_no").val(value);
+    $("#fs1-0-parking_no").val(value);
+}
+
+/*$(document).on('click',el.id,function(){//do something
+})*/
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll("input[id$='-flat_no']").forEach(el => {
+        //el.addEventListener('focusout',function (e) {         
+        $(document).on('focusout', "#" + el.id, function(e) {   
+            flat_no = e.target.value;
+            parking_no_id = "fs1-" + e.target.id.split("-")[1] + "-parking_no";
+            $("#" + parking_no_id).val(flat_no);
+        });
+    });
+});
+
+function formValidation(){
+    if(!requiredValidation()){
+        return false;
+    }
+
+    // IF EXISTS
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "": $("#").val() }
+        ]
+
+        ifExists("Master", "Flat", dt).done(function(response){
+            if(response["result"]){
+                alert("Data for this flat already exists!")
+                return false;
+            }
+        });
+    }
+
+    alert("Data saved sucessfully!");
+    return true;
+}
+</script>
 
 {% endblock content %}
