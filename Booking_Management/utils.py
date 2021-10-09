@@ -242,6 +242,7 @@ def getBookingEntry(_id=None, **kwargs):
     doc = {}
     reference_id = kwargs["request"].POST.get("reference_id")
     doc["_id"] = reference_id if len(_id) == 0 else _id
+    doc["reference_id"] = doc["_id"]
     doc["booking_date"] = kwargs["request"].POST.get("booking_date") 
     doc["customer_name"] = kwargs["request"].POST.get("customer_name") 
     doc["landowner_company_share"] = kwargs["request"].POST.get("landowner_company_share") 

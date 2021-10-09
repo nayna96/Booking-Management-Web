@@ -136,8 +136,8 @@ function showFlatData(_url){
       success: function(response){
         var _id = response["selectedFlatDetails"]["_id"];
         document.getElementById("_id").value = _id;
-        document.getElementById("project_name").value = response["selectedFlatDetails"]["project_name"];
-        document.getElementById("block_name").value = response["selectedFlatDetails"]["block_name"];
+        $("#project_name").val(response["selectedFlatDetails"]["project_name"]).change();
+        $("#block_name").val(response["selectedFlatDetails"]["block_name"]).change();
         document.getElementById("floor_no").value = response["selectedFlatDetails"]["floor_no"];
 
         //FLATS
@@ -305,13 +305,21 @@ function showBookingEntry(_url){
       success: function(response){
         var _id = response["selectedBookingEntry"]["_id"];
         document.getElementById("_id").value = _id;
+        document.getElementById("reference_id").value = response["selectedBookingEntry"]["reference_id"];
         document.getElementById("booking_date").value = response["selectedBookingEntry"]["booking_date"];
-        document.getElementById("customer_name").value = response["selectedBookingEntry"]["customer_name"];
-        document.getElementById("landowner_company_share").value = response["selectedBookingEntry"]["landowner_company_share"];
-        document.getElementById("project_name").value = response["selectedBookingEntry"]["project_name"];
-        document.getElementById("block_name").value = response["selectedBookingEntry"]["block_name"];
-        document.getElementById("floor_no").value = response["selectedBookingEntry"]["floor_no"];
-        document.getElementById("flat_no").value = response["selectedBookingEntry"]["flat_no"];
+        $("#customer_name").val(response["selectedBookingEntry"]["customer_name"]).change();
+        
+        ownership_status = response["selectedBookingEntry"]["landowner_company_share"];
+        if (ownership_status == "COMPANY SHARE"){
+          document.getElementById("company_share").checked = true;
+        } else if (ownership_status == "LAND-OWNER SHARE"){
+          document.getElementById("land-owner_share").checked = true;
+        }
+        
+        $("#project_name").val(response["selectedBookingEntry"]["project_name"]).change();
+        $("#block_name").val(response["selectedBookingEntry"]["block_name"]).change();
+        $("#floor_no").val(response["selectedBookingEntry"]["floor_no"]).change();
+        $("#flat_no").val(response["selectedBookingEntry"]["flat_no"]).change();
         document.getElementById("flat_condn").value = response["selectedBookingEntry"]["flat_condn"];
         document.getElementById("sellable_area").value = response["selectedBookingEntry"]["sellable_area"];
         document.getElementById("sellable_area_rate").value = response["selectedBookingEntry"]["sellable_area_rate"];

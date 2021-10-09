@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 from gridfs import GridFS
 
-#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
@@ -135,7 +135,55 @@ def getFlatDetailsByFloor(project_name, block_name, floor_no,
     for document in documents:
         lst.append(document)
     
-    return lst[0]
+    if len(lst) > 0:
+        return lst[0]
+    else:
+        return lst
+
+def getFlatsListByFloorNo(project_name, block_name, floor_no, share_type):
+    flat_status = ["OPEN", "BOOKED"]           
+    lst = []
+
+    entry = getFlatDetailsByFloor(project_name, block_name, floor_no)
+    if len(entry) > 0:
+        flats = entry["flats"]
+    else:
+        flats = []
+    
+    for flat in flats:
+        if len(share_type) > 0:
+            if flat["flat_status"] in flat_status and share_type == flat["ownership_status"]:
+                lst.append(flat["flat_no"])
+        else:
+            lst.append(flat["flat_no"])
+    return lst
+
+def getFlatDetailsByFlatNo(project_name, block_name, floor_no, flat_no):
+    entry = getFlatDetailsByFloor(project_name, block_name, floor_no)
+    flats = entry["flats"]
+    for flat in flats:
+        if flat["flat_no"] == flat_no:
+            return flat
+
+def updateFlatStatus(project_name, block_name, floor_no, flat_no, flat_status,
+    db_name="Master", collection_name="Flat"):
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {"$and": 
+    [
+        { "project_name": project_name },
+        { "block_name":block_name },
+        { "floor_no": floor_no }
+    ]}
+
+    #collection.find({"$and": filter})
+
+    update = { "$set": { "flats.$[f].flat_status" : flat_status } }
+    array_filters=[{"f.flat_no" : { "$in" : flat_no }}]
+
+    collection.update_one(filter, update, array_filters=array_filters)
     
 '''def getFlatsByProjectName(db_name, collection_name, project_name):
     db = client[db_name]
@@ -163,58 +211,8 @@ def getNoFlatsByFloor(db_name, collection_name,
     }
 
     return no_flats;
-}
-
-
-
-def getFlatDetailsByFlatNo(db_name, collection_name,
-    project_name, block_name, floor_no, flat_no):
-
-    db = client[db_name]
-    collection = db[collection_name]
-
-    filter = [
-        { "project_name": project_name },
-        { "block_name":block_name },
-        { "floor_no": floor_no }
-    ]
-
-    List<BsonDocument> lst = collection.Find(Builders<BsonDocument>.Filter.And(projectfilter, blockfilter, floorfilter)).ToList();
-    List<BsonValue> flatDetails = new List<BsonValue>()
-    if (lst.Count > 0):
-        array = lst[0]["flats"]
-        flatDetails = array.Where(l => l["flat_no"] == flatNo).ToList()
-    
-    if (flatDetails.Count > 0):
-        return flatDetails[0]
-    else:
-        return None
-    
-def updateFlatStatus(db_name, collection_name,
-    project_name, block_name, floor_no, flat_no, flat_atatus):
-
-    db = client[db_name]
-    collection = db[collection_name]
-
-    filter = [
-        { "project_name": project_name },
-        { "block_name":block_name },
-        { "floor_no": floor_no }
-    ]
-
-    filter = Builders<BsonDocument>.Filter.And(projectfilter, blockfilter, floorfilter)
-    #collection.find({"$and": filter})
-
-    update = Builders<BsonDocument>.Update.Set("flats.$[f].flat_status", flatStatus);
-
-    arrayFilters = new[]
-    {
-            new BsonDocumentArrayFilterDefinition<BsonDocument>(
-                new BsonDocument("f.flat_no",
-                new BsonDocument("$in", new BsonArray(new [] { flatNo})))),
-    };
-
-    collection.UpdateOne(filter, update, new UpdateOptions { ArrayFilters = arrayFilters });'''
+} 
+'''
 
 #Customer Master
 def getOccupations(db_name="Master", collection_name="Customer"):
@@ -234,6 +232,21 @@ def getCastes(db_name="Master", collection_name="Customer"):
         if item["caste"] != "SC" and  item["caste"] != "ST" :
             castes_list.append(item["caste"])    
     return list(set(castes_list))
+
+def getCustomersList(db_name="Master", collection_name="Customer"):
+    lst = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {}
+
+    documents = collection.find(filter)
+
+    for document in documents:
+        lst.append(document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"])
+
+    return lst
 
 def getCustomerByName(customer_name, db_name="Master", collection_name="Customer"):
     customerDetails = []
@@ -312,7 +325,21 @@ def updateBankDetails(approved_banks, project_name,
             array1.append(doc1)            
             
             update1 = { "$set": { "approved_projects" : array1 } }
-            collection.update_one(filter1, update1)    
+            collection.update_one(filter1, update1)
+
+def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
+    entry = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "_id": reference_id }
+    documents = collection.find(filter)
+
+    for document in documents:
+        entry.append(document)
+
+    return entry[0]    
         
 def InsertData(db_name, collection_name, doc, files):
     db = InsertDoc(db_name, collection_name, doc)

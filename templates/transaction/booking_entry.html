@@ -21,7 +21,13 @@
             </ul>
             <div class="tab-content">
                 <div id="project_info" class="tab-pane fade in active show">
-                    <form method="POST" id="form" enctype="multipart/form-data">
+                    <form method="POST" id="form" enctype="multipart/form-data"
+                    data-blocks-url = "{% url 'load_blocks' %}"
+                    data-floors-url = "{% url 'load_floors' %}"
+                    data-flats-url = "{% url 'load_flats' %}"
+                    data-flat_details-url = "{% url 'flat_details' %}"
+                    data-customer_details-url = "{% url 'customer_details' %}">
+
                     {% csrf_token %} 
                     <input type="text" name="_id" id="_id" hidden>
                     <div class="row" hidden>
@@ -70,35 +76,37 @@
                         <div class="row">
                             <div class="col-sm-3 mb-1">
                                 <label>Reference ID</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="reference_id" id="reference_id" value="{{ reference_id }}" class="form-control" readonly>
                             </div>
                             <div class="col-sm-3 mb-1"></div>
                             <div class="col-sm-3 mb-1"></div>
                             <div class="col-sm-3 mb-1">
                                 <label>Booking Date</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="date" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="date" name="booking_date" id="booking_date" class="form-control" tabindex="1" required onfocusout="maxdateValidation(event)">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Customer Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="customer_name" id="customer_name" class="form-control" tabindex="2" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                {% for customer in customers_list %}
+                                    <option value="{{customer}}">{{customer}}</option>
+                                {% endfor %}
+                                </select>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Address</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="address" id="address" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Phone No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="mobile_no" id="mobile_no" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Whatsapp No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="whatsapp_no" id="whatsapp_no" class="form-control" disabled>
                             </div>
                         </div>
                     </div>
@@ -108,60 +116,82 @@
                     </div>
                     <div id="bookingDetails" class="w3-show">
                         <div class="row">
+                            <div class="col-sm-3 mb-1"></div>
+                            <div class="col-sm-3 mb-1"></div> 
+                            <div class="col-sm-3 mb-1">                                
+                                <input type="radio" id="company_share" name="landowner_company_share" tabindex="3" value="COMPANY SHARE" checked required/>
+                                <label for="company_share">COMPANY SHARE</label>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <input type="radio" id="land-owner_share" name="landowner_company_share" tabindex="4" value="LAND-OWNER SHARE"/>
+                                <label for="land-owner_share">LAND-OWNER SHARE</label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-3 mb-1">
                                 <label>Project Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="project_name" id="project_name" class="form-control" tabindex="5" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                {% for project in projects_list %}
+                                    <option value="{{project}}">{{project}}</option>
+                                {% endfor %}
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Block Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="block_name" id="block_name" class="form-control" tabindex="6" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Floor No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="floor_no" id="floor_no" class="form-control" tabindex="7" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Flat No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="flat_no" id="flat_no" class="form-control" tabindex="8" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Flat type/BHK</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="flat_type" id="flat_type" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Carpet Area</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="carpet_area" id="carpet_area" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Builtup area</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="builtup_area" id="builtup_area" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Super builtup-area</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="superbuiltup_area" id="superbuiltup_area" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Parking No.</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="parking_no" id="parking_no" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Parking Area</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <input type="text" name="parking_area" id="parking_area" class="form-control" disabled>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Flat Condition</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="project_name" id="project_name" class="allstring form-control" tabindex="1" required>
+                                <select name="flat_condn" id="flat_condn" class="form-control" tabindex="9" required onchange="updateDiscount()">
+                                    <option value="" selected disabled>-- Select --</option>
+                                    <option value="CORE-HOUSE">CORE-HOUSE</option>
+                                    <option value="SEMI-FINISHED">SEMI-FINISHED</option>
+                                    <option value="FULLY-FINISHED">FULLY-FINISHED</option>
+                                </select>
                             </div>
                             <div class="col-sm-3 mb-1">
 
@@ -203,19 +233,27 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-2 mb-1">
-                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="12">
+                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" onfocusout="maxdateValidation(event)">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="13">
+                                    <select name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="11" onchange="updatePaymentDetails(event)">
+                                        <option value="" selected disabled>-- Select --</option>
+                                        <option value="CASH">CASH</option> 
+                                        <option value="CHEQUE">CHEQUE
+                                        <option value="NEFT">NEFT</option>
+                                        <option value="RTGS">RTGS</option>
+                                        <option value="IMPS">IMPS</option>
+                                        <option value="ONLINE">ONLINE</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="14">
+                                    <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="12">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-bank_name" class="form-control" required id="fs1-0-bank_name" tabindex="15">
+                                    <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="13">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-amount" class="form-control" required id="fs1-0-amount" tabindex="13">
+                                    <input type="text" name="fs1-0-amount" class="allnums form-control" required id="fs1-0-amount" tabindex="14" value="0.00" onchange="formatAndAddAmount()">
                                 </div>
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -232,17 +270,16 @@
                             <div class="col-sm-4 mb-1">
                                 <label>Sellable Area</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="sellable_area" id="sellable_area" class="allnums form-control" tabindex="15" required onchange="updateSellableAreaAmount()">
                             </div>
                             <div class="col-sm-5 mb-1">
                                 <label>Rate</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="sellable_area_rate" id="sellable_area_rate" class="allnums form-control" tabindex="16" required onchange="updateSellableAreaAmount()">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Amount</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="sellable_area_amount" id="sellable_area_amount" class="form-control" value="0.00" readonly>
                             </div>
                             <div class="col-sm-1 mb-1">
 
@@ -252,7 +289,7 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">                                
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="car_parking_chgs" id="car_parking_chgs" class="allnums form-control" tabindex="17" value="0.00" required onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
@@ -260,7 +297,7 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="dg_chgs" id="dg_chgs" class="allnums form-control" tabindex="18" value="0.00" required onchange="updateAmounts()">
                             </div>
                             
                             <div class="col-sm-9 mb-1" style="text-align: right;">
@@ -268,84 +305,77 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="trans_substation_chgs" id="trans_substation_chgs" class="allnums form-control" tabindex="19" value="0.00" required onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Subtotal</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="subtotal" id="subtotal" class="form-control" value="0.00" disabled>
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Discount</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="discount" id="discount" class="allnums form-control" tabindex="20" value="0.00" onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Total</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="total" id="total" class="form-control" value="0.00" disabled>
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Cash Discount</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="cash_discount" id="cash_discount" class="allnums form-control" tabindex="21" value="0.00" onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Grand Total</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="grand_total" id="grand_total" class="form-control" value="0.00" disabled>
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Additional GST %</label>
                                 <label class="mandat_symbol">*</label>
-                                <select>
+                                <select name="add_gst_pct" id="add_gst_pct" tabindex="22" required onchange="updateAddGSTAmount()">
+                                    <option value="" selected disabled>-- Select --</option>
                                     <option value="1%">1%</option>
                                     <option value="5%">5%</option>
                                     <option value="12%">12%</option>
                                 </select>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="add_gst" id="add_gst" class="form-control" value="0.00" disabled onchange="updatePayableAmount()">
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Payable Amount</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="payable_amount" id="payable_amount" class="form-control" value="0.00" disabled>
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Less Booking Amount</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="less_booking_amount" id="less_booking_amount" class="form-control" value="0.00" readonly>
                             </div>
 
                             <div class="col-sm-9 mb-1" style="text-align: right;">
                                 <label>Loan amount</label>
-                                <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="" id="" class="allnums form-control" tabindex="1" required>
+                                <input type="text" name="loan_amt" id="loan_amt" class="form-control" value="0.00" disabled>
                             </div>
                         </div>	                           						
                     </div>
@@ -373,15 +403,211 @@
     <tbody>
         {% for entry in entries %}
         <tr>
-            <td></td>
+            <td>
+                <a href="#" onclick="showBookingEntry('/booking_entry/{{entry.reference_id}}')">{{entry.reference_id}}</a>                
+            </td>
             <td>{{ entry.customer_name }}</td>
             <td>{{ entry.project_name }}</td>
             <td>{{ entry.flat_no }}</td>
-            <td><a class="btn btn-primary" onclick="showBookingEntry('/booking_entry/{{entry.id}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><a class="btn btn-primary" onclick="showBookingEntry('/booking_entry/{{entry.reference_id}}')">View</a></td>
+            <td><a class="btn btn-primary" onclick="showBookingEntry('/booking_entry/{{entry.reference_id}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<script type="text/javascript">
+var els = document.querySelectorAll("input[name='landowner_company_share']");
+for (var i = 0; i < els.length; i++) {
+    els[i].addEventListener('click', function(event) {
+        showFlats();
+    });
+}
+
+date = getMaxDate();
+date_els = $("input[id^='fs1-'][id$='-payment_date']")
+for(let i=0; i<date_els.length; i++){
+    date_els[i].setAttribute("max", date);
+}
+document.getElementById("booking_date").setAttribute("max", date);
+
+function commas(e){
+    e.value = Number(e.value.replace(/,/g, "")).toLocaleString('en-IN') + ".00";
+}
+
+function updatePaymentDetails(e){
+    payment_input_id = e.target.id;
+    payment_details_id = payment_input_id.split("-payment_mode")[0] + "-payment_details";
+    bank_name_id =  payment_input_id.split("-payment_mode")[0] + "-bank_name"
+
+    val = document.getElementById(payment_input_id).value;
+    if (val == "CASH"){
+        document.getElementById(payment_details_id).value = "CASH";
+        document.getElementById(bank_name_id).value = "CASH";            
+    } else{
+        document.getElementById(payment_details_id).value = "";
+        document.getElementById(bank_name_id).value = "";      
+    }
+}
+
+function updateAddGSTAmount(){
+    if ($("#add_gst_pct").val() != null) {
+        gst_pct = Number($("#add_gst_pct").val().split("%")[0]);
+        grand_total = Number($("#grand_total").val().replace(/,/g, ""));
+        add_gst = (gst_pct / 100) * grand_total;
+        $("#add_gst").val(add_gst).change();
+    }
+}
+
+function updatePayableAmount(){
+    add_gst = Number($("#add_gst").val().replace(/,/g, ""))
+    payable_amt = grand_total + add_gst;
+    $("#payable_amount").val(payable_amt);
+
+    less_booking_amt = Number($("#less_booking_amount").val().replace(/,/g, ""))
+    loan_amt = payable_amt - less_booking_amt;
+    $("#loan_amt").val(loan_amt);
+
+    commas($("#add_gst")[0])
+    commas($("#payable_amount")[0])
+    commas($("#loan_amt")[0])
+}
+
+function updateSellableAreaAmount(){
+    updateDiscount();
+
+    sellable_area = Number($("#sellable_area").val());
+    rate = Number($("#sellable_area_rate").val());
+    amount = sellable_area * rate;
+    $("#sellable_area_amount").val(amount);
+    commas(document.getElementById("sellable_area_amount"));
+
+    updateAmounts();
+}
+
+function updateAmounts(){
+    sellable_amount = Number($("#sellable_area_amount").val().replace(/,/g, ""))
+
+    car_parking_chgs = Number($("#car_parking_chgs").val().replace(/,/g, ""))
+    dg_chgs = Number($("#dg_chgs").val().replace(/,/g, ""))
+    trans_substation_chgs = Number($("#trans_substation_chgs").val().replace(/,/g, ""))
+
+    subtotal = sellable_amount + car_parking_chgs + dg_chgs + trans_substation_chgs;
+    $("#subtotal").val(subtotal);
+
+    discount = Number($("#discount").val().replace(/,/g, ""));
+    total = subtotal - discount;
+    $("#total").val(total);
+
+    cash_discount = Number($("#cash_discount").val().replace(/,/g, ""));
+    grand_total = total - cash_discount;
+    $("#grand_total").val(grand_total);
+
+    updateAddGSTAmount();
+
+    add_gst = Number($("#add_gst").val().replace(/,/g, ""))
+    payable_amt = grand_total + add_gst;
+    $("#payable_amount").val(payable_amt);
+
+    less_booking_amt = Number($("#less_booking_amount").val().replace(/,/g, ""))
+    loan_amt = payable_amt - less_booking_amt;
+    $("#loan_amt").val(loan_amt);
+
+    commas($("#car_parking_chgs")[0])
+    commas($("#dg_chgs")[0])
+    commas($("#trans_substation_chgs")[0])
+    commas($("#subtotal")[0])
+    commas($("#discount")[0])
+    commas($("#total")[0])
+    commas($("#cash_discount")[0])
+    commas($("#grand_total")[0])
+    commas($("#add_gst")[0])
+    commas($("#payable_amount")[0])
+    commas($("#loan_amt")[0])
+}
+
+function formatAndAddAmount(){
+    sum = 0;
+    amount_els = $("input[id^='fs1-'][id$='-amount']");    
+    for(let i=0; i<amount_els.length; i++){
+        commas(amount_els[i]);
+        sum += Number(amount_els[i].value.replace(/,/g, ""));
+    }
+    document.getElementById("less_booking_amount").value = sum;
+    commas(document.getElementById("less_booking_amount"));
+
+    updateAmounts();
+}
+
+function updateDiscount()
+{
+    val = 0;
+    flat_condn = $("#flat_condn").val()
+    
+    if (flat_condn == "CORE-HOUSE")
+    {
+        val = 700;
+    } else if (flat_condn == "SEMI-FINISHED")
+    {
+        val = 500;
+    } else if (flat_condn == "FULLY-FINISHED")
+    {
+        val = 300;
+    }
+
+    sellable_area = Number($("#sellable_area").val().replace(/,/g, ""));
+    discount = sellable_area * val;
+    $("#discount").val(discount);
+    commas($("#discount")[0])
+}
+
+function formValidation(){
+    if(!requiredValidation()){
+        return false;
+    }
+
+    if ($("#car_parking_chgs").val() == "0.00" || 
+    $("#dg_chgs").val() == "0.00" || 
+    $("#trans_substation_chgs").val() == "0.00" ||
+    $("#less_booking_amount").val() == "0.00")
+    {
+        alert("Please enter all mandatory fields!");
+        return false;        
+    }
+    
+    // IF EXISTS
+    if($("#btn").val() == "Save"){
+        dt1 = [
+            { "customer_name": $("#customer_name").val() }
+        ]
+
+        dt2 = [
+            { "project_name": $["#project_name"].val() },
+            { "block_name": $["#block_name"].val() },
+            { "floor_no": $["#floor_no"].val() },
+            { "flat_no": $["#flat_no"].val() }   
+        ]
+
+        ifExists("Transaction", "BookingEntry", dt1).done(function(response){
+            if(response["result"]){
+                alert("Data for this customer already present!")
+                return false;
+            }
+        });
+
+        ifExists("Transaction", "BookingEntry", dt2).done(function(response){
+            if(response["result"]){
+                alert("The flat is already booked!")
+                return false;
+            }
+        });
+    }
+
+    alert("Data saved sucessfully!");
+    return true;
+}
+
+</script>
 
 {% endblock content %}

@@ -61,6 +61,15 @@ urlpatterns = [
     re_path('load-floors/$', views.load_floors, name='load_floors'),
     path('load-floors/<str:project_name>/<str:block_name>', views.load_floors, name='load_floors'),
 
+    re_path('load-flats/$', views.load_flats, name='load_flats'),
+    path('load-flats/<str:project_name>/<str:block_name>/<str:floor_no>/<str:share_type>', views.load_flats, name='load_flats'),
+
+    re_path('flat_details/$', views.flat_details, name='flat_details'),
+    path('flat_details/<str:project_name>/<str:block_name>/<str:floor_no>/<str:flat_no>', views.flat_details, name='flat_details'),
+
+    re_path('customer_details/$', views.customer_details, name='customer_details'),
+    path('customer_details/<str:customer_name>', views.customer_details, name='customer_details'),
+    
     #ifexistsdoc
     path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
 

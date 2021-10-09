@@ -46,13 +46,54 @@ def view_file(request, db_name, file_name):
 def load_blocks(request, project_name=None):
     project_name = request.GET.get('project_name')
     blocks = db.getBlocksListByProject(project_name)
-    return render(request, 'master/dropdown/load_blocks.html', {'blocks': blocks})
+    response = {'blocks': blocks}
+    return JsonResponse(response)
 
 def load_floors(request, project_name=None, block_name=None):
     project_name = request.GET.get('project_name')
     block_name = request.GET.get('block_name')
     floors = db.getFloorsListByBlock(project_name, block_name)
-    return render(request, 'master/dropdown/load_floors.html', {'floors': floors})
+    response = {'floors': floors}
+    return JsonResponse(response)
+
+def load_flats(request, project_name=None, block_name=None, floor_no=None, share_type=None):
+    project_name = request.GET.get('project_name')
+    block_name = request.GET.get('block_name')
+    floor_no = request.GET.get('floor_no')
+    share_type = request.GET.get('share_type')
+
+    if len(project_name) > 0 and len(block_name) > 0 and len(floor_no) > 0:
+        flats = db.getFlatsListByFloorNo(project_name, block_name, floor_no, share_type)
+    else:
+        flats = []
+
+    response = {'flats': flats}
+    return JsonResponse(response)
+
+def flat_details(request, project_name=None, block_name=None, floor_no=None, flat_no=None):
+    project_name = request.GET.get('project_name')
+    block_name = request.GET.get('block_name')
+    floor_no = request.GET.get('floor_no')
+    flat_no = request.GET.get('flat_no')
+
+    response =  {}
+    if len(project_name) > 0 and len(block_name) > 0 and len(floor_no) > 0 and len(flat_no) > 0:
+        flatDetails = db.getFlatDetailsByFlatNo(project_name, block_name, floor_no, flat_no)
+        response =  {
+            "flatDetails": flatDetails
+        } 
+
+    return JsonResponse(response)
+
+def customer_details(request, customer_name=None):
+    customer_name = request.GET.get('customer_name')
+
+    customerDetails = db.getCustomerByName(customer_name)
+    response =  {
+        "customerDetails": customerDetails
+    } 
+
+    return JsonResponse(response)
 
 #master
 def project_master(request, project_name=None):
@@ -214,30 +255,42 @@ def bank_master(request, bank_name=None):
 
 #transaction
 def booking_entry(request, reference_id=None):
+    if reference_id == None:
+        reference_id = db.getNextId("Transaction", "BookingEntry")
+
     entries = db.getDetails("Transaction", "BookingEntry")
+    projects_list =  db.getProjectsList("Master", "Flat")
+    customers_list = db.getCustomersList()
     
     if request.is_ajax():
-        selectedBookingEntry = db.getBookingEntryByReferenceId(reference_id)
-        files = db.GetFilesByMetaData("Transaction", selectedBookingEntry["_id"])
-        response =  {
-            "selectedBookingEntry": selectedBookingEntry,
-            "files": json.loads(json_util.dumps(files))
-        }
-        return JsonResponse(response)
+        if reference_id != None:
+            selectedBookingEntry = db.getBookingEntryByReferenceId(reference_id)
+            files = db.GetFilesByMetaData("Transaction", selectedBookingEntry["_id"])
+            response =  {
+                "selectedBookingEntry": selectedBookingEntry,
+                "files": json.loads(json_util.dumps(files))
+            }
+            return JsonResponse(response)
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBookingEntries(_id, 
+        [doc, files] = utils.getBookingEntry(_id, 
         request=request)
         if 'Save' in request.POST:
-            db.InsertData("Transaction", "Booking Entry", doc, files)
+            db.InsertData("Transaction", "BookingEntry", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Transaction", "Booking Entry", doc, files) 
+            db.UpdateData("Transaction", "BookingEntry", doc, files)
+
+        db.updateFlatStatus(doc["project_name"], doc["block_name"], doc["floor_no"], doc["flat_no"], "BOOKED")
+
         return HttpResponseRedirect(request.path_info)
-        
+
     return render(request, 'transaction/booking_entry.html', 
     {
-        "entries":entries
+        "reference_id": reference_id,
+        "entries":entries,
+        "projects_list": projects_list,
+        "customers_list": customers_list
     })
 
 def customer_request(request, reference_id=None):    

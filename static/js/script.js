@@ -149,6 +149,40 @@ function requiredValidation(){
   return true;
 }
 
+function showFlats(){
+  var flats_url = $("#form").attr("data-flats-url");
+  var project_name = $("#project_name").val();
+  var block_name = $("#block_name").val();
+  var floor_no = $("#floor_no").val();
+  var share_type = ''
+
+  var els = document.querySelectorAll("input[name='landowner_company_share']");
+  for (var i = 0; i < els.length; i++) {
+    if (els[i].checked) {
+      share_type = els[i].value;
+      break;
+    }
+  }
+
+  $.ajax({
+    url: flats_url,
+    data: {
+      'project_name': project_name,
+      'block_name': block_name,
+      'floor_no': floor_no,
+      'share_type': share_type
+    },
+    success: function(result){
+      var options = result["flats"];
+      $('#flat_no').empty();
+      $('#flat_no').append($('<option value="" selected disabled>-- Select --</option>'));
+      $.each(options, function(i, p) {
+        $('#flat_no').append($('<option></option>').val(p).html(p));
+      })
+    }
+  });
+}
+
 $(document).ready(function() {
   $("#fancyTable").fancyTable({
     sortColumn:0,
@@ -173,9 +207,9 @@ $(document).ready(function() {
     this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
   });
 
-  $("#project_name").change(function () {
+  $("#project_name").change(function (e) {
     var block_url = $("#form").attr("data-blocks-url");
-    var project_name = $(this).val();
+    var project_name = $("#project_name").val();
 
     $.ajax({
       url: block_url,
@@ -183,15 +217,20 @@ $(document).ready(function() {
         'project_name': project_name
       },
       success: function(result){
-          $("#block_name").html(result);
+          var options = result["blocks"];
+          $('#block_name').empty();
+          $('#block_name').append($('<option value="" selected disabled>-- Select --</option>'));
+          $.each(options, function(i, p) {
+            $('#block_name').append($('<option></option>').val(p).html(p));
+          })
       }
     });
   })
 
-  $("#block_name").change(function () {
+  $("#block_name").change(function (e) {
     var floor_url = $("#form").attr("data-floors-url");
     var project_name = $("#project_name").val();
-    var block_name = $(this).val();
+    var block_name = $("#block_name").val();
 
     $.ajax({
       url: floor_url,
@@ -200,7 +239,69 @@ $(document).ready(function() {
         'block_name': block_name
       },
       success: function(result){
-          $("#floor_no").html(result);
+          var options = result["floors"];
+          $('#floor_no').empty();
+          $('#floor_no').append($('<option value="" selected disabled>-- Select --</option>'));
+          $.each(options, function(i, p) {
+            $('#floor_no').append($('<option></option>').val(p).html(p));
+          })
+      }
+    });
+  })
+
+  $("#floor_no").change(function (e) {
+    showFlats();
+  })
+
+  $("#flat_no").change(function () {
+    var flat_details_url = $("#form").attr("data-flat_details-url");
+    var project_name = $("#project_name").val();
+    var block_name = $("#block_name").val();
+    var floor_no = $("#floor_no").val();
+    var flat_no = $("#flat_no").val();
+
+    $.ajax({
+      url: flat_details_url,
+      data: {
+        'project_name': project_name,
+        'block_name': block_name,
+        'floor_no': floor_no,
+        'flat_no': flat_no
+      },
+      success: function(result){
+        if ('flatDetails' in result){
+          $("#flat_type").val(result["flatDetails"]["flat_type"]);
+          $("#carpet_area").val(result["flatDetails"]["carpet_area"]);
+          $("#builtup_area").val(result["flatDetails"]["builtup_area"]);
+          $("#superbuiltup_area").val(result["flatDetails"]["superbuiltup_area"]);
+          $("#parking_no").val(result["flatDetails"]["parking_no"]);
+          $("#parking_area").val(result["flatDetails"]["parking_area"]);
+          $("#sellable_area").val(result["flatDetails"]["superbuiltup_area"]);
+        }
+      }
+    });
+  })
+
+  $("#customer_name").change(function () {
+    var customer_details_url = $("#form").attr("data-customer_details-url");
+    var customer_name = $("#customer_name").val();
+
+    $.ajax({
+      url: customer_details_url,
+      data: {
+        'customer_name': customer_name
+      },
+      success: function(result){
+        address = 
+        result["customerDetails"]["pr_addLine1"] + 
+        result["customerDetails"]["pr_addLine2"] +
+        result["customerDetails"]["pr_city"] + 
+        result["customerDetails"]["pr_state"] + 
+        result["customerDetails"]["pr_pincode"];
+
+        $("#address").val(address);
+        $("#mobile_no").val(result["customerDetails"]["mobile_no"]);
+        $("#whatsapp_no").val(result["customerDetails"]["whatsapp_no"]);
       }
     });
   })
