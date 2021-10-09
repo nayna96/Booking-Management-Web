@@ -224,22 +224,26 @@ function formValidation() {
         return false;
     }
 
-    if($("#branch_manager_phno").val().length < 10 || $("#contact_person_phno").val().length < 10) {
+    if(($("#branch_manager_phno").val().length > 0 && $("#branch_manager_phno").val().length < 10) || 
+    $("#contact_person_phno").val().length < 10) {
         alert("Please enter a valid phone no!");
     }
 
     // IF EXISTS
+    exists = false;
     if($("#btn").val() == "Save"){
         dt = [
             { "bank_name": $("#bank_name").val() }
         ]
 
         ifExists("Master", "Bank", dt).done(function(response){
-            if(response["result"]){
-                alert("Data for this bank already exists!")
-                return false;
-            }
+            exists = response["result"];                 
         });
+
+        if(exists){
+            alert("Data for this bank already exists!")
+            return false;
+        }
     }
 
     alert("Data saved sucessfully!");

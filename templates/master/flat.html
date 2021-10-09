@@ -154,7 +154,7 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="4">
+                                    <input type="text" name="fs1-0-flat_no" class="allcaps form-control" required id="fs1-0-flat_no" tabindex="4" onfocusout="updateParkingNo(event)">
                                 </div>                    
                                 <div class="col-sm-1 mb-1">
                                     <select name="fs1-0-flat_type" class="form-control" required id="fs1-0-flat_type" tabindex="5">
@@ -224,63 +224,126 @@
         </tr>
     </thead>
     <tbody>
-        {% for flat in flatDetails %}
-            {% for el in flat.flats %}
-            <tr>
-                <td>{{ flat.project_name }}</td>
-                <td>{{ flat.block_name }}</td>
-                <td>{{ flat.floor_no }}</td>            
-                <td>{{ el.flat_no }}</td>
-                <td>{{ el.flat_type }}</td>
-                <td>{{ el.flat_status }}</td>
+    {% for flat in flatDetails %}
+        {% for el in flat.flats %}
+        <tr>
+            <td>
+                <a href="#" onclick="showFlatData('/flat_master/{{flat.project_name}}/{{ flat.block_name }}/{{ flat.floor_no }}')">{{ flat.project_name }}</a>                
+            </td>
+            <td>{{ flat.block_name }}</td>
+            <td>{{ flat.floor_no }}</td>            
+            <td>{{ el.flat_no }}</td>
+            <td>{{ el.flat_type }}</td>
+            <td>{{ el.flat_status }}</td>
+            <td><a class="btn btn-primary" onclick="showFlatData('/flat_master/{{flat.project_name}}/{{ flat.block_name }}/{{ flat.floor_no }}')">View</a></td>
             <td><a class="btn btn-primary" onclick="showFlatData('/flat_master/{{flat.project_name}}/{{ flat.block_name }}/{{ flat.floor_no }}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
-            {% endfor %}
         {% endfor %}
+    {% endfor %}
     </tbody>
 </table>
 
 <script type="text/javascript">
-function updateFlatNo(){
-    block_name = $("#block_name").val().split("-")[1];
-    floor_no = $("#floor_no").val()[0];
+no_flats = 0
 
-    value = block_name + "-" + floor_no;
+function updateFlatNo(){
+    _name = $("#block_name").val().split("-")[1];
+    _no = $("#floor_no").val()[0];
+
+    value = _name + "-" + _no;
     $("#fs1-0-flat_no").val(value);
     $("#fs1-0-parking_no").val(value);
+
+    project_name = $("#project_name").val()
+    block_name = $("#block_name").val()
+    floor_no = $("#floor_no").val()
+    getNoFlats(project_name, block_name, floor_no);
+    
+    length = Number($("#fs1-fields").val())
+    n = length - no_flats;
+
+    for(var i=1; i<n; i++){
+        addRow('fs1');
+        $("#fs1-" + i + "-flat_no").val(value);
+        $("#fs1-" + i + "-parking_no").val(value);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.querySelectorAll("input[id$='-flat_no']").forEach(el => {
-        //el.addEventListener('focusout',function (e) {         
-        $(document).on('focusout', "#" + el.id, function(e) {   
-            flat_no = e.target.value;
-            parking_no_id = "fs1-" + e.target.id.split("-")[1] + "-parking_no";
-            $("#" + parking_no_id).val(flat_no);
-        });
-    });
-});
+function updateParkingNo(e){
+    flat_no_id = e.target.id;
+    parking_no_id = flat_no_id.split("-flat_no")[0] + "-parking_no";
+
+    flat_no = e.target.value;
+    $("#" + parking_no_id).val(flat_no);
+}
+
+function getNoFlats(project_name, block_name, floor_no){
+    return $.ajax({      
+    url: "/get_no_flats/" + project_name + "/" + block_name + "/" + floor_no,
+    async: false,
+    success: function(response){
+        no_flats = Number(response["no_flats"])
+    }, 
+    error: function(error) {
+      console.log(error)
+    }
+  });
+}
 
 function formValidation(){
+    project_name = $("#project_name").val()
+    block_name = $("#block_name").val()
+    floor_no = $("#floor_no").val()
+
     if(!requiredValidation()){
         return false;
     }
 
     // IF EXISTS
+    exists = false;
     if($("#btn").val() == "Save"){
         dt = [
-            { "": $("#").val() }
+            { "project_name": project_name },
+            { "block_name": block_name },
+            { "floor_no": floor_no }
         ]
 
         ifExists("Master", "Flat", dt).done(function(response){
-            if(response["result"]){
-                alert("Data for this flat already exists!")
-                return false;
-            }
+            exists = response["result"];            
         });
+
+        if(exists)
+        {                
+            alert("Data for " +  project_name + " " + block_name + " " + floor_no + " already present!")
+            return false;
+        }
     }
 
+    carpet_area = $("#fs1-0-carpet_area").val()
+    builtup_area = $("#fs1-0-builtup_area").val()
+    superbuiltup_area = $("#fs1-0-superbuiltup_area").val()
+
+    if (superbuiltup_area < builtup_area || builtup_area < carpet_area)
+    {
+        alert("Carpet area should be less than built up area " +
+            "and it should be less than super builtup area");
+        return false;
+    }
+
+    length = Number($("#fs1-fields").val())
+    if(length < no_flats)
+    {
+        alert("Please enter details for all the " +  no_flats  + " flats");
+        return false;
+    }
+
+    if (length > no_flats)
+    {
+        alert("Please enter details for only " +  no_flats  + " flats");
+        return false;
+    }
+    
     alert("Data saved sucessfully!");
     return true;
 }

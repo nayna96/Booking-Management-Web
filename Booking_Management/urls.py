@@ -70,6 +70,9 @@ urlpatterns = [
     re_path('customer_details/$', views.customer_details, name='customer_details'),
     path('customer_details/<str:customer_name>', views.customer_details, name='customer_details'),
     
+    re_path('get_no_flats/$', views.get_no_flats, name='get_no_flats'),
+    path('get_no_flats/<str:project_name>/<str:block_name>/<str:floor_no>', views.get_no_flats, name='get_no_flats'),
+
     #ifexistsdoc
     path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
 

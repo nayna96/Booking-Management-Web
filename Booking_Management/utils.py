@@ -99,7 +99,7 @@ def getFlatData(_id=None, **kwargs):
     floor_no = kwargs["request"].POST.get("floor_no")
 
     doc = {}
-    doc["_id"] =  p_id + "_" + block_name + "_" + floor_no + "F" if len(_id) == 0 else _id
+    doc["_id"] =  p_id + "B_" + block_name + "_" + floor_no + "F" if len(_id) == 0 else _id
     doc["project_name"] = project_name
     doc["block_name"] = block_name
     doc["floor_no"] = floor_no

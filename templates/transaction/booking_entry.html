@@ -589,19 +589,26 @@ function formValidation(){
             { "flat_no": $["#flat_no"].val() }   
         ]
 
+        exists = false;
         ifExists("Transaction", "BookingEntry", dt1).done(function(response){
-            if(response["result"]){
-                alert("Data for this customer already present!")
-                return false;
-            }
+            exists = response["result"];    
+            
         });
 
+        if(exists){
+            alert("Data for this customer already present!")
+            return false;
+        }
+
+        exists = false;
         ifExists("Transaction", "BookingEntry", dt2).done(function(response){
-            if(response["result"]){
-                alert("The flat is already booked!")
-                return false;
-            }
+            exists = response["result"];               
         });
+
+        if(exists){
+            alert("The flat is already booked!")
+            return false;
+        }
     }
 
     alert("Data saved sucessfully!");

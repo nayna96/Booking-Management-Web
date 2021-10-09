@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 from gridfs import GridFS
 
-#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
@@ -165,23 +165,41 @@ def getFlatDetailsByFlatNo(project_name, block_name, floor_no, flat_no):
         if flat["flat_no"] == flat_no:
             return flat
 
+def getNoFlatsByFloor(project_name, block_name, floor_no, 
+    db_name="Master", collection_name="Block"):
+
+    no_flats = 0
+    
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {"project_name": project_name}
+    documents = collection.find(filter)
+
+    for document in documents:
+        blocks = document["blocks"]
+        for block in blocks:
+            if block["block_name"] == block_name and block["floor_no"] == floor_no:
+                no_flats = block["no_flats"]
+    
+    return no_flats
+
 def updateFlatStatus(project_name, block_name, floor_no, flat_no, flat_status,
     db_name="Master", collection_name="Flat"):
 
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = {"$and": 
-    [
-        { "project_name": project_name },
-        { "block_name":block_name },
-        { "floor_no": floor_no }
-    ]}
+    filter = {
+        "project_name": project_name ,
+        "block_name":block_name ,
+        "floor_no": floor_no
+        }
 
     #collection.find({"$and": filter})
-
+   
     update = { "$set": { "flats.$[f].flat_status" : flat_status } }
-    array_filters=[{"f.flat_no" : { "$in" : flat_no }}]
+    array_filters=[{"f.flat_no" : flat_no }]
 
     collection.update_one(filter, update, array_filters=array_filters)
     

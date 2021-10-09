@@ -546,19 +546,22 @@ function formValidation(){
     }
 
     // IF EXISTS
+    exists = false;
     if($("#btn").val() == "Save"){
         dt = [
             { "project_name": $("#project_name").val() }
         ]
 
         ifExists("Master", "Project", dt).done(function(response){
-            if(response["result"]){
-                alert("Data for this project already exists!")
-                return false;
-            }
+            exists = response["result"];
         });
-    }
 
+        if(exists){
+            alert("Data for this project already exists!")
+            return false;
+        }
+    }
+    
     alert("Data saved sucessfully!");
     return true;
 }

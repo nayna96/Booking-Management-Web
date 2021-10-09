@@ -95,6 +95,13 @@ def customer_details(request, customer_name=None):
 
     return JsonResponse(response)
 
+def get_no_flats(request, project_name=None, block_name=None, floor_no=None):
+    no_flats = db.getNoFlatsByFloor(project_name, block_name, floor_no)
+    response = {
+        "no_flats": no_flats
+    }
+    return JsonResponse(response)
+
 #master
 def project_master(request, project_name=None):
     projectDetails = db.getDetails("Master", "Project")
@@ -140,12 +147,14 @@ def block_master(request, project_name=None):
     projects_list =  db.getProjectsList()
 
     if request.is_ajax():
-        selectedBlockDetails = db.getBlockDetailsByProject(project_name)
-        files = db.GetFilesByMetaData("Master", selectedBlockDetails["_id"])
-        response =  {
-            "selectedBlockDetails": selectedBlockDetails,
-            "files": json.loads(json_util.dumps(files))
-        }
+        response = {}
+        if project_name != None:
+            selectedBlockDetails = db.getBlockDetailsByProject(project_name)
+            files = db.GetFilesByMetaData("Master", selectedBlockDetails["_id"])
+            response =  {
+                "selectedBlockDetails": selectedBlockDetails,
+                "files": json.loads(json_util.dumps(files))
+            }
         return JsonResponse(response)
 
     if request.method == 'POST':        
@@ -170,12 +179,14 @@ def flat_master(request, project_name=None, block_name=None, floor_no=None):
     projects_list =  db.getProjectsList("Master", "Block")
 
     if request.is_ajax():
-        selectedFlatDetails = db.getFlatDetailsByFloor(project_name, block_name, floor_no)
-        files = db.GetFilesByMetaData("Master", selectedFlatDetails["_id"])
-        response =  {
-            "selectedFlatDetails": selectedFlatDetails,
-            "files": json.loads(json_util.dumps(files))
-        }
+        response = {}
+        if project_name!= None and block_name != None and floor_no != None:
+            selectedFlatDetails = db.getFlatDetailsByFloor(project_name, block_name, floor_no)
+            files = db.GetFilesByMetaData("Master", selectedFlatDetails["_id"])
+            response =  {
+                "selectedFlatDetails": selectedFlatDetails,
+                "files": json.loads(json_util.dumps(files))
+            }
         return JsonResponse(response)
 
     if request.method == 'POST':        

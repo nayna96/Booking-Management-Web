@@ -125,10 +125,12 @@
                                     <input type="text" name="fs1-0-block_name" class="allcaps form-control" required id="fs1-0-block_name" tabindex="3">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
-                                    <input type="number" name="fs1-0-no_floors" class="form-control" min="1" required id="fs1-0-no_floors" tabindex="4">
+                                    <input type="number" name="fs1-0-no_floors" class="form-control" min="1" required id="fs1-0-no_floors" tabindex="4" onfocusout="updateFloorNos(event)">
                                 </div>
                                 <div class="col-sm-4 mb-1">
-                                    <input type="text" name="fs1-0-floor_no" class="allcaps form-control" required id="fs1-0-floor_no" tabindex="5">
+                                    <select name="fs1-0-floor_no" class="form-control" required id="fs1-0-floor_no" tabindex="5">
+                                        <option value="" selected disabled>-- Select --</option>
+                                    </select>
                                 </div>
                                 <div class="col-sm-2 mb-1">
                                     <input type="number" name="fs1-0-no_flats" class="form-control" min="1" required id="fs1-0-no_flats" tabindex="6">
@@ -166,12 +168,15 @@
         {% for block in blockDetails %}
             {% for el in block.blocks %}
             <tr>
-                <td>{{block.project_name}}</td>
+                <td>
+                    <a href="#" onclick="showBlockData('/block_master/{{block.project_name}}')">{{block.project_name}}</a>                
+                </td>
                 <td>{{block.no_blocks}}</td>
                 <td>{{ el.block_name }}</td>
                 <td>{{ el.no_floors }}</td>
                 <td>{{ el.floor_no }}</td>
                 <td>{{ el.no_flats }}</td>
+                <td><a class="btn btn-primary" onclick="showBlockData('/block_master/{{block.project_name}}')">View</a></td>
                 <td><a class="btn btn-primary" onclick="showBlockData('/block_master/{{block.project_name}}')"><i class="fa fa-fw fa-edit"></a></td>
                 <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
             </tr>
@@ -179,5 +184,82 @@
         {% endfor %}
     </tbody>
 </table>
+
+<script type="text/javascript">
+function updateFloorNos(e){
+    no_floors_id = e.target.id;
+    floor_no_id = no_floors_id.split("-no_floors")[0] + "-floor_no";
+ 
+    $("#" + floor_no_id).empty();
+    $("#" + floor_no_id).append($('<option value="" selected disabled>-- Select --</option>'));
+
+    no_floors = Number($("#" + no_floors_id).val());
+    for (var i = 0; i < no_floors; i++)
+    {
+        floor_no = AddOrdinal((i + 1));
+        $("#" + floor_no_id).append($('<option></option>').val(floor_no + " FLOOR").html(floor_no + " FLOOR"));
+    }
+}
+
+function formValidation(){
+    project_name = $("#project_name").val()
+
+    if(!requiredValidation()){
+        return false;
+    }
+
+    // IF EXISTS
+    exists = false;
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "project_name": project_name }
+        ]
+
+        ifExists("Master", "Block", dt).done(function(response){
+            exists = response["result"];            
+        });
+
+        if(exists){                
+        alert("Data for this project already present!")
+            return false;
+        }
+    }
+
+    no_blocks = Number($("#no_blocks").val())
+
+    n = Number($("#fs1-fields").val())
+    array = []
+    for (var i=0;  i<n; i++){
+        block = {
+            "block_name": $("#fs1-" + i + "-block_name").val(),
+            "no_floors": $("#fs1-" + i + "-no_floors").val(),
+            "floor_no": $("#fs1-" + i + "-floor_no").val(),
+            "no_flats": $("#fs1-" + i + "-no_flats").val()
+        }
+        array.push(block)
+    }
+
+    blocks = [...new Set(array.map(item => item.block_name))];
+    if (blocks.length < no_blocks)
+    {
+        alert("Please enter details for all blocks!");
+        return false;
+    }
+
+    blocks.forEach ((block_name) =>
+    {
+        result = array.filter(l => l["block_name"] == block_name);
+        no_floors = Number(result[0]["no_floors"]);
+        if (result.length < no_floors)
+        {
+            alert("Please enter flat details for all floors!");
+            return false;
+        }
+    });
+    
+    alert("Data saved sucessfully!");
+    return true;
+}
+</script>
 
 {% endblock content %}

@@ -655,6 +655,7 @@ function formValidation(){
     }
 
     // IF EXISTS
+    exists = false;
     if($("#btn").val() == "Save"){
         dt = [
             { "customer_fname": $("#customer_fname").val() },
@@ -663,11 +664,13 @@ function formValidation(){
         ]
 
         ifExists("Master", "Customer", dt).done(function(response){
-            if(response["result"]){
-                alert("Data for this cutomer already exists!")
-                return false;
-            }
+            exists = response["result"];            
         });
+
+        if(exists){
+            alert("Data for this cutomer already exists!")
+            return false;
+        }
     }
 
     alert("Data saved sucessfully!");

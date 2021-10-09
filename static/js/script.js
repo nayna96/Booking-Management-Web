@@ -149,6 +149,29 @@ function requiredValidation(){
   return true;
 }
 
+function AddOrdinal(num)
+{
+    if (num <= 0) return num;
+    switch (num % 100)
+    {
+        case 11:
+        case 12:
+        case 13:
+            return num + "TH";
+    }
+    switch (num % 10)
+    {
+        case 1:
+            return num + "ST";
+        case 2:
+            return num + "ND";
+        case 3:
+            return num + "RD";
+        default:
+            return num + "TH";
+    }
+}
+
 function showFlats(){
   var flats_url = $("#form").attr("data-flats-url");
   var project_name = $("#project_name").val();

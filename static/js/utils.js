@@ -112,8 +112,11 @@ function showBlockData(_url){
         }
         
         for(var i=0; i<blocks.length; i++){          
-          $("#fs1-" + i + "-block_name").val(blocks[i]["block_name"]);
+          $("#fs1-" + i + "-block_name").val(blocks[i]["block_name"]);  
+          
           $("#fs1-" + i + "-no_floors").val(blocks[i]["no_floors"]);
+          document.getElementById("fs1-" + i + "-no_floors").dispatchEvent(new Event('focusout')); 
+
           $("#fs1-" + i + "-floor_no").val(blocks[i]["floor_no"]);
           $("#fs1-" + i + "-no_flats").val(blocks[i]["no_flats"]);
         }
@@ -324,12 +327,12 @@ function showBookingEntry(_url){
         document.getElementById("sellable_area").value = response["selectedBookingEntry"]["sellable_area"];
         document.getElementById("sellable_area_rate").value = response["selectedBookingEntry"]["sellable_area_rate"];
         document.getElementById("sellable_area_amount").value = response["selectedBookingEntry"]["sellable_area_amount"];
-        document.getElementById("car_parking_chgs").value = response["selectedBookingEntry"]["car_parking_chgs"];
-        document.getElementById("dg_chgs").value = response["selectedBookingEntry"]["dg_chgs"];
-        document.getElementById("trans_substation_chgs").value = response["selectedBookingEntry"]["trans_substation_chgs"];
-        document.getElementById("discount").value = response["selectedBookingEntry"]["discount"];
-        document.getElementById("cash_discount").value = response["selectedBookingEntry"]["cash_discount"];
-        document.getElementById("add_gst_pct").value = response["selectedBookingEntry"]["add_gst_pct"];
+        $("#car_parking_chgs").val(response["selectedBookingEntry"]["car_parking_chgs"]).change();
+        $("#dg_chgs").val(response["selectedBookingEntry"]["dg_chgs"]).change();
+        $("#trans_substation_chgs").val(response["selectedBookingEntry"]["trans_substation_chgs"]).change();
+        $("#discount").val(response["selectedBookingEntry"]["discount"]).change();
+        $("#cash_discount").val(response["selectedBookingEntry"]["cash_discount"]).change();
+        $("#add_gst_pct").val(response["selectedBookingEntry"]["add_gst_pct"]).change();
 
         //PAYMENT DETAILS
         payment_details = response["selectedBookingEntry"]["payment_details"];
@@ -347,7 +350,7 @@ function showBookingEntry(_url){
           $("#fs1-" + i + "-payment_mode").val(payment_details[i]["payment_mode"]);
           $("#fs1-" + i + "-payment_details").val(payment_details[i]["payment_details"]);
           $("#fs1-" + i + "-bank_name").val(payment_details[i]["bank_name"]);
-          $("#fs1-" + i + "-amount").val(payment_details[i]["amount"]);
+          $("#fs1-" + i + "-amount").val(payment_details[i]["amount"]).change();
         }
 
         document.getElementById("less_booking_amount").value = response["selectedBookingEntry"]["less_booking_amount"];
