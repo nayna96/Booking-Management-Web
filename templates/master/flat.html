@@ -261,10 +261,20 @@ function updateFlatNo(){
     getNoFlats(project_name, block_name, floor_no);
     
     length = Number($("#fs1-fields").val())
-    n = length - no_flats;
+    n = no_flats - length;
 
-    for(var i=1; i<n; i++){
-        addRow('fs1');
+    for(var i=0; i<n; i++){
+        addRow('fs1');        
+    }
+
+    if (n < 0){
+        for(i=no_flats; i<Math.abs(n) + no_flats; i++){
+            removeRow($("#fs1-" + i + "-flat_no")[0]);
+        }
+    }
+
+    length = Number($("#fs1-fields").val())
+    for(var i=0; i<length; i++){
         $("#fs1-" + i + "-flat_no").val(value);
         $("#fs1-" + i + "-parking_no").val(value);
     }

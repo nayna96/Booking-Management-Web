@@ -195,6 +195,7 @@ function showFlats(){
       'floor_no': floor_no,
       'share_type': share_type
     },
+    async: false,
     success: function(result){
       var options = result["flats"];
       $('#flat_no').empty();
@@ -239,6 +240,7 @@ $(document).ready(function() {
       data: {
         'project_name': project_name
       },
+      async: false,
       success: function(result){
           var options = result["blocks"];
           $('#block_name').empty();
@@ -261,6 +263,7 @@ $(document).ready(function() {
         'project_name': project_name,
         'block_name': block_name
       },
+      async: false,
       success: function(result){
           var options = result["floors"];
           $('#floor_no').empty();
@@ -291,6 +294,7 @@ $(document).ready(function() {
         'floor_no': floor_no,
         'flat_no': flat_no
       },
+      async: false,
       success: function(result){
         if ('flatDetails' in result){
           $("#flat_type").val(result["flatDetails"]["flat_type"]);
@@ -314,6 +318,7 @@ $(document).ready(function() {
       data: {
         'customer_name': customer_name
       },
+      async: false,
       success: function(result){
         address = 
         result["customerDetails"]["pr_addLine1"] + 

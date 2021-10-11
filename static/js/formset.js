@@ -24,11 +24,31 @@ function addRow(className){
 }
 
 function removeRow(e){
-    var parentDiv = e.target.parentElement.parentElement;
-    var className = parentDiv.classList[1];
+    if (e.target == undefined){
+        var div = e.parentElement.parentElement;
+    } else{
+        var div = e.target.parentElement.parentElement;
+    }
+    
+    var className = div.classList[1];
     if($("." + className).length > 1){
-        parentDiv.remove();
         
+        children = div.parentElement.children;
+        div.remove();
+
+        for(var i=0; i<children.length; i++){
+            outer_id = className + "-" + i;
+            children[i].id = outer_id
+            els = children[i].children;
+            for(var j=0; j<els.length; j++){
+                input = els[j].children[0];
+                parts = input.id.split("-");
+                id = outer_id + "-" + parts[2];
+                input.id = id;
+                input.name = id;
+            }
+        }
+
         nofields = Number(document.getElementById(className + "-fields").value);
         document.getElementById(className + "-fields").value = (nofields - 1).toString(); 
     }
