@@ -125,7 +125,7 @@
                                         <select name="fs1-0-bank_name" class="form-control" id="fs1-0-bank_name" tabindex="8">
                                             <option value="" selected>-- Select --</option>
                                         {% for bank in banks_list %}
-                                            <option>{{ bank }}</option>
+                                            <option value="{{ bank }}">{{ bank }}</option>
                                         {% endfor %}
                                         </select>
                                     </div>

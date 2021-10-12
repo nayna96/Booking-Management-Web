@@ -128,9 +128,10 @@
                                     <input type="number" name="fs1-0-no_floors" class="form-control" min="1" required id="fs1-0-no_floors" tabindex="4" onfocusout="updateFloorNos(event)">
                                 </div>
                                 <div class="col-sm-4 mb-1">
-                                    <select name="fs1-0-floor_no" class="form-control" required id="fs1-0-floor_no" tabindex="5">
+                                    <!--<select name="fs1-0-floor_no" class="form-control" required id="fs1-0-floor_no" tabindex="5">
                                         <option value="" selected disabled>-- Select --</option>
-                                    </select>
+                                    </select>-->
+                                    <input type="text" name="fs1-0-floor_no" class="form-control" required id="fs1-0-floor_no" tabindex="5" readonly>
                                 </div>
                                 <div class="col-sm-2 mb-1">
                                     <input type="number" name="fs1-0-no_flats" class="form-control" min="1" required id="fs1-0-no_flats" tabindex="6">
@@ -186,18 +187,55 @@
 </table>
 
 <script type="text/javascript">
+function getElsHavingBlockName(block_name_id){
+    array = []
+    els = $("input[id^='fs1-'][id$='-block_name']");
+    for(var i=0; i<els.length; i++){
+        if (els[i].value == $("#" + block_name_id).val()){
+           array.push(els[i])
+        }
+    }
+    return array; 
+}
+
 function updateFloorNos(e){
     no_floors_id = e.target.id;
     floor_no_id = no_floors_id.split("-no_floors")[0] + "-floor_no";
+    block_name_id = no_floors_id.split("-no_floors")[0] + "-block_name";
  
-    $("#" + floor_no_id).empty();
-    $("#" + floor_no_id).append($('<option value="" selected disabled>-- Select --</option>'));
-
     no_floors = Number($("#" + no_floors_id).val());
+
+    /*$("#" + floor_no_id).empty();
+    $("#" + floor_no_id).append($('<option value="" selected disabled>-- Select --</option>'));
     for (var i = 0; i < no_floors; i++)
     {
         floor_no = AddOrdinal((i + 1));
         $("#" + floor_no_id).append($('<option></option>').val(floor_no + " FLOOR").html(floor_no + " FLOOR"));
+    }*/
+
+    els = getElsHavingBlockName(block_name_id)
+    length = els.length;
+    n = no_floors - length;
+
+    for(var i=0; i<n; i++){
+        addRow('fs1');        
+    }
+
+    els = getElsHavingBlockName(block_name_id)
+    start_index = Number(els[0].id.split("-")[1]);
+    end_index = start_index + no_floors;
+    for(var i=start_index; i<end_index; i++){
+        $("#fs1-" + i + "-block_name").val($("#" + block_name_id).val());
+        $("#fs1-" + i + "-no_floors").val($("#" + no_floors_id).val());
+
+        floor_no = AddOrdinal((i + 1));
+        $("#fs1-" + i + "-floor_no").val(floor_no + " FLOOR")
+    }
+
+    if (no_floors!=0 && n < 0){
+        for(i=no_floors; i<Math.abs(n) + no_floors; i++){
+            removeRow($("#fs1-" + i + "-block_name")[0]);
+        }
     }
 }
 
@@ -246,16 +284,15 @@ function formValidation(){
         return false;
     }
 
-    blocks.forEach ((block_name) =>
-    {
-        result = array.filter(l => l["block_name"] == block_name);
+    for(var i=0; i<blocks.length; i++){
+        result = array.filter(l => l["block_name"] == blocks[i]);
         no_floors = Number(result[0]["no_floors"]);
         if (result.length < no_floors)
         {
             alert("Please enter flat details for all floors!");
             return false;
         }
-    });
+    }
     
     alert("Data saved sucessfully!");
     return true;

@@ -159,9 +159,9 @@ function showFlatData(_url){
           $("#fs1-" + i + "-flat_type").val(flats[i]["flat_type"]);
           $("#fs1-" + i + "-ownership_status").val(flats[i]["ownership_status"]);
           $("#fs1-" + i + "-flat_status").val(flats[i]["flat_status"]);
-          $("#fs1-" + i + "-carpet_area").val(flats[i]["carpet_area"]);
-          $("#fs1-" + i + "-builtup_area").val(flats[i]["builtup_area"]);
-          $("#fs1-" + i + "-superbuiltup_area").val(flats[i]["superbuiltup_area"]);
+          $("#fs1-" + i + "-carpet_area").val(flats[i]["carpet_area"]).change();
+          $("#fs1-" + i + "-builtup_area").val(flats[i]["builtup_area"]).change();
+          $("#fs1-" + i + "-superbuiltup_area").val(flats[i]["superbuiltup_area"]).change();
           $("#fs1-" + i + "-parking_no").val(flats[i]["parking_no"]);
           $("#fs1-" + i + "-parking_area").val(flats[i]["parking_area"]);
         }
@@ -309,7 +309,7 @@ function showBookingEntry(_url){
         var _id = response["selectedBookingEntry"]["_id"];
         document.getElementById("_id").value = _id;
         document.getElementById("reference_id").value = response["selectedBookingEntry"]["reference_id"];
-        document.getElementById("booking_date").value = response["selectedBookingEntry"]["booking_date"];
+        document.getElementById("booking_date").value = formatDate(response["selectedBookingEntry"]["booking_date"]);
         $("#customer_name").val(response["selectedBookingEntry"]["customer_name"]).change();
         
         ownership_status = response["selectedBookingEntry"]["landowner_company_share"];

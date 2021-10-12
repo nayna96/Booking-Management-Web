@@ -180,13 +180,13 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="8">
+                                    <input type="text" name="fs1-0-carpet_area" class="form-control" required id="fs1-0-carpet_area" tabindex="8" onchange="validateArea(event)">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-builtup_area" class="form-control" required id="fs1-0-builtup_area" tabindex="9">
+                                    <input type="text" name="fs1-0-builtup_area" class="form-control" required id="fs1-0-builtup_area" tabindex="9" onchange="validateArea(event)">
                                 </div>
                                 <div class="col-sm-1 mb-1">
-                                    <input type="text" name="fs1-0-superbuiltup_area" class="form-control" required id="fs1-0-superbuiltup_area" tabindex="10">
+                                    <input type="text" name="fs1-0-superbuiltup_area" class="form-control" required id="fs1-0-superbuiltup_area" tabindex="10" onchange="validateArea(event)">
                                 </div>
                                 <div class="col-sm-1 mb-1">
                                     <input type="text" name="fs1-0-parking_no" class="form-control" required id="fs1-0-parking_no" tabindex="11">
@@ -301,6 +301,39 @@ function getNoFlats(project_name, block_name, floor_no){
   });
 }
 
+function validateArea(e){
+    id = e.target.id;
+    parts = id.split("-");
+    id = parts[0] + "-" + parts[1];
+
+    carpet_area_id = id + "-carpet_area";
+    builtup_area_id = id + "-builtup_area";
+    superbuiltup_area_id = id + "-superbuiltup_area";
+
+    carpet_area = Number($("#" + carpet_area_id).val())
+    builtup_area = Number($("#" + builtup_area_id).val())
+    superbuiltup_area = Number($("#" + superbuiltup_area_id).val())
+
+    
+    if(builtup_area > 0 && carpet_area > 0){
+        if (builtup_area < carpet_area)
+        {
+            alert("Carpet area should be less than Built up area ");
+            e.target.value = "";
+            return;
+        }
+    }
+
+    if(superbuiltup_area > 0 && builtup_area > 0){
+        if (superbuiltup_area < builtup_area)
+        {
+            alert("Built up area should be less than super builtup area");
+            e.target.value = "";
+            return;
+        }
+    }
+}
+
 function formValidation(){
     project_name = $("#project_name").val()
     block_name = $("#block_name").val()
@@ -328,17 +361,6 @@ function formValidation(){
             alert("Data for " +  project_name + " " + block_name + " " + floor_no + " already present!")
             return false;
         }
-    }
-
-    carpet_area = $("#fs1-0-carpet_area").val()
-    builtup_area = $("#fs1-0-builtup_area").val()
-    superbuiltup_area = $("#fs1-0-superbuiltup_area").val()
-
-    if (superbuiltup_area < builtup_area || builtup_area < carpet_area)
-    {
-        alert("Carpet area should be less than built up area " +
-            "and it should be less than super builtup area");
-        return false;
     }
 
     length = Number($("#fs1-fields").val())

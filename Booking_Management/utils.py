@@ -130,9 +130,9 @@ def getCustomerData(_id=None, **kwargs):
     doc = {}
     doc["_id"] = "C" + str(id) if len(_id) == 0 else _id     
     doc["customer_salutation"] = kwargs["request"].POST.get("customer_salutation")
-    doc["customer_fname"] = kwargs["request"].POST.get("customer_fname")
-    doc["customer_mname"] = kwargs["request"].POST.get("customer_mname")
-    doc["customer_lname"] = kwargs["request"].POST.get("customer_lname")
+    doc["customer_fname"] = kwargs["request"].POST.get("customer_fname").replace(" ", "")
+    doc["customer_mname"] = kwargs["request"].POST.get("customer_mname").replace(" ", "")
+    doc["customer_lname"] = kwargs["request"].POST.get("customer_lname").replace(" ", "")
     doc["customer_dob"] = kwargs["request"].POST.get("customer_dob")
     doc["customer_gender"] = kwargs["request"].POST.get("customer_gender")
 
@@ -226,7 +226,19 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
     doc["contact_person_phno"] = kwargs["request"].POST.get("contact_person_phno")
     doc["ifsc_code"] = kwargs["request"].POST.get("ifsc_code")
     doc["rate_of_interest"] = kwargs["request"].POST.get("rate_of_interest")
-    doc["approved_projects"] = approved_projects if approved_projects != None else []
+
+    if approved_projects != '':
+        projects = approved_projects.split(",")
+        approved_projects = []
+        for project in projects:
+            if len(project) > 0:
+                dt={
+                    "name": project
+                }
+                approved_projects.append(dt)
+        doc["approved_projects"] = approved_projects
+    else:
+        doc["approved_projects"] = []
 
     list_docs = kwargs["request"].FILES.getlist("list_docs")
     agreements_doc = kwargs["request"].FILES.getlist("agreements_doc")

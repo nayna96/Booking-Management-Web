@@ -1,8 +1,9 @@
 from pymongo import MongoClient
 from gridfs import GridFS
+from functools import reduce
 
-#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
@@ -52,7 +53,7 @@ def getProjectsList(db_name="Master", collection_name="Project"):
     for document in documents:
         lst.append(document["project_name"])
 
-    return lst
+    return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , lst, [])
 
 def getProjectByName(project_name, db_name="Master", collection_name="Project"):
     projectDetails = []
@@ -97,7 +98,7 @@ def getBlocksListByProject(project_name, db_name="Master", collection_name="Bloc
         for block in blocks:
             blocks_list.append(block["block_name"])
 
-    return list(set(blocks_list))
+    return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , blocks_list, [])
         
 def getFloorsListByBlock(project_name, block_name, 
                         db_name="Master", collection_name="Block"):
@@ -240,7 +241,7 @@ def getOccupations(db_name="Master", collection_name="Customer"):
     for item in collection.find({}):
         if item["occupation"] != "BUSINESS" and  item["occupation"] != "SELF-EMPLOYED" and item["occupation"] != "SERVICE" :
             occupations_list.append(item["occupation"])    
-    return list(set(occupations_list))
+    return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , occupations_list, [])
 
 def getCastes(db_name="Master", collection_name="Customer"):
     castes_list = []
@@ -249,7 +250,7 @@ def getCastes(db_name="Master", collection_name="Customer"):
     for item in collection.find({}):
         if item["caste"] != "SC" and  item["caste"] != "ST" :
             castes_list.append(item["caste"])    
-    return list(set(castes_list))
+    return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , castes_list, [])
 
 def getCustomersList(db_name="Master", collection_name="Customer"):
     lst = []

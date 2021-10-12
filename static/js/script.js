@@ -64,6 +64,7 @@ function getMaxDate(){
 }
 
 function formatDate(dateString){
+  dateString = dateString.slice(0, 10);
   var dateParts = dateString.split("-");
   if(dateParts.length == 1){
     dateParts = dateString.split("/");

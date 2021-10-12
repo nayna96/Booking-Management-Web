@@ -251,7 +251,8 @@ def bank_master(request, bank_name=None):
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBankData(_id, 
+        approved_projects = request.POST.get("approved_projects")
+        [doc, files] = utils.getBankData(_id, approved_projects,
         request=request)
         if 'Save' in request.POST:
             db.InsertData("Master", "Bank", doc, files)
