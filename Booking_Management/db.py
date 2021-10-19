@@ -196,9 +196,7 @@ def updateFlatStatus(project_name, block_name, floor_no, flat_no, flat_status,
         "block_name":block_name ,
         "floor_no": floor_no
         }
-
-    #collection.find({"$and": filter})
-   
+ 
     update = { "$set": { "flats.$[f].flat_status" : flat_status } }
     array_filters=[{"f.flat_no" : flat_no }]
 
@@ -213,24 +211,6 @@ def updateFlatStatus(project_name, block_name, floor_no, flat_no, flat_status,
         entry.Add(item.ToDictionary())
     
     return entry
-
-def getNoFlatsByFloor(db_name, collection_name, 
-    project_name, block_name, floor_no):
-
-    db = client[db_name]
-    collection = db[collection_name]
-
-    var projectfilter = Builders<BsonDocument>.Filter.Eq("project_name", projectName);
-    List<BsonDocument> lst = collection.Find(projectfilter).ToList();
-
-    if (lst.Count > 0)
-    {
-        BsonArray array = (BsonArray)lst[0]["blocks"];
-        no_flats = array.FirstOrDefault(l => l["block_name"] == blockName && l["floor_no"] == floorNo)["no_flats"];
-    }
-
-    return no_flats;
-} 
 '''
 
 #Customer Master
@@ -424,12 +404,23 @@ def ViewFile(db_name, fileName):
         import os
         os.system('"' + path + '"')
 
-def GetFilesByMetaData(db_name, _id):
-    files_lst = []
+def RemoveFile(db_name, filename, metadata_filters):
+    files = GetFilesByMetaData(db_name, metadata_filters)
     db = client[db_name]
-    fs = GridFS(db)
-    files = db.fs.files.find({})
+
     for file in files:
-        if file["metadata"]["_id"] == _id:
-            files_lst.append(file)
+        if file["filename"] == filename:
+            fs = GridFS(db)
+            fs.delete(file["_id"])
+            break    
+                                          
+def GetFilesByMetaData(db_name, metadata_filters):
+    files_lst = []
+
+    db = client[db_name]
+    fs = GridFS(db)        
+    files = db.fs.files.find({"$and": metadata_filters})
+
+    for file in files:        
+        files_lst.append(file)
     return files_lst

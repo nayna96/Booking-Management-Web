@@ -76,6 +76,7 @@ urlpatterns = [
     #ifexistsdoc
     path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
 
-    #download file
-    path('view/<str:db_name>/<str:file_name>', views.view_file, name='view_file')
+    #file ops
+    path('view_file/<str:db_name>/<str:file_name>', views.view_file, name='view_file'),
+    path('remove_file/<str:db_name>/<str:file_name>/<str:dt>', views.remove_file, name='remove_file')
 ]

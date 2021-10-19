@@ -6,6 +6,26 @@ function showFiles(dbName, collectionName, files_dt) {
       switch (collectionName)
       {
         case "Project":
+            switch (docName)
+            {
+                case "land_docs":
+                    UpdateTable(dbName, "landDocs", _path)
+                    break;
+                case "agreements_doc":
+                    UpdateTable(dbName, "agreementsDoc", _path)
+                    break;
+                case "pow":
+                    UpdateTable(dbName, "Pow", _path)
+                    break;
+                case "dev_auth_approval":
+                    UpdateTable(dbName, "devAuthApproval", _path)
+                    break;
+                case "rera_certificate":
+                    UpdateTable(dbName, "reraCertificate", _path)
+                    break;
+                default:
+                    break;
+            }
             break;
         case "Customer":
             switch (docName)
@@ -14,25 +34,46 @@ function showFiles(dbName, collectionName, files_dt) {
                 
                     break;
                 case "aadhar_card":
-                    UpdateDiv(dbName, "aadharCard", _path)
+                    UpdateTable(dbName, "aadharCard", _path)
                     break;
                 case "pan_card":
-                    UpdateDiv(dbName, "panCard", _path)  
+                    UpdateTable(dbName, "panCard", _path)  
                     break;
                 case "voter_id_card":
-                    UpdateDiv(dbName, "voterIDCard", _path)    
+                    UpdateTable(dbName, "voterIDCard", _path)    
                     break;
                 case "gst_doc":
-                    UpdateDiv(dbName, "gstDoc", _path)    
+                    UpdateTable(dbName, "gstDoc", _path)    
                     break;
                 case "other_docs":
-                    UpdateDiv(dbName, "otherDocs", _path)                  
+                    UpdateTable(dbName, "otherDocs", _path)                  
                     break;
                 default:
                     break;
             }
             break;
         case "Bank":
+            switch (docName)
+            {
+                case "list_docs":
+                    UpdateTable(dbName, "listDocs", _path)
+                    break;
+                case "agreements_doc":
+                    UpdateTable(dbName, "agreementsDoc", _path)
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case "OrganisationMaster":
+            switch (docName)
+            {
+                case "":
+                    UpdateTable(dbName, "", _path)
+                    break;
+                default:
+                    break;
+            }
             break;
         default:
             break;
@@ -41,11 +82,22 @@ function showFiles(dbName, collectionName, files_dt) {
     });
 }
   
-function UpdateDiv(dbName, divID, file){
-    var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
+function UpdateTable(dbName, tableID, file){
+    var table = document.getElementById(tableID);
+    var n = table.rows.length;
+    var row = table.insertRow(n);
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + encodeURIComponent(file) + "')>" + file + "</a>";
+    cell2.innerHTML = "<a href='#' onclick=removeFile(event,'" + dbName + "')>remove</a>";
+    /*var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
     var myNewListItem = document.createElement('li');
-    myNewListItem.innerHTML = "<a href='#' onclick=viewFile('/view/" + dbName + "/" + encodeURIComponent(file) + "')>" + file + "</a>"
-    myList.appendChild(myNewListItem);
+    myNewListItem.innerHTML = 
+    "<a href='#' onclick=viewFile('/view/" + dbName + "/" + encodeURIComponent(file) + "')>" + file + "</a>" +
+    "<a href='#' class='alert-danger'>x</a>"
+    myList.appendChild(myNewListItem);*/
 }
   
 function viewFile(_url){
@@ -53,38 +105,107 @@ function viewFile(_url){
         url: _url
     });
 }
+
+function removeFile(e, dbName){
+    row = e.target.parentNode.parentNode;
+
+    if(dbName != undefined) {
+        file = row.cells[0].children[0].innerText;
+
+        dt = [
+            {"metadata._id" : "P1"},
+            { "metadata.doc_name": "land_docs" }
+        ]
+        dt = JSON.stringify(dt)
+
+        _url = "/remove_file/" + dbName + "/" + file + "/" + dt;
+        $.ajax({      
+            url: _url
+        });
+    }
+
+   row.remove();
+}
   
-function resetFileDiv(id){
-    var divs = document.getElementsByClassName("filesList");
+function resetFileTable(){
+    tables = $(".filesList");
+    for(var i=0; i<tables.length; i++){
+        $(tables[i]).empty();
+    }
+    /*var divs = document.getElementsByClassName("filesList");
     for(var i=0; i<divs.length; i++){
         divs[i].innerHTML = "<ul></ul>";
-    }
+    }*/
 }
 
-function updateList(file, divID, toappend) {
+function updateTable(file, tableID, toappend) {
+    var table = document.getElementById(tableID);
     var input = document.getElementById(file);
-    var div = document.getElementById(divID);
   
     var children = "";
     for (var i = 0; i < input.files.length; ++i) {
       item = input.files.item(i).name;
-      if (!listContains(divID, item)){
-        children += '<li>' + item + '</li>';
+
+      var tmppath = URL.createObjectURL(input.files.item(i));
+
+      //row = "<tr><td>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
+      row = "<tr><td><a href='" + tmppath + "' target='_blank'>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
+
+      [found, index] = tableContains(tableID, item);
+      if (!found){
+        children += row;
+      } else{
+        table.rows[index].innerHTML = row;
       }
     }
   
     if(toappend == false){
-      div.innerHTML = '<ul>'+children+'</ul>';
+      table.innerHTML = children;
     } else if(toappend == true){
-      var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
-      myList.innerHTML += children;
+      table.innerHTML += children;
     }
   }
   
-function listContains(divId, item){
-    $("#" + divId + "ul li").each((id, elem) => {
-      if (elem.innerText == item) {
-        found = true;
-      }
-    });
+function tableContains(tableId, item){
+    found = false;
+    index = -1;
+
+    var table = document.getElementById(tableId);
+    var rows = table.rows;
+
+    for (var i = 0; i < rows.length; i++) {
+        cell = rows[i].cells[0];
+        children = cell.children;
+
+        if(children.length > 0){
+            if(children[0].innerText == item){
+                found = true;
+                index = i;
+                break;
+            }
+        } else {
+            if(cell.innerText == item){
+                found = true;
+                index = i;
+                break;
+            }
+        }
+    }
+
+    return [found, index];
 }
+
+function showImage(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+            $('#pic')
+                .attr('src', e.target.result)
+                .width(150)
+                .height(200);
+        };
+  
+        reader.readAsDataURL(input.files[0]);
+    }
+  }

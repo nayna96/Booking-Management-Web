@@ -424,12 +424,11 @@
                             <input type="text" name="aadhar_no" id="aadhar_no" maxlength="12" tabindex="1" class="allnums form-control" required>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="aadhar_card" id="aadhar_card" tabindex="2" class="file" onchange="updateList('aadhar_card', 'aadharCard', false)"/>
+                            <input type="file" name="aadhar_card" id="aadhar_card" tabindex="2" class="file" onchange="updateTable('aadhar_card', 'aadharCard', false)"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <div id="aadharCard" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="aadharCard" class="table filesList">
+                            </table>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <label>PAN CARD</label>
@@ -439,12 +438,11 @@
                             <input type="text" name="pan_no" id="pan_no" maxlength="10" tabindex="3" class="allcaps form-control" required>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="pan_card" id="pan_card" tabindex="4" class="file" onchange="updateList('pan_card', 'panCard', false)"/>
+                            <input type="file" name="pan_card" id="pan_card" tabindex="4" class="file" onchange="updateTable('pan_card', 'panCard', false)"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <div id="panCard" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="panCard" class="table filesList">
+                            </table>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <label>VOTER ID CARD</label>
@@ -453,12 +451,11 @@
                             <input type="text" name="voter_id" id="voter_id" maxlength="10" tabindex="5" class="allcaps form-control">
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="voter_id_card" id="voter_id_card" tabindex="6" class="file" onchange="updateList('voter_id_card', 'voterIDCard', false)"/>
+                            <input type="file" name="voter_id_card" id="voter_id_card" tabindex="6" class="file" onchange="updateTable('voter_id_card', 'voterIDCard', false)"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <div id="voterIDCard" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="voterIDCard" class="table filesList">
+                            </table>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <label>GST</label>
@@ -467,12 +464,11 @@
                             <input type="text" name="gst_no" id="gst_no" maxlength="15" tabindex="7" class="allcaps form-control">
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="gst_doc" id="gst_doc" tabindex="8" class="file" onchange="updateList('gst_doc', 'gstDoc', false)"/>
+                            <input type="file" name="gst_doc" id="gst_doc" tabindex="8" class="file" onchange="updateTable('gst_doc', 'gstDoc', false)"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <div id="gstDoc" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="gstDoc" class="table filesList">
+                            </table>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <label>OTHER DOCS</label>
@@ -481,12 +477,11 @@
 
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" multiple name="other_docs" id="other_docs" tabindex="9" class="file" onchange="updateList('other_docs', 'otherDocs', true)"/>
+                            <input type="file" multiple name="other_docs" id="other_docs" tabindex="9" class="file" onchange="updateTable('other_docs', 'otherDocs', true)"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <div id="otherDocs" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="otherDocs" class="table filesList">
+                            </table>
                         </div>
                     </div>
                     <input type="submit" onclick="return formValidation()" id="btn" tabindex="10" class="btn btn-primary" name="Save" value="Save"/>

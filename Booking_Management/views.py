@@ -26,6 +26,7 @@ def organisation_login(request):
         return render(request, 'index.html', {"organisation": organisation})
     return render(request, 'organisation_login.html')
 
+#AJAX CALLS
 def ifExists(request, db_name, collection_name, dt):
     response =  {
         "result": False
@@ -38,10 +39,6 @@ def ifExists(request, db_name, collection_name, dt):
         } 
 
     return JsonResponse(response)
-
-def view_file(request, db_name, file_name):
-    db.ViewFile(db_name, file_name)
-    return JsonResponse({})
 
 def load_blocks(request, project_name=None):
     project_name = request.GET.get('project_name')
@@ -110,7 +107,12 @@ def project_master(request, project_name=None):
     if request.is_ajax():
         if project_name != None:
             selectedProjectDetails = db.getProjectByName(project_name)
-            files = db.GetFilesByMetaData("Master", selectedProjectDetails["_id"])
+            
+            metadata_filters = [
+                {"metadata._id" : selectedProjectDetails["_id"]}
+            ]
+            files = db.GetFilesByMetaData("Master", metadata_filters)
+            
             response =  {
                 "selectedProjectDetails": selectedProjectDetails,
                 "files": json.loads(json_util.dumps(files))
@@ -150,10 +152,8 @@ def block_master(request, project_name=None):
         response = {}
         if project_name != None:
             selectedBlockDetails = db.getBlockDetailsByProject(project_name)
-            files = db.GetFilesByMetaData("Master", selectedBlockDetails["_id"])
             response =  {
-                "selectedBlockDetails": selectedBlockDetails,
-                "files": json.loads(json_util.dumps(files))
+                "selectedBlockDetails": selectedBlockDetails
             }
         return JsonResponse(response)
 
@@ -182,10 +182,8 @@ def flat_master(request, project_name=None, block_name=None, floor_no=None):
         response = {}
         if project_name!= None and block_name != None and floor_no != None:
             selectedFlatDetails = db.getFlatDetailsByFloor(project_name, block_name, floor_no)
-            files = db.GetFilesByMetaData("Master", selectedFlatDetails["_id"])
             response =  {
-                "selectedFlatDetails": selectedFlatDetails,
-                "files": json.loads(json_util.dumps(files))
+                "selectedFlatDetails": selectedFlatDetails
             }
         return JsonResponse(response)
 
@@ -213,7 +211,12 @@ def customer_master(request, customer_name=None):
     
     if request.is_ajax():
         selectedCustomerDetails = db.getCustomerByName(customer_name)
-        files = db.GetFilesByMetaData("Master", selectedCustomerDetails["_id"])
+
+        metadata_filters = [
+                {"metadata._id" : selectedCustomerDetails["_id"]}
+            ]
+        files = db.GetFilesByMetaData("Master", metadata_filters)
+
         response =  {
             "selectedCustomerDetails": selectedCustomerDetails,
             "files": json.loads(json_util.dumps(files))
@@ -242,7 +245,12 @@ def bank_master(request, bank_name=None):
     
     if request.is_ajax():
         selectedBankDetails = db.getBankDetailsByName(bank_name)
-        files = db.GetFilesByMetaData("Master", selectedBankDetails["_id"])
+
+        metadata_filters = [
+                {"metadata._id" : selectedBankDetails["_id"]}
+            ]
+        files = db.GetFilesByMetaData("Master", metadata_filters)
+
         response =  {
             "selectedBankDetails": selectedBankDetails,
             "files": json.loads(json_util.dumps(files))
@@ -277,10 +285,8 @@ def booking_entry(request, reference_id=None):
     if request.is_ajax():
         if reference_id != None:
             selectedBookingEntry = db.getBookingEntryByReferenceId(reference_id)
-            files = db.GetFilesByMetaData("Transaction", selectedBookingEntry["_id"])
             response =  {
-                "selectedBookingEntry": selectedBookingEntry,
-                "files": json.loads(json_util.dumps(files))
+                "selectedBookingEntry": selectedBookingEntry
             }
             return JsonResponse(response)
     
@@ -321,7 +327,12 @@ def organisation_master(request, org_name=None):
 
     if request.is_ajax():
         selectedOrganisationDetails = db.getOrganisationByName(org_name)
-        files = db.GetFilesByMetaData("Settings", selectedOrganisationDetails["_id"])
+
+        metadata_filters = [
+                {"metadata._id" : selectedOrganisationDetails["_id"]}
+            ]
+        files = db.GetFilesByMetaData("Settings", metadata_filters)
+
         response =  {
             "selectedOrganisationDetails": selectedOrganisationDetails,
             "files": json.loads(json_util.dumps(files))
@@ -351,3 +362,13 @@ def user_master(request):
         db.InsertData("Settings", "UserMaster", doc) 
         return HttpResponseRedirect(request.path_info)
     return render(request, 'settings/user_master.html', {"userDetails":userDetails})
+
+#FILE OPS
+def view_file(request, db_name, file_name):
+    db.ViewFile(db_name, file_name)
+    return JsonResponse({})
+
+def remove_file(request, db_name, file_name, dt):
+    metadata_filters = json.loads(dt)
+    db.RemoveFile(db_name, file_name, metadata_filters)
+    return JsonResponse({})

@@ -146,23 +146,22 @@
                             <label>List of Documents</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="list_docs" id="list_docs" class="file" onchange="updateList('list_docs', 'listDocs', true)"/>
+                            <input type="file" multiple name="list_docs" id="list_docs" class="file" onchange="updateTable('list_docs', 'listDocs', true)"/>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <div id="listDocs" class="filesList">
-                                <ul></ul>
-                            </div>
+                            <table id="listDocs" class="table filesList">
+                            </table>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <label>Agreements</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateList('agreements_doc', 'agreementsDoc', true)"/>
+                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateTable('agreements_doc', 'agreementsDoc', true)"/>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <div id="agreementsDoc" class="filesList">
+                            <table id="agreementsDoc" class="table filesList">
                                 <ul></ul>
-                            </div>
+                            </table>
                         </div>
                     </div>
                     <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
