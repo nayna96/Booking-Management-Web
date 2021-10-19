@@ -146,7 +146,7 @@
                             <label>List of Documents</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="list_docs" id="list_docs" class="file" onchange="updateTable('list_docs', 'listDocs', true)"/>
+                            <input type="file" multiple name="list_docs" id="list_docs" class="file" onchange="updateTable('list_docs', 'listDocs', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="listDocs" class="table filesList">
@@ -156,7 +156,7 @@
                             <label>Agreements</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateTable('agreements_doc', 'agreementsDoc', true)"/>
+                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateTable('agreements_doc', 'agreementsDoc', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="agreementsDoc" class="table filesList">

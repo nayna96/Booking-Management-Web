@@ -424,7 +424,7 @@
                             <input type="text" name="aadhar_no" id="aadhar_no" maxlength="12" tabindex="1" class="allnums form-control" required>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="aadhar_card" id="aadhar_card" tabindex="2" class="file" onchange="updateTable('aadhar_card', 'aadharCard', false)"/>
+                            <input type="file" name="aadhar_card" id="aadhar_card" tabindex="2" class="file" onchange="updateTable('aadhar_card', 'aadharCard', false)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <table id="aadharCard" class="table filesList">
@@ -438,7 +438,7 @@
                             <input type="text" name="pan_no" id="pan_no" maxlength="10" tabindex="3" class="allcaps form-control" required>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="pan_card" id="pan_card" tabindex="4" class="file" onchange="updateTable('pan_card', 'panCard', false)"/>
+                            <input type="file" name="pan_card" id="pan_card" tabindex="4" class="file" onchange="updateTable('pan_card', 'panCard', false)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <table id="panCard" class="table filesList">
@@ -451,7 +451,7 @@
                             <input type="text" name="voter_id" id="voter_id" maxlength="10" tabindex="5" class="allcaps form-control">
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="voter_id_card" id="voter_id_card" tabindex="6" class="file" onchange="updateTable('voter_id_card', 'voterIDCard', false)"/>
+                            <input type="file" name="voter_id_card" id="voter_id_card" tabindex="6" class="file" onchange="updateTable('voter_id_card', 'voterIDCard', false)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <table id="voterIDCard" class="table filesList">
@@ -464,7 +464,7 @@
                             <input type="text" name="gst_no" id="gst_no" maxlength="15" tabindex="7" class="allcaps form-control">
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" name="gst_doc" id="gst_doc" tabindex="8" class="file" onchange="updateTable('gst_doc', 'gstDoc', false)"/>
+                            <input type="file" name="gst_doc" id="gst_doc" tabindex="8" class="file" onchange="updateTable('gst_doc', 'gstDoc', false)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <table id="gstDoc" class="table filesList">
@@ -477,7 +477,7 @@
 
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" multiple name="other_docs" id="other_docs" tabindex="9" class="file" onchange="updateTable('other_docs', 'otherDocs', true)"/>
+                            <input type="file" multiple name="other_docs" id="other_docs" tabindex="9" class="file" onchange="updateTable('other_docs', 'otherDocs', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
                             <table id="otherDocs" class="table filesList">

@@ -4,6 +4,8 @@ from . import db, utils
 import json
 from bson import json_util
 
+toRemoveFiles = []
+
 def home(request):    
     return render(request, 'index.html')
 
@@ -123,13 +125,19 @@ def project_master(request, project_name=None):
         _id = request.POST.get("_id")
         [doc, files] = utils.getProjectData(_id, 
         request=request)
-
-        #toRemoveFiles = new Dictionary<string, string>();
-
+        
         if 'Save' in request.POST:
             db.InsertData("Master", "Project", doc, files)
         elif 'Update' in request.POST:
             db.UpdateData("Master", "Project", doc, files)
+            global toRemoveFiles
+            for toRemoveFile in toRemoveFiles:                
+                mdict = [
+                    { "metadata._id" : doc["_id"] },
+                    { "metadata.doc_name": toRemoveFile["docname"] }
+                ]
+                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                toRemoveFiles = []
 
         project_name = doc["project_name"]
         approved_banks = doc["approved_banks"]
@@ -230,7 +238,17 @@ def customer_master(request, customer_name=None):
         if 'Save' in request.POST:
             db.InsertData("Master", "Customer", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Master", "Customer", doc, files) 
+            db.UpdateData("Master", "Customer", doc, files)
+            
+            global toRemoveFiles
+            for toRemoveFile in toRemoveFiles:                
+                mdict = [
+                    { "metadata._id" : doc["_id"] },
+                    { "metadata.doc_name": toRemoveFile["docname"] }
+                ]
+                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                toRemoveFiles = [] 
+
         return HttpResponseRedirect(request.path_info)
         
     return render(request, 'master/customer.html', 
@@ -265,7 +283,17 @@ def bank_master(request, bank_name=None):
         if 'Save' in request.POST:
             db.InsertData("Master", "Bank", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Master", "Bank", doc, files) 
+            db.UpdateData("Master", "Bank", doc, files)
+
+            global toRemoveFiles
+            for toRemoveFile in toRemoveFiles:                
+                mdict = [
+                    { "metadata._id" : doc["_id"] },
+                    { "metadata.doc_name": toRemoveFile["docname"] }
+                ]
+                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                toRemoveFiles = []
+
         return HttpResponseRedirect(request.path_info)
         
     return render(request, 'master/bank.html', 
@@ -347,7 +375,17 @@ def organisation_master(request, org_name=None):
         if 'Save' in request.POST:
             db.InsertData("Settings", "Organisation Master", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Settings", "Organisation Master", doc, files) 
+            db.UpdateData("Settings", "Organisation Master", doc, files)
+            
+            global toRemoveFiles
+            for toRemoveFile in toRemoveFiles:                
+                mdict = [
+                    { "metadata._id" : doc["_id"] },
+                    { "metadata.doc_name": toRemoveFile["docname"] }
+                ]
+                db.RemoveFile("Settings", toRemoveFile["file_name"], mdict)
+                toRemoveFiles = [] 
+
         return HttpResponseRedirect(request.path_info)
     
     return render(request, 'settings/organisation_master.html', 
@@ -368,7 +406,9 @@ def view_file(request, db_name, file_name):
     db.ViewFile(db_name, file_name)
     return JsonResponse({})
 
-def remove_file(request, db_name, file_name, dt):
-    metadata_filters = json.loads(dt)
-    db.RemoveFile(db_name, file_name, metadata_filters)
+def remove_file(request, file_name, docname):    
+    toRemoveFiles.append({ 
+        "file_name": file_name,
+        "docname": docname 
+        })    
     return JsonResponse({})

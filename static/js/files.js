@@ -90,8 +90,10 @@ function UpdateTable(dbName, tableID, file){
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
 
+    docname = table.parentElement.previousElementSibling.children[0].id;
+
     cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + encodeURIComponent(file) + "')>" + file + "</a>";
-    cell2.innerHTML = "<a href='#' onclick=removeFile(event,'" + dbName + "')>remove</a>";
+    cell2.innerHTML = "<a href='#' onclick=removeFile(event,'" + dbName + "','" + docname +  "')>remove</a>";
     /*var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
     var myNewListItem = document.createElement('li');
     myNewListItem.innerHTML = 
@@ -106,19 +108,13 @@ function viewFile(_url){
     });
 }
 
-function removeFile(e, dbName){
+function removeFile(e, dbName, docname){
     row = e.target.parentNode.parentNode;
 
-    if(dbName != undefined) {
-        file = row.cells[0].children[0].innerText;
+    if(dbName != undefined && docname != undefined) {
+        file_name = row.cells[0].children[0].innerText;
 
-        dt = [
-            {"metadata._id" : "P1"},
-            { "metadata.doc_name": "land_docs" }
-        ]
-        dt = JSON.stringify(dt)
-
-        _url = "/remove_file/" + dbName + "/" + file + "/" + dt;
+        _url = "/remove_file/" + file_name + "/" + docname;
         $.ajax({      
             url: _url
         });

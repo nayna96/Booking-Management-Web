@@ -309,7 +309,7 @@
                             <label>Agreements</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateTable('agreements_doc', 'agreementsDoc', true)"/>
+                            <input type="file" multiple name="agreements_doc" id="agreements_doc" class="file" onchange="updateTable('agreements_doc', 'agreementsDoc', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="agreementsDoc" class="table filesList">
@@ -319,7 +319,7 @@
                             <label>Power of Attorney</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="pow" id="pow" class="file" onchange="updateTable('pow', 'Pow', true)"/>
+                            <input type="file" multiple name="pow" id="pow" class="file" onchange="updateTable('pow', 'Pow', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="Pow" class="table filesList">
@@ -329,7 +329,7 @@
                             <label>Development Authority Approval</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="dev_auth_approval" id="dev_auth_approval" class="file" onchange="updateTable('dev_auth_approval', 'devAuthApproval', true)"/>
+                            <input type="file" multiple name="dev_auth_approval" id="dev_auth_approval" class="file" onchange="updateTable('dev_auth_approval', 'devAuthApproval', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="devAuthApproval" class="table filesList">
@@ -339,7 +339,7 @@
                             <label>RERA Certificate</label>
                         </div>
                         <div class="col-sm-4 mb-1">
-                            <input type="file" multiple name="rera_certificate" id="rera_certificate" class="file" onchange="updateTable('rera_certificate', 'reraCertificate', true)"/>
+                            <input type="file" multiple name="rera_certificate" id="rera_certificate" class="file" onchange="updateTable('rera_certificate', 'reraCertificate', true)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-4 mb-1">
                             <table id="reraCertificate" class="table filesList">

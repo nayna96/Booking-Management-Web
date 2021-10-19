@@ -78,5 +78,5 @@ urlpatterns = [
 
     #file ops
     path('view_file/<str:db_name>/<str:file_name>', views.view_file, name='view_file'),
-    path('remove_file/<str:db_name>/<str:file_name>/<str:dt>', views.remove_file, name='remove_file')
+    path('remove_file/<str:file_name>/<str:docname>', views.remove_file, name='remove_file')
 ]
