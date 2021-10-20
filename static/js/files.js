@@ -92,7 +92,7 @@ function UpdateTable(dbName, tableID, file){
 
     docname = table.parentElement.previousElementSibling.children[0].id;
 
-    cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + encodeURIComponent(file) + "')>" + file + "</a>";
+    cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + docname + "/" + encodeURIComponent(file) + "')>" + file + "</a>";
     cell2.innerHTML = "<a href='#' onclick=removeFile(event,'" + dbName + "','" + docname +  "')>remove</a>";
     /*var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
     var myNewListItem = document.createElement('li');
@@ -140,27 +140,34 @@ function updateTable(file, tableID, toappend) {
   
     var children = "";
     for (var i = 0; i < input.files.length; ++i) {
-      item = input.files.item(i).name;
+        item = input.files.item(i).name;
 
-      var tmppath = URL.createObjectURL(input.files.item(i));
+        var tmppath = URL.createObjectURL(input.files.item(i));
 
-      //row = "<tr><td>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
-      row = "<tr><td><a href='" + tmppath + "' target='_blank'>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
+        //row = "<tr><td>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
+        row = "<tr><td><a href='" + tmppath + "' target='_blank'>" + item + "</td><td><a href='#' onclick=removeFile(event)>remove</a></td></tr>";
 
-      [found, index] = tableContains(tableID, item);
-      if (!found){
-        children += row;
-      } else{
-        table.rows[index].innerHTML = row;
-      }
+        [found, index] = tableContains(tableID, item);
+        
+        if (!found){
+            children += row;
+        } 
+        else {
+            docname = table.parentElement.previousElementSibling.children[0].id;
+            _url = "/remove_file/" + item + "/" + docname;
+            $.ajax({      
+                url: _url
+            });
+            table.rows[index].innerHTML = row;
+        }
     }
-  
+    
     if(toappend == false){
-      table.innerHTML = children;
+    table.innerHTML = children;
     } else if(toappend == true){
-      table.innerHTML += children;
+    table.innerHTML += children;
     }
-  }
+}
   
 function tableContains(tableId, item){
     found = false;

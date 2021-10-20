@@ -382,44 +382,47 @@ def UploadFile(db, files, doc):
         fs.put(data, filename=file.name, 
         metadata=meta_data)
 
-def DownloadFile(db_name, fileName):    
+def DownloadFile(db_name, filters):
     db = client[db_name]
     fs = GridFS(db)
-    filter = { "filename": fileName }    
-    file = db.fs.files.find_one(filter)
-    _id = file["_id"]
-    if _id._pid == 0:    
-        return False
 
-    data = fs.get(_id).read()
-    path = "C:/Temp/" + file["filename"]
-    output = open(path, "wb")
-    output.write(data)
-    output.close()
+    files = GetFiles(db_name, filters)     
+    for file in files:
+        _id = file["_id"]
+        if _id._pid == 0:    
+            return False
+
+        data = fs.get(_id).read()
+        path = "C:/Temp/" + file["filename"]
+        output = open(path, "wb")
+        output.write(data)
+        output.close()
     return True
 
-def ViewFile(db_name, fileName):
-    if DownloadFile(db_name, fileName):
+def ViewFile(db_name, filters):
+    if DownloadFile(db_name, filters):
+        fileName = filters[0]["filename"]
         path = "C:/Temp/" + fileName
         import os
         os.system('"' + path + '"')
+        '''if os.path.exists('"' + path + '"'):
+            os.remove('"' + path + '"')'''
 
-def RemoveFile(db_name, filename, metadata_filters):
-    files = GetFilesByMetaData(db_name, metadata_filters)
+def RemoveFile(db_name, filters):
+    files = GetFiles(db_name, filters)
     db = client[db_name]
 
-    for file in files:
-        if file["filename"] == filename:
-            fs = GridFS(db)
-            fs.delete(file["_id"])
-            break    
+    for file in files:        
+        fs = GridFS(db)
+        fs.delete(file["_id"])
+        break    
                                           
-def GetFilesByMetaData(db_name, metadata_filters):
+def GetFiles(db_name, filters):
     files_lst = []
 
     db = client[db_name]
     fs = GridFS(db)        
-    files = db.fs.files.find({"$and": metadata_filters})
+    files = db.fs.files.find({"$and": filters})
 
     for file in files:        
         files_lst.append(file)

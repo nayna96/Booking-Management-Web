@@ -113,7 +113,7 @@ def project_master(request, project_name=None):
             metadata_filters = [
                 {"metadata._id" : selectedProjectDetails["_id"]}
             ]
-            files = db.GetFilesByMetaData("Master", metadata_filters)
+            files = db.GetFiles("Master", metadata_filters)
             
             response =  {
                 "selectedProjectDetails": selectedProjectDetails,
@@ -132,11 +132,12 @@ def project_master(request, project_name=None):
             db.UpdateData("Master", "Project", doc, files)
             global toRemoveFiles
             for toRemoveFile in toRemoveFiles:                
-                mdict = [
+                dt = [
+                    { "filename": toRemoveFile["file_name"] },
                     { "metadata._id" : doc["_id"] },
                     { "metadata.doc_name": toRemoveFile["docname"] }
                 ]
-                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                db.RemoveFile("Master", dt)
                 toRemoveFiles = []
 
         project_name = doc["project_name"]
@@ -223,7 +224,7 @@ def customer_master(request, customer_name=None):
         metadata_filters = [
                 {"metadata._id" : selectedCustomerDetails["_id"]}
             ]
-        files = db.GetFilesByMetaData("Master", metadata_filters)
+        files = db.GetFiles("Master", metadata_filters)
 
         response =  {
             "selectedCustomerDetails": selectedCustomerDetails,
@@ -242,11 +243,12 @@ def customer_master(request, customer_name=None):
             
             global toRemoveFiles
             for toRemoveFile in toRemoveFiles:                
-                mdict = [
+                dt = [
+                    { "filename": toRemoveFile["file_name"] },
                     { "metadata._id" : doc["_id"] },
                     { "metadata.doc_name": toRemoveFile["docname"] }
                 ]
-                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                db.RemoveFile("Master", dt)
                 toRemoveFiles = [] 
 
         return HttpResponseRedirect(request.path_info)
@@ -267,7 +269,7 @@ def bank_master(request, bank_name=None):
         metadata_filters = [
                 {"metadata._id" : selectedBankDetails["_id"]}
             ]
-        files = db.GetFilesByMetaData("Master", metadata_filters)
+        files = db.GetFiles("Master", metadata_filters)
 
         response =  {
             "selectedBankDetails": selectedBankDetails,
@@ -287,11 +289,12 @@ def bank_master(request, bank_name=None):
 
             global toRemoveFiles
             for toRemoveFile in toRemoveFiles:                
-                mdict = [
+                dt = [
+                    { "filename": toRemoveFile["file_name"] },
                     { "metadata._id" : doc["_id"] },
                     { "metadata.doc_name": toRemoveFile["docname"] }
                 ]
-                db.RemoveFile("Master", toRemoveFile["file_name"], mdict)
+                db.RemoveFile("Master", dt)
                 toRemoveFiles = []
 
         return HttpResponseRedirect(request.path_info)
@@ -359,7 +362,7 @@ def organisation_master(request, org_name=None):
         metadata_filters = [
                 {"metadata._id" : selectedOrganisationDetails["_id"]}
             ]
-        files = db.GetFilesByMetaData("Settings", metadata_filters)
+        files = db.GetFiles("Settings", metadata_filters)
 
         response =  {
             "selectedOrganisationDetails": selectedOrganisationDetails,
@@ -379,11 +382,12 @@ def organisation_master(request, org_name=None):
             
             global toRemoveFiles
             for toRemoveFile in toRemoveFiles:                
-                mdict = [
+                dt = [
+                    { "filename": toRemoveFile["file_name"] },
                     { "metadata._id" : doc["_id"] },
                     { "metadata.doc_name": toRemoveFile["docname"] }
                 ]
-                db.RemoveFile("Settings", toRemoveFile["file_name"], mdict)
+                db.RemoveFile("Settings", dt)
                 toRemoveFiles = [] 
 
         return HttpResponseRedirect(request.path_info)
@@ -402,8 +406,12 @@ def user_master(request):
     return render(request, 'settings/user_master.html', {"userDetails":userDetails})
 
 #FILE OPS
-def view_file(request, db_name, file_name):
-    db.ViewFile(db_name, file_name)
+def view_file(request, db_name, docname, file_name):
+    dt = [
+        { "filename": file_name },
+        { "metadata.doc_name": docname }
+    ]
+    db.ViewFile(db_name, dt)
     return JsonResponse({})
 
 def remove_file(request, file_name, docname):    
