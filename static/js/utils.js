@@ -22,7 +22,7 @@ function showProjectData(_url){
 
         for(var i=0; i< approved_banks.length -1; i++){
           if(length != approved_banks.length){          
-            addRow("fs1");
+            addRow(undefined, "fs1");
           }
         }
 
@@ -49,7 +49,7 @@ function showProjectData(_url){
 
         for(var i=0; i< landarea.length -1; i++){
           if(length != landarea.length){          
-            addRow("fs2");
+            addRow(undefined, "fs2");
           }
         }
         
@@ -105,9 +105,10 @@ function showBlockData(_url){
         var length = document.getElementsByClassName("fs1").length;
         $("#fs1-fields").val(length);
 
-        for(var i=0; i< blocks.length -1; i++){
+        no_blocks = Number(response["selectedBlockDetails"]["no_blocks"]);
+        for(var i=0; i< no_blocks -1; i++){
           if(length != blocks.length){          
-            addRow("fs1");
+            addRow(undefined, "fs1");
           }
         }
         
@@ -150,7 +151,7 @@ function showFlatData(_url){
 
         for(var i=0; i< flats.length -1; i++){
           if(length != flats.length){          
-            addRow("fs1");
+            addRow(undefined, "fs1");
           }
         }
         
@@ -341,12 +342,12 @@ function showBookingEntry(_url){
 
         for(var i=0; i< payment_details.length -1; i++){
           if(length != payment_details.length){          
-            addRow("fs1");
+            addRow(undefined, "fs1");
           }
         }
         
         for(var i=0; i<payment_details.length; i++){          
-          $("#fs1-" + i + "-payment_date").val(payment_details[i]["payment_date"]);
+          $("#fs1-" + i + "-payment_date").val(formatDate(payment_details[i]["payment_date"]));
           $("#fs1-" + i + "-payment_mode").val(payment_details[i]["payment_mode"]);
           $("#fs1-" + i + "-payment_details").val(payment_details[i]["payment_details"]);
           $("#fs1-" + i + "-bank_name").val(payment_details[i]["bank_name"]);

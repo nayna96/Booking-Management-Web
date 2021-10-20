@@ -118,7 +118,7 @@
                                 Ownership Status
                                 <label class="mandat_symbol">*</label>
                             </div>
-                            <div class="col-sm-2 mb-1">
+                            <div class="col-sm-1 mb-1">
                                 Flat Status 
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -146,11 +146,11 @@
                                 
                             </div>                                                          
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-sm-12 mb-1"> 
                                 <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
                             </div>
-                        </div>
+                        </div>-->
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-1 mb-1">
@@ -170,7 +170,7 @@
                                         <option value="LAND-OWNER SHARE">LAND-OWNER SHARE</option>
                                     </select>
                                 </div>
-                                <div class="col-sm-2 mb-1">
+                                <div class="col-sm-1 mb-1">
                                     <select name="fs1-0-flat_status" class="form-control" required id="fs1-0-flat_status" tabindex="7">
                                         <option value="" selected disabled>-- Select --</option>
                                         <option value="OPEN">OPEN</option>
@@ -193,6 +193,9 @@
                                 </div>
                                 <div class="col-sm-1 mb-1">
                                     <input type="text" name="fs1-0-parking_area" class="form-control" required id="fs1-0-parking_area" tabindex="12">
+                                </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="addRow(event, 'fs1')">add</a>
                                 </div>
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -264,7 +267,7 @@ function updateFlatNo(){
     n = no_flats - length;
 
     for(var i=0; i<n; i++){
-        addRow('fs1');        
+        addRow(undefined, 'fs1');        
     }
 
     if (n < 0){

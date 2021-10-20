@@ -114,11 +114,11 @@
                                     Approved Banks
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-sm-12 mb-1"> 
                                     <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
                                 </div>
-                            </div>
+                            </div>-->
                             <div>  
                                 <div class="row fs1" id="fs1-0">
                                     <div class="col-sm-2 mb-1">
@@ -129,6 +129,9 @@
                                         {% endfor %}
                                         </select>
                                     </div>
+                                    <div class="col-sm-1 mb-1">                                                                
+                                        <a href="javascript:void(0)" onclick="addRow(event, 'fs1')">add</a>
+                                    </div>  
                                     <div class="col-sm-1 mb-1">                                                                
                                         <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
                                     </div>  
@@ -165,7 +168,7 @@
                             <input type="text" id="fs2-fields" name="fs2-fields" value="1" hidden/>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-2 mb-1">
                                 Mouza
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -189,14 +192,14 @@
                                 
                             </div>
                         </div>    
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-sm-12 mb-1"> 
                                 <a href="javascript:void(0)" onclick="addRow('fs2')">add another</a>
                             </div>
-                        </div>
+                        </div>-->
                         <div>  
                             <div class="row fs2" id="fs2-0">                            		
-                                <div class="col-sm-3 mb-1">
+                                <div class="col-sm-2 mb-1">
                                     <input type="text" name="fs2-0-mouza" class="allcaps form-control" required id="fs2-0-mouza" tabindex="12">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
@@ -210,6 +213,9 @@
                                 </div>
                                 <div class="col-sm-2 mb-1">
                                     <input type="text" name="fs2-0-area" class="allnums form-control" onfocusout="formatArea(event)" required id="fs2-0-area" tabindex="16">
+                                </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="addRow(event, 'fs2')">add</a>
                                 </div>                                                                                                    
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
@@ -493,12 +499,6 @@ function dateValidation(e){
     }
 
     return true;
-}
-
-function addArea(e){
-    if(e.which == 13) {
-        addRow("fs2");
-    }
 }
 
 function formatArea(e){

@@ -102,7 +102,7 @@
                                 No. of Floors
                                 <label class="mandat_symbol">*</label>
                             </div>
-                            <div class="col-sm-4 mb-1">
+                            <div class="col-sm-3 mb-1">
                                 Floor No.
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -114,11 +114,11 @@
                                 
                             </div>                                                          
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-sm-12 mb-1"> 
                                 <a href="javascript:void(0)" onclick="addRow('fs1')">add another</a>
                             </div>
-                        </div>
+                        </div>-->
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-3 mb-1">
@@ -127,7 +127,7 @@
                                 <div class="col-sm-2 mb-1">
                                     <input type="number" name="fs1-0-no_floors" class="form-control" min="1" required id="fs1-0-no_floors" tabindex="4" onfocusout="updateFloorNos(event)">
                                 </div>
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-sm-3 mb-1">
                                     <!--<select name="fs1-0-floor_no" class="form-control" required id="fs1-0-floor_no" tabindex="5">
                                         <option value="" selected disabled>-- Select --</option>
                                     </select>-->
@@ -136,6 +136,9 @@
                                 <div class="col-sm-2 mb-1">
                                     <input type="number" name="fs1-0-no_flats" class="form-control" min="1" required id="fs1-0-no_flats" tabindex="6">
                                 </div>
+                                <div class="col-sm-1 mb-1">                                                                
+                                    <a href="javascript:void(0)" onclick="addRow(event, 'fs1')">add</a>
+                                </div>  
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="removeRow(event)">remove</a>
                                 </div>                              
@@ -218,7 +221,7 @@ function updateFloorNos(e){
     n = no_floors - length;
 
     for(var i=0; i<n; i++){
-        addRow('fs1');        
+        addRow(e, 'fs1');        
     }
 
     els = getElsHavingBlockName(block_name_id)
@@ -228,7 +231,7 @@ function updateFloorNos(e){
         $("#fs1-" + i + "-block_name").val($("#" + block_name_id).val());
         $("#fs1-" + i + "-no_floors").val($("#" + no_floors_id).val());
 
-        floor_no = AddOrdinal((i + 1));
+        floor_no = AddOrdinal(((i - start_index) + 1));
         $("#fs1-" + i + "-floor_no").val(floor_no + " FLOOR")
     }
 
