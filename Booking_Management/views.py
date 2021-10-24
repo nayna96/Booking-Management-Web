@@ -55,14 +55,15 @@ def load_floors(request, project_name=None, block_name=None):
     response = {'floors': floors}
     return JsonResponse(response)
 
-def load_flats(request, project_name=None, block_name=None, floor_no=None, share_type=None):
+def load_flats(request, project_name=None, block_name=None, floor_no=None, share_type=None, save_update=None):
     project_name = request.GET.get('project_name')
     block_name = request.GET.get('block_name')
     floor_no = request.GET.get('floor_no')
     share_type = request.GET.get('share_type')
+    save_update = request.GET.get('save_update')
 
     if len(project_name) > 0 and len(block_name) > 0 and len(floor_no) > 0:
-        flats = db.getFlatsListByFloorNo(project_name, block_name, floor_no, share_type)
+        flats = db.getFlatsListByFloorNo(project_name, block_name, floor_no, share_type, save_update)
     else:
         flats = []
 

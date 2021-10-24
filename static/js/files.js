@@ -23,6 +23,9 @@ function showFiles(dbName, collectionName, files_dt) {
                 case "rera_certificate":
                     UpdateTable(dbName, "reraCertificate", _path)
                     break;
+                case "rent_receipt_doc":
+                    UpdateTable(dbName, "rent_receiptDoc", _path)
+                    break;
                 default:
                     break;
             }
@@ -47,6 +50,9 @@ function showFiles(dbName, collectionName, files_dt) {
                     break;
                 case "other_docs":
                     UpdateTable(dbName, "otherDocs", _path)                  
+                    break;
+                case "broker's_pan_card":
+                    UpdateTable(dbName, "broker's_panCard", _path)
                     break;
                 default:
                     break;
@@ -92,7 +98,7 @@ function UpdateTable(dbName, tableID, file){
 
     docname = table.parentElement.previousElementSibling.children[0].id;
 
-    cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + docname + "/" + encodeURIComponent(file) + "')>" + file + "</a>";
+    cell1.innerHTML = "<a href='#' onclick=viewFile('/view_file/" + dbName + "/" + docname + "/" + encodeURIComponent(file.replace("'", "\\'")) + "')>" + file + "</a>";
     cell2.innerHTML = "<a href='#' onclick=removeFile(event,'" + dbName + "','" + docname +  "')>remove</a>";
     /*var myList = document.getElementById(divID).getElementsByTagName('ul')[0];
     var myNewListItem = document.createElement('li');

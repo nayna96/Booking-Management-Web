@@ -49,24 +49,28 @@ function getMaxDate(){
 }
 
 function formatDate(dateString){
-  dateString = dateString.slice(0, 10);
-  var dateParts = dateString.split("-");
-  if(dateParts.length == 1){
-    dateParts = dateString.split("/");
-  }
+  if(dateString == ""){
+    return dateString;
+  }  else{
+    dateString = dateString.slice(0, 10);
+    var dateParts = dateString.split("-");
+    if(dateParts.length == 1){
+      dateParts = dateString.split("/");
+    }
 
-  if(dateParts[2].length == 4){
-    var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
-  } else{
-    var dateObj = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]); 
-  }
-  
-  var dd = String(dateObj.getDate()).padStart(2, '0');
-  var mm = String(dateObj.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = dateObj.getFullYear();
+    if(dateParts[2].length == 4){
+      var dateObj = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]); 
+    } else{
+      var dateObj = new Date(+dateParts[0], dateParts[1] - 1, +dateParts[2]); 
+    }
+    
+    var dd = String(dateObj.getDate()).padStart(2, '0');
+    var mm = String(dateObj.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = dateObj.getFullYear();
 
-  date = yyyy + '-' + mm + '-' + dd;
-  return date;
+    date = yyyy + '-' + mm + '-' + dd;
+    return date;
+  }
 }
 
 function maxdateValidation(e){
@@ -173,13 +177,16 @@ function showFlats(){
     }
   }
 
+  save_update = $("#btn").val()
+
   $.ajax({
     url: flats_url,
     data: {
       'project_name': project_name,
       'block_name': block_name,
       'floor_no': floor_no,
-      'share_type': share_type
+      'share_type': share_type,
+      'save_update': save_update
     },
     async: false,
     success: function(result){
@@ -210,6 +217,11 @@ $(document).ready(function() {
   //ALLCAPS STRING
   $('body').on('input', '.allcaps', function() {
     this.value = this.value.toUpperCase();
+  });
+
+  //ALLSMALL STRING
+  $('body').on('input', '.allsmall', function() {
+    this.value = this.value.toLowerCase();
   });
   
   //ALLNUMS 

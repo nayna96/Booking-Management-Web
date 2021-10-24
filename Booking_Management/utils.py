@@ -32,7 +32,8 @@ def getProjectData(_id=None, **kwargs):
             "khata_no": kwargs["request"].POST.get("fs2-" + str(i) + "-khata_no"),
             "plot_no": kwargs["request"].POST.get("fs2-" + str(i) + "-plot_no"),
             "kisam": kwargs["request"].POST.get("fs2-" + str(i) + "-kisam"),
-            "area": kwargs["request"].POST.get("fs2-" + str(i) + "-area")
+            "area": kwargs["request"].POST.get("fs2-" + str(i) + "-area"),
+            "rent_receipt_fyr": kwargs["request"].POST.get("fs2-" + str(i) + "-rent_receipt_fyr")
         }
         landarea.append(dt)
     doc["landarea"] = landarea
@@ -55,13 +56,15 @@ def getProjectData(_id=None, **kwargs):
     pow = kwargs["request"].FILES.getlist("pow")
     dev_auth_approval = kwargs["request"].FILES.getlist("dev_auth_approval")
     rera_certificate = kwargs["request"].FILES.getlist("rera_certificate")
+    rent_receipt_doc = kwargs["request"].FILES.getlist("rent_receipt_doc")
 
     files = {
         "land_docs": land_docs,
         "agreements_doc": agreements_doc,
         "pow": pow,
         "dev_auth_approval": dev_auth_approval,
-        "rera_certificate": rera_certificate
+        "rera_certificate": rera_certificate,
+        "rent_receipt_doc": rent_receipt_doc
     }
 
     return [doc, files]    
@@ -128,13 +131,16 @@ def getFlatData(_id=None, **kwargs):
 def getCustomerData(_id=None, **kwargs):
     id = db.getNextId("Master", "Customer")
     doc = {}
-    doc["_id"] = "C" + str(id) if len(_id) == 0 else _id     
+    doc["_id"] = "C" + str(id) if len(_id) == 0 else _id
+
     doc["customer_salutation"] = kwargs["request"].POST.get("customer_salutation")
     doc["customer_fname"] = kwargs["request"].POST.get("customer_fname").replace(" ", "")
     doc["customer_mname"] = kwargs["request"].POST.get("customer_mname").replace(" ", "")
     doc["customer_lname"] = kwargs["request"].POST.get("customer_lname").replace(" ", "")
     doc["customer_dob"] = kwargs["request"].POST.get("customer_dob")
     doc["customer_gender"] = kwargs["request"].POST.get("customer_gender")
+    doc["customer_occupation"] = kwargs["request"].POST.get("customer_occupation")
+    doc["customer_caste"] = kwargs["request"].POST.get("customer_caste")
 
     doc["co-owner_salutation"] = kwargs["request"].POST.get("co-owner_salutation")
     doc["co-owner_fname"] = kwargs["request"].POST.get("co-owner_fname")
@@ -142,6 +148,8 @@ def getCustomerData(_id=None, **kwargs):
     doc["co-owner_lname"] = kwargs["request"].POST.get("co-owner_lname")
     doc["co-owner_dob"] = kwargs["request"].POST.get("co-owner_dob")
     doc["co-owner_gender"] = kwargs["request"].POST.get("co-owner_gender")
+    doc["co-owner_occupation"] = kwargs["request"].POST.get("co-owner_occupation")
+    doc["co-owner_caste"] = kwargs["request"].POST.get("co-owner_caste")
 
     doc["email"] = kwargs["request"].POST.get("email")
     doc["mobile_no"] = kwargs["request"].POST.get("mobile_no")
@@ -150,6 +158,11 @@ def getCustomerData(_id=None, **kwargs):
     doc["father_husband's_salutation"] = kwargs["request"].POST.get("father_husband's_salutation")
     doc["father_husband's_name"] = kwargs["request"].POST.get("father_husband's_name")
     doc["relation"] = kwargs["request"].POST.get("relation")
+
+    doc["copy_from"] = kwargs["request"].POST.get("copy_from")
+    doc["contact_p_salutation"] = kwargs["request"].POST.get("contact_p_salutation")
+    doc["contact_p_name"] = kwargs["request"].POST.get("contact_p_name")
+    doc["contact_p_phone_no"] = kwargs["request"].POST.get("contact_p_phone_no")
 
     if "copy_present" in kwargs["request"].POST:
         doc["copy_present"] = "copy_present"
@@ -170,17 +183,12 @@ def getCustomerData(_id=None, **kwargs):
     doc["pe_state"] = kwargs["request"].POST.get("pe_state")
     doc["pe_pincode"] = kwargs["request"].POST.get("pe_pincode")
 
-    doc["copy_from"] = kwargs["request"].POST.get("copy_from")
-    doc["contact_p_salutation"] = kwargs["request"].POST.get("contact_p_salutation")
-    doc["contact_p_name"] = kwargs["request"].POST.get("contact_p_name")
-    doc["contact_p_phone_no"] = kwargs["request"].POST.get("contact_p_phone_no")
-
     doc["broker's_salutation"] = kwargs["request"].POST.get("broker's_salutation")
     doc["broker's_name"] = kwargs["request"].POST.get("broker's_name")
+    doc["broker's_address"] = kwargs["request"].POST.get("broker's_address")
+    doc["broker's_phno"] = kwargs["request"].POST.get("broker's_phno")
+    doc["broker's_pan_no"] = kwargs["request"].POST.get("broker's_pan_no")
     
-    doc["occupation"] = kwargs["request"].POST.get("occupation")
-    doc["caste"] = kwargs["request"].POST.get("caste")
-
     doc["username"] = kwargs["request"].POST.get("username")
     doc["password"] = kwargs["request"].POST.get("password")
     passport_photo = kwargs["request"].FILES.getlist("passport_photo")
@@ -199,6 +207,7 @@ def getCustomerData(_id=None, **kwargs):
     doc["gst_no"] = kwargs["request"].POST.get("gst_no")
     gst_doc = kwargs["request"].FILES.getlist("gst_doc")
     other_docs = kwargs["request"].FILES.getlist("other_docs")
+    brokers_pan_card = kwargs["request"].FILES.getlist("broker's_pan_card")
 
     files = {
         "passport_photo": passport_photo, 
@@ -206,7 +215,8 @@ def getCustomerData(_id=None, **kwargs):
         "pan_card": pan_card, 
         "voter_id_card": voter_id_card,
         "gst_doc": gst_doc, 
-        "other_docs": other_docs
+        "other_docs": other_docs,
+        "broker's_pan_card": brokers_pan_card
     }
 
     return [doc, files]

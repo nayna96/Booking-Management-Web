@@ -62,7 +62,7 @@ urlpatterns = [
     path('load-floors/<str:project_name>/<str:block_name>', views.load_floors, name='load_floors'),
 
     re_path('load-flats/$', views.load_flats, name='load_flats'),
-    path('load-flats/<str:project_name>/<str:block_name>/<str:floor_no>/<str:share_type>', views.load_flats, name='load_flats'),
+    path('load-flats/<str:project_name>/<str:block_name>/<str:floor_no>/<str:share_type>/<str:save_update>', views.load_flats, name='load_flats'),
 
     re_path('flat_details/$', views.flat_details, name='flat_details'),
     path('flat_details/<str:project_name>/<str:block_name>/<str:floor_no>/<str:flat_no>', views.flat_details, name='flat_details'),

@@ -141,8 +141,12 @@ def getFlatDetailsByFloor(project_name, block_name, floor_no,
     else:
         return lst
 
-def getFlatsListByFloorNo(project_name, block_name, floor_no, share_type):
-    flat_status = ["OPEN", "BOOKED"]           
+def getFlatsListByFloorNo(project_name, block_name, floor_no, share_type, save_update):
+    if save_update == "Save":
+        flat_status = ["OPEN"]
+    else:
+        flat_status = ["OPEN", "BOOKED"]
+
     lst = []
 
     entry = getFlatDetailsByFloor(project_name, block_name, floor_no)
@@ -219,8 +223,8 @@ def getOccupations(db_name="Master", collection_name="Customer"):
     db = client[db_name]
     collection = db[collection_name]
     for item in collection.find({}):
-        if item["occupation"] != "BUSINESS" and  item["occupation"] != "SELF-EMPLOYED" and item["occupation"] != "SERVICE" :
-            occupations_list.append(item["occupation"])    
+        if item["customer_occupation"] != "BUSINESS" and  item["customer_occupation"] != "SELF-EMPLOYED" and item["customer_occupation"] != "SERVICE" :
+            occupations_list.append(item["customer_occupation"])    
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , occupations_list, [])
 
 def getCastes(db_name="Master", collection_name="Customer"):
@@ -228,8 +232,8 @@ def getCastes(db_name="Master", collection_name="Customer"):
     db = client[db_name]
     collection = db[collection_name]
     for item in collection.find({}):
-        if item["caste"] != "SC" and  item["caste"] != "ST" :
-            castes_list.append(item["caste"])    
+        if item["customer_caste"] != "SC" and  item["customer_caste"] != "ST" :
+            castes_list.append(item["customer_caste"])    
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , castes_list, [])
 
 def getCustomersList(db_name="Master", collection_name="Customer"):
@@ -358,7 +362,7 @@ def UpdateData(db_name, collection_name, doc, files_dt):
     if files_dt:
         for files in files_dt:
             if files_dt[files]:
-                UploadFile(db, files_dt[files], doc)
+                UploadFile(db, files, files_dt[files], doc)
 
 def UpdateDoc(db_name, collection_name, doc):
     db = client[db_name]
@@ -370,11 +374,11 @@ def UpdateDoc(db_name, collection_name, doc):
         collection.update_one(filter, update)    
     return db
     
-def UploadFile(db, files, doc):
+def UploadFile(db, docname, files, doc):
     for file in files:
         meta_data = {
             "_id": doc["_id"],
-            "doc_name": file.field_name
+            "doc_name": docname
         }
 
         data = file.read()

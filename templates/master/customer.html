@@ -117,8 +117,34 @@
                                 </select>        
                             </div>
                             <div class="col-sm-2 mb-1">
+                                <label>Occupation</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="customer_occupation" id="customer_occupation" class="allstring form-control" tabindex="7" required list="occupationList">
+                                <datalist id="occupationList">
+                                    <option value="BUSINESS"></option>  
+                                    <option value="SELF-EMPLOYED"></option>
+                                    <option value="SERVICE"></option>
+                                    {% for occupation in occupations_list %}
+                                        <option value={{occupation}}>{{occupation}}</option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Caste</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="customer_caste" id="customer_caste"  class="allstring form-control" tabindex="8" required list="casteList">
+                                <datalist id="casteList">
+                                    <option value="SC"></option>  
+                                    <option value="ST"></option>
+                                    {% for caste in castes_list %}
+                                        <option value={{caste}}>{{caste}}</option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                            <div class="col-sm-8 mb-1"></div>
+                            <div class="col-sm-2 mb-1">
                                 <label>Co-owner</label>
-                                <select name="co-owner_salutation" id="co-owner_salutation" tabindex="7" onchange="setGender(event, 'co-owner_gender')" class="form-control">
+                                <select name="co-owner_salutation" id="co-owner_salutation" tabindex="9" onchange="setGender(event, 'co-owner_gender')" class="form-control">
                                     <option value="" selected>-- Select --</option>
                                     <option value="MR.">MR.</option>
                                     <option value="MRS.">MRS.</option>
@@ -127,47 +153,71 @@
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>First Name</label>
-                                <input type="text" name="co-owner_fname" id="co-owner_fname" tabindex="8" class="allstring form-control">
+                                <input type="text" name="co-owner_fname" id="co-owner_fname" tabindex="10" class="allstring form-control">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Middle Name</label>
-                                <input type="text" name="co-owner_mname" id="co-owner_mname" tabindex="9" class="allstring form-control">
+                                <input type="text" name="co-owner_mname" id="co-owner_mname" tabindex="11" class="allstring form-control">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Last Name</label>
-                                <input type="text" name="co-owner_lname" id="co-owner_lname" tabindex="10" class="allstring form-control">
+                                <input type="text" name="co-owner_lname" id="co-owner_lname" tabindex="12" class="allstring form-control">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>DOB</label>
-                                <input type="date" name="co-owner_dob" id="co-owner_dob" tabindex="11" class="form-control">
+                                <input type="date" name="co-owner_dob" id="co-owner_dob" tabindex="13" class="form-control">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Gender</label>
-                                <select name="co-owner_gender" id="co-owner_gender" tabindex="12" class="disable form-control">
+                                <select name="co-owner_gender" id="co-owner_gender" tabindex="14" class="disable form-control">
                                     <option value="" selected>-- Select --</option>
                                     <option value="MALE">MALE</option>
                                     <option value="FEMALE">FEMALE</option>   
                                 </select>        
                             </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Occupation</label>
+                                <input type="text" name="co-owner_occupation" id="co-owner_occupation" class="allstring form-control" tabindex="15" list="occupationList">
+                                <datalist id="occupationList">
+                                    <option value="BUSINESS"></option>  
+                                    <option value="SELF-EMPLOYED"></option>
+                                    <option value="SERVICE"></option>
+                                    {% for occupation in occupations_list %}
+                                        <option value={{occupation}}>{{occupation}}</option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Caste</label>
+                                <input type="text" name="co-owner_caste" id="co-owner_caste"  class="allstring form-control" tabindex="16" list="casteList">
+                                <datalist id="casteList">
+                                    <option value="SC"></option>  
+                                    <option value="ST"></option>
+                                    {% for caste in castes_list %}
+                                        <option value={{caste}}>{{caste}}</option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                            <div class="col-sm-8 mb-1"></div>
                             <div class="col-sm-4 mb-1">
                                 <label>Email</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="email" name="email" id="email" tabindex="13" class="form-control" required>
+                                <input type="email" name="email" id="email" tabindex="17" class="allsmall form-control" required>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Mobile No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="mobile_no" id="mobile_no" maxlength="10" tabindex="14" onfocusout="copyMobileNo()" class="allnums form-control" required>
+                                <input type="text" name="mobile_no" id="mobile_no" maxlength="10" tabindex="18" onfocusout="copyMobileNo()" class="allnums form-control" required>
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Whatsapp No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="whatsapp_no" id="whatsapp_no" maxlength="10" tabindex="15" class="allnums form-control">
+                                <input type="text" name="whatsapp_no" id="whatsapp_no" maxlength="10" tabindex="19" class="allnums form-control">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Father/Husband</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="father_husband's_salutation" id="father_husband's_salutation" tabindex="16" class="form-control" required>
+                                <select name="father_husband's_salutation" id="father_husband's_salutation" tabindex="20" class="form-control" required>
                                     <option value="" selected disabled>-- Select --</option>
                                     <option value="MR.">MR.</option>
                                     <option value="MRS.">MRS.</option>
@@ -178,16 +228,44 @@
                             <div class="col-sm-6 mb-1">
                                 <label>Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="father_husband's_name" id="father_husband's_name" tabindex="17" class="allstring form-control" required>
+                                <input type="text" name="father_husband's_name" id="father_husband's_name" tabindex="21" class="allstring form-control" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Relation</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="relation" id="relation" tabindex="18" class="form-control" required>
+                                <select name="relation" id="relation" tabindex="22" class="form-control" required>
                                     <option value="" selected disabled>-- Select --</option>  
                                     <option value="FATHER">FATHER</option>
                                     <option value="HUSBAND">HUSBAND</option>
                                 </select>
+                            </div>
+                            <div class="col-sm-3 mb-1">                                
+                                <label>Contact Person</label>
+                                <select name="copy_from" id="copy_from" onchange="copyFrom(event)" class="form-control" tabindex="23" >
+                                    <option value="" selected>-- Select --</option>
+                                    <option value="CUSTOMER">CUSTOMER</option>
+                                    <option value="CO-OWNER">CO-OWNER</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Title</label>
+                                <label class="mandat_symbol">*</label>
+                                <select name="contact_p_salutation" id="contact_p_salutation" class="form-control" tabindex="24" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                    <option value="MR.">MR.</option>
+                                    <option value="MRS.">MRS.</option>
+                                    <option value="MS.">MS.</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="contact_p_name" id="contact_p_name" class="allstring form-control" tabindex="25" required>
+                            </div>
+                            <div class="col-sm-3 mb-1">
+                                <label>Mobile no</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="contact_p_phone_no" id="contact_p_phone_no" maxlength="10" class="allnums form-control" tabindex="26" required>
                             </div>
                         </div>
                     </div>
@@ -204,66 +282,66 @@
                                 <label style="font-weight: bold;">Permanent Address</label>
                             </div>
                             <div class="col-sm-3 mb-1" style="text-align: right;">
-                                <input type="checkbox" id="copy_present" name="copy_present" tabindex="25" value="Copy Present Address" onclick="copyPresentAddress()">                                
+                                <input type="checkbox" id="copy_present" name="copy_present" tabindex="27" value="Copy Present Address" onclick="copyPresentAddress()">                                
                                 <label for="copy_present">Copy Present Address</label>                                
                             </div>
                             <div class="col-sm-6 mb-1">
                                 <label>Address Line 1</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pr_addLine1" id="pr_addLine1" class="allcaps form-control" tabindex="19" required>
+                                <input type="text" name="pr_addLine1" id="pr_addLine1" class="allcaps form-control" tabindex="28" required>
                             </div>
                             <div class="col-sm-6 mb-1">
                                 <label>Address Line 1</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pe_addLine1" id="pe_addLine1" class="allcaps form-control" tabindex="26" required>
+                                <input type="text" name="pe_addLine1" id="pe_addLine1" class="allcaps form-control" tabindex="34" required>
                             </div>
                             <div class="col-sm-6 mb-1">
                                 <label>Address Line 2</label>
-                                <input type="text" name="pr_addLine2" id="pr_addLine2" class="allcaps form-control" tabindex="20">
+                                <input type="text" name="pr_addLine2" id="pr_addLine2" class="allcaps form-control" tabindex="29">
                             </div>
                             <div class="col-sm-6 mb-1">
                                 <label>Address Line 2</label>
-                                <input type="text" name="pe_addLine2" id="pe_addLine2" class="allcaps form-control" tabindex="27">
+                                <input type="text" name="pe_addLine2" id="pe_addLine2" class="allcaps form-control" tabindex="35">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>District</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pr_district" id="pr_district" class="allstring form-control" tabindex="21" required>
+                                <input type="text" name="pr_district" id="pr_district" class="allstring form-control" tabindex="30" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>City</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pr_city" id="pr_city" class="allstring form-control" tabindex="22" required>
+                                <input type="text" name="pr_city" id="pr_city" class="allstring form-control" tabindex="31" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>District</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pe_district" id="pe_district" class="allstring form-control" tabindex="28" required>
+                                <input type="text" name="pe_district" id="pe_district" class="allstring form-control" tabindex="36" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>City</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pe_city" id="pe_city" class="allstring form-control" tabindex="29" required>
+                                <input type="text" name="pe_city" id="pe_city" class="allstring form-control" tabindex="37" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>State</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pr_state" id="pr_state" class="allstring form-control" tabindex="23" required>
+                                <input type="text" name="pr_state" id="pr_state" class="allstring form-control" tabindex="32" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Pin code</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pr_pincode" id="pr_pincode" maxlength="6" class="allnums form-control" tabindex="24" required>
+                                <input type="text" name="pr_pincode" id="pr_pincode" maxlength="6" class="allnums form-control" tabindex="33" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>State</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pe_state" id="pe_state" class="allstring form-control" tabindex="30" required>
+                                <input type="text" name="pe_state" id="pe_state" class="allstring form-control" tabindex="38" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Pin code</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pe_pincode" id="pe_pincode" maxlength="6" class="allnums form-control" tabindex="31" required>
+                                <input type="text" name="pe_pincode" id="pe_pincode" maxlength="6" class="allnums form-control" tabindex="39" required>
                             </div>
                         </div>   
                     </div>
@@ -272,77 +350,32 @@
                         <i class="fa fa-caret-down"></i>
                     </div>
                     <div id="other" class="w3-hide">
-                        <div class="row">
-                            <div class="col-sm-12 mb-1">
-                                <label>Contact Person</label>
-                            </div>
-                            <div class="col-sm-3 mb-1">                                
-                                <label class="mandat_symbol">*</label>
-                                <label>Copy from</label>
-                                <select name="copy_from" id="copy_from" onchange="copyFrom(event)" class="form-control" tabindex="32" >
-                                    <option value="" selected>-- Select --</option>
-                                    <option value="CUSTOMER">CUSTOMER</option>
-                                    <option value="CO-OWNER">CO-OWNER</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Title</label>
-                                <label class="mandat_symbol">*</label>
-                                <select name="contact_p_salutation" id="contact_p_salutation" class="form-control" tabindex="33" required>
-                                    <option value="" selected disabled>-- Select --</option>
-                                    <option value="MR.">MR.</option>
-                                    <option value="MRS.">MRS.</option>
-                                    <option value="MS.">MS.</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Name</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="contact_p_name" id="contact_p_name" class="allstring form-control" tabindex="34" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Mobile no</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="contact_p_phone_no" id="contact_p_phone_no" maxlength="10" class="allnums form-control" tabindex="35" required>
-                            </div>
-                            <div class="col-sm-3 mb-1">
+                        <div class="row">                         
+                            <div class="col-sm-2 mb-1">
                                 <label>Broker</label>                                
-                                <select name="broker's_salutation" id="broker's_salutation" class="form-control" tabindex="36">
+                                <select name="broker's_salutation" id="broker's_salutation" class="form-control" tabindex="40">
                                     <option value="" selected>-- Select --</option>
                                     <option value="MR.">MR.</option>
                                     <option value="MRS.">MRS.</option>
                                     <option value="MS.">MS.</option>
                                 </select>
                             </div>
-                            <div class="col-sm-3 mb-1">
+                            <div class="col-sm-2 mb-1">
                                 <label>Name</label>
-                                <input type="text" name="broker's_name" id="broker's_name" class="allstring form-control" tabindex="37">
+                                <input type="text" name="broker's_name" id="broker's_name" class="allstring form-control" tabindex="41">
                             </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Occupation</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="occupation" id="occupation" class="allstring form-control" tabindex="38" required list="occupationList">
-                                <datalist id="occupationList">
-                                    <option value="BUSINESS"></option>  
-                                    <option value="SELF-EMPLOYED"></option>
-                                    <option value="SERVICE"></option>
-                                    {% for occupation in occupations_list %}
-                                        <option value={{occupation}}>{{occupation}}</option>
-                                    {% endfor %}
-                                </datalist>
+                            <div class="col-sm-4 mb-1">
+                                <label>Address</label>
+                                <input type="text" name="broker's_address" id="broker's_address" class="allcaps form-control" tabindex="42">
                             </div>
-                            <div class="col-sm-3 mb-1">
-                                <label>Caste</label>
-                                <label class="mandat_symbol">*</label>
-                                <input type="text" name="caste" id="caste"  class="allstring form-control" tabindex="39" required list="casteList">
-                                <datalist id="casteList">
-                                    <option value="SC"></option>  
-                                    <option value="ST"></option>
-                                    {% for caste in castes_list %}
-                                        <option value={{caste}}>{{caste}}</option>
-                                    {% endfor %}
-                                </datalist>
+                            <div class="col-sm-2 mb-1">
+                                <label>Phone No.</label>
+                                <input type="text" name="broker's_phno" id="broker's_phno" class="allnums form-control" maxlength="10" tabindex="43">
                             </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>PAN NO.</label>
+                                <input type="text" name="broker's_pan_no" id="broker's_pan_no" class="allcaps form-control" onfocusout="copyBrokerPanNo()" maxlength="10" tabindex="44">
+                            </div>                            
                         </div>
                     </div>
                 </div>
@@ -417,6 +450,11 @@
                             <label>Files</label>
                         </div>
                         <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Customer</label>
+                        </div>
+                        <div class="col-sm-9 mb-1">        
+                        </div>
+                        <div class="col-sm-3 mb-1">
                             <label>AADHAR CARD</label>
                             <label class="mandat_symbol">*</label>
                         </div>
@@ -483,8 +521,26 @@
                             <table id="otherDocs" class="table filesList">
                             </table>
                         </div>
+                        <div class="col-sm-3 mb-1">
+                            <label style="font-weight: bold;">Broker</label>
+                        </div>
+                        <div class="col-sm-9 mb-1">        
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <label>PAN CARD</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" id="broker_pan_no" maxlength="10" tabindex="10" class="form-control" disabled>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="broker's_pan_card" id="broker's_pan_card" tabindex="11" class="file" onchange="updateTable('broker\'s_pan_card', 'broker\'s_panCard', false)" onclick="this.value = null;"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <table id="broker's_panCard" class="table filesList">
+                            </table>
+                        </div>
                     </div>
-                    <input type="submit" onclick="return formValidation()" id="btn" tabindex="10" class="btn btn-primary" name="Save" value="Save"/>
+                    <input type="submit" onclick="return formValidation()" id="btn" tabindex="12" class="btn btn-primary" name="Save" value="Save"/>
                     </form>
                 </div>
             </div>   
@@ -597,7 +653,7 @@ function formValidation(){
         return false
     }
 
-    if($("#mobile_no").val().length < 6){
+    if($("#mobile_no").val().length < 10){
         alert("Please enter  a valid customer phone no.!");
         return false;
     }
@@ -642,6 +698,16 @@ function formValidation(){
         return false;
     }
 
+    if($("#broker's_pan_no").val().length < 10){ 
+        alert("Please enter  a valid broker's pan no.!");
+        return false;
+    }
+
+    if($("#broker's_phno").val().length < 10){
+        alert("Please enter  a valid broker's phone no.!");
+        return false;
+    }
+
     email = $("#email").val();
     if (!validateEmail(email))
     {
@@ -670,6 +736,10 @@ function formValidation(){
 
     alert("Data saved sucessfully!");
     return true;
+}
+
+function copyBrokerPanNo(){
+    $("#broker_pan_no").val(document.getElementById("broker's_pan_no").value)
 }
 
 </script>
