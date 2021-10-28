@@ -42,6 +42,14 @@ def ifExists(request, db_name, collection_name, dt):
 
     return JsonResponse(response)
 
+def get_project_status(request, project_name):
+    project_status = db.getProjectStatus(project_name)
+    response =  {
+        "project_status": project_status
+    } 
+
+    return JsonResponse(response)
+
 def load_blocks(request, project_name=None):
     project_name = request.GET.get('project_name')
     blocks = db.getBlocksListByProject(project_name)
@@ -313,6 +321,7 @@ def booking_entry(request, reference_id=None):
     entries = db.getDetails("Transaction", "BookingEntry")
     projects_list =  db.getProjectsList("Master", "Flat")
     customers_list = db.getCustomersList()
+    banks_list = db.getBanks()
     
     if request.is_ajax():
         if reference_id != None:
@@ -340,7 +349,8 @@ def booking_entry(request, reference_id=None):
         "reference_id": reference_id,
         "entries":entries,
         "projects_list": projects_list,
-        "customers_list": customers_list
+        "customers_list": customers_list,
+        "banks_list": banks_list
     })
 
 def customer_request(request, reference_id=None):    
@@ -348,7 +358,35 @@ def customer_request(request, reference_id=None):
 
 #report
 def flat_booking_status(request):
-    return render(request, 'report/flat_booking_status.html')
+    projects_list =  db.getProjectsList()
+    return render(request, 'report/flat_booking_status.html', 
+    {
+        "projects_list": projects_list
+    })
+
+def show_flats(request, project_name=None, block_name=None):
+    flats_list = {}
+    
+    floors_list = db.getFloorsListByBlock(project_name, block_name)    
+    for floor in floors_list:
+        details = db.getFlatDetailsByFloor(project_name, block_name, floor)
+        if len(details) != 0:
+            flats = details["flats"]
+            flats_list[floor] = flats
+
+    response =  {
+            "flats_list": flats_list
+        }
+    return JsonResponse(response)
+
+def get_customer_details(request, project_name=None, block_name=None, floor_no=None, 
+    flat_no=None, collection_name=None):
+    customer_details = db.getCustomerDetailsByFlatNo(project_name, block_name, floor_no, 
+        flat_no, collection_name)
+    response =  {
+            "customer_details": customer_details
+        }
+    return JsonResponse(response)
 
 #settings
 def settings(request):

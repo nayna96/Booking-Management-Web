@@ -63,6 +63,7 @@ urlpatterns = [
 
     re_path('load-flats/$', views.load_flats, name='load_flats'),
     path('load-flats/<str:project_name>/<str:block_name>/<str:floor_no>/<str:share_type>/<str:save_update>', views.load_flats, name='load_flats'),
+    path('show_flats/<str:project_name>/<str:block_name>', views.show_flats, name='show_flats'),
 
     re_path('flat_details/$', views.flat_details, name='flat_details'),
     path('flat_details/<str:project_name>/<str:block_name>/<str:floor_no>/<str:flat_no>', views.flat_details, name='flat_details'),
@@ -73,8 +74,10 @@ urlpatterns = [
     re_path('get_no_flats/$', views.get_no_flats, name='get_no_flats'),
     path('get_no_flats/<str:project_name>/<str:block_name>/<str:floor_no>', views.get_no_flats, name='get_no_flats'),
 
-    #ifexistsdoc
+    #ajax
     path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
+    path('get_project_status/<str:project_name>', views.get_project_status, name='get_project_status'),
+    path('get_customer_details/<str:project_name>/<str:block_name>/<str:floor_no>/<str:flat_no>/<str:collection_name>', views.get_customer_details, name='get_customer_details'),
 
     #file ops
     path('view_file/<str:db_name>/<str:docname>/<str:file_name>', views.view_file, name='view_file'),

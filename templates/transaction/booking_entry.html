@@ -233,7 +233,7 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-2 mb-1">
-                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" onfocusout="maxdateValidation(event)">
+                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" value="new Date().toISOString().slice(0, 10)" onfocusout="maxdateValidation(event)">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
                                     <select name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="11" onchange="updatePaymentDetails(event)">
@@ -250,7 +250,12 @@
                                     <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="12">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="13">
+                                    <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="13" list="bankList">
+                                    <datalist id="bankList">
+                                        {% for bank in banks_list %}
+                                            <option value="{{bank}}">{{bank}}</option>
+                                        {% endfor %}
+                                    </datalist>
                                 </div>
                                 <div class="col-sm-2 mb-1">
                                     <input type="text" name="fs1-0-amount" class="allnums form-control" required id="fs1-0-amount" tabindex="14" value="0.00" onchange="formatAndAddAmount()">
@@ -268,7 +273,7 @@
                         Payment Details 
                         <i class="fa fa-caret-down"></i>
                     </div>
-                    <div id="paymentDetails" class="w3-hide">
+                    <div id="paymentDetails" class="w3-show">
                         <div class="row">
                             <div class="col-sm-4 mb-1">
                                 <label>Sellable Area</label>
@@ -432,8 +437,10 @@ date = getMaxDate();
 date_els = $("input[id^='fs1-'][id$='-payment_date']")
 for(let i=0; i<date_els.length; i++){
     date_els[i].setAttribute("max", date);
+    date_els[i].setAttribute("value", date);
 }
 document.getElementById("booking_date").setAttribute("max", date);
+document.getElementById("booking_date").setAttribute("value", date);
 
 function commas(e){
     e.value = Number(e.value.replace(/,/g, "")).toLocaleString('en-IN') + ".00";

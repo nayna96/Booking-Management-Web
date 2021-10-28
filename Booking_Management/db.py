@@ -69,6 +69,10 @@ def getProjectByName(project_name, db_name="Master", collection_name="Project"):
 
     return projectDetails[0]
 
+def getProjectStatus(project_name, db_name="Master", collection_name="Project"):
+    details = getProjectByName(project_name)
+    return details["project_status"]
+
 #Block Master
 def getBlockDetailsByProject(project_name, db_name="Master", collection_name="Block"):
     lst = []
@@ -251,7 +255,7 @@ def getCustomersList(db_name="Master", collection_name="Customer"):
 
     return lst
 
-def getCustomerByName(customer_name, db_name="Master", collection_name="Customer"):
+def getCustomerDetailsByName(customer_name, db_name="Master", collection_name="Customer"):
     customerDetails = []
     fname = customer_name.split(' ')[0]
     mname = customer_name.split(' ')[1]
@@ -270,6 +274,36 @@ def getCustomerByName(customer_name, db_name="Master", collection_name="Customer
         customerDetails.append(document)    
     return customerDetails[0]
 
+def getCustomerDetailsByFlatNo(project_name, block_name, floor_no, 
+        flat_no, collection_name, db_name="Transaction"):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = [
+        { "project_name": project_name },
+        { "block_name": block_name },
+        { "floor_no": floor_no },
+        { "flat_no": flat_no }
+    ]
+
+    documents = collection.find({"$and": filter})
+
+    customer_name = ""
+    for document in documents:
+        if "customer_name" in document:
+            customer_name = document["customer_name"]
+        elif "customer_fname" in document and "customer_mname" in document and "customer_lname" in document:
+            customer_name = document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"]
+        break
+
+    if len(customer_name) > 0:
+        if collection_name == "BookingEntry":
+            return getCustomerDetailsByName(customer_name)                        
+        else:
+            return getCustomerDetailsByName(customer_name, "Transaction", collection_name)
+    else:
+        return {}
+        
 def getBanksList(db_name="Master", collection_name="Bank"):
     lst = []
 
@@ -329,6 +363,16 @@ def updateBankDetails(approved_banks, project_name,
             
             update1 = { "$set": { "approved_projects" : array1 } }
             collection.update_one(filter1, update1)
+
+def getBanks(db_name="Transaction", collection_name="BookingEntry"):
+    banks_list = []
+    db = client[db_name]
+    collection = db[collection_name]
+    for item in collection.find({}):
+        for el in item["payment_details"]:
+            if el["bank_name"] != "CASH":
+                banks_list.append(el["bank_name"])    
+    return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , banks_list, [])
 
 def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
     entry = []

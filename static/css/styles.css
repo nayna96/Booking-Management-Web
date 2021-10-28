@@ -76,3 +76,23 @@ h3 {
 table{
     background-color: #f4f8fb;
 }
+
+.open{
+    background-color: #f3d372;
+}
+
+.booked{
+    background-color: #b3f8b3;
+}
+
+.hold{
+    background-color: #9aabfc;
+}
+
+.reserved{
+    background-color: #e6aaaa;
+}
+
+.blank{
+    background-color: #eee6e6;
+}

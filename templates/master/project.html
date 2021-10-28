@@ -239,7 +239,7 @@
                         Registration Details
                         <i class="fa fa-caret-down"></i>
                     </div>
-                    <div id="projectReg" class="w3-hide">
+                    <div id="projectReg" class="w3-show">
                         <div class="row">
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">Development Authority Approval</div>
                             <div class="col-sm-6 mb-1" style="font-weight: bold;">RERA Certificate</div>
@@ -416,14 +416,14 @@
 
 current_year = new Date().getFullYear();
 var mySelect = $('#fs2-0-rent_receipt_fyr');
-var startYear = current_year + 1;
-var prevYear = current_year;
+var startYear = current_year + 2;
+var prevYear = current_year + 1;
 
 for (var i = 0; i < 5; i++) {
   startYear = startYear - 1;
   prevYear = prevYear - 1;
   mySelect.append(
-    $('<option></option>').val(startYear + "-" + prevYear).html(startYear + "-" + prevYear)
+    $('<option></option>').val(prevYear + "-" + startYear).html(prevYear + "-" + startYear)
   );
 }
 

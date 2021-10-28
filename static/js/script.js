@@ -106,7 +106,7 @@ function ifExists(db_name, collection_name, dt){
 }
 
 function requiredValidation(){
-  var requiredElements = document.getElementById("form").querySelectorAll("[required]");
+  var requiredElements = document.querySelectorAll("[required]");
 
   var s = "";
   for (var i = 0; i < requiredElements.length; i++) {

@@ -1,1 +1,181 @@
 {% extends "main_base.html" %}
+
+{% block content %}
+
+<h3>FLAT BOOKING STATUS</h3>
+
+<form method="POST" id="form" enctype="multipart/form-data"
+    data-blocks-url = "{% url 'load_blocks' %}">
+
+    {% csrf_token %} 
+    <div class="row">
+        <div class="col-sm-3 mb-1">
+            <label>Project Name</label>
+            <select name="project_name" id="project_name" class="form-control" tabindex="1">
+                <option value="" selected disabled>-- Select --</option>
+            {% for project in projects_list %}
+                <option value="{{project}}">{{project}}</option>
+            {% endfor %}
+            </select>
+        </div>
+        <div class="col-sm-3 mb-1">
+            <label>Block Name</label>
+            <select name="block_name" id="block_name" class="form-control" tabindex="2" onchange="showFlats()"> 
+                <option value="" selected disabled>-- Select --</option>
+            </select>
+        </div>
+        <div class="col-sm-2 mb-1">                                
+            <input type="radio" id="all" name="ownership_status" tabindex="5" value="ALL" checked onclick="filter(event)"/>
+            <label for="all">ALL</label>
+        </div>
+        <div class="col-sm-2 mb-1">                                
+            <input type="radio" id="company_share" name="ownership_status" tabindex="3" value="COMPANY SHARE" onclick="filter(event)"/>
+            <label for="company_share">COMPANY SHARE</label>
+        </div>
+        <div class="col-sm-2 mb-1">
+            <input type="radio" id="land-owner_share" name="ownership_status" tabindex="4" value="LAND-OWNER SHARE" onclick="filter(event)"/>
+            <label for="land-owner_share">LAND-OWNER SHARE</label>
+        </div>
+    </div>
+</form>
+
+<br><br>
+
+<table class="table" id="report">
+</table>
+
+<script>
+function getDetails(cel) {
+    
+}
+
+function getCustomerName(project_name, block_name, floor, flat_no, collection_name){
+    _url = "/get_customer_details/" + project_name + "/" + block_name + "/" + 
+        floor + "/" + flat_no + "/" + collection_name;
+    $.ajax({      
+        url: _url,
+        async: false,
+        success: function(response){
+            details = response["customer_details"];
+            customer_name = 
+                    details["customer_fname"] + " " +
+                    details["customer_mname"] + " " +
+                    details["customer_lname"];
+            city = details["pr_city"];
+            phone_no = details["mobile_no"];
+        }, 
+        error: function(error) {
+        console.log(error)
+        }
+    });
+}
+
+function showFlats(){
+    project_name = $("#project_name").val()
+    block_name = $("#block_name").val()
+
+    _url = "/show_flats/" + project_name + "/" + block_name;
+    $.ajax({      
+        url: _url,
+        success: function(response){
+            var table = document.getElementById("report");
+            $("#report tr").remove();
+
+            flats_list = response["flats_list"];
+            floors = Object.keys(flats_list);
+            var length = floors.length;
+            floors.forEach ((floor) =>
+            {
+                
+                var row = table.insertRow(table.rows.length);
+                flats = flats_list[floor];
+                for(var i=0; i<flats.length; i++){                                     
+                    var cell = row.insertCell(i);
+
+                    customer_name = ""
+                    getCustomerName(project_name, block_name, floor, flats[i]["flat_no"], "BookingEntry");
+                                        
+                    flat_details =
+                    "FLAT NO: " + flats[i]["flat_no"] + "\n" +
+                    "FLAT TYPE: " + flats[i]["flat_type"] + "\n" +
+                    "FLAT STATUS: " + flats[i]["flat_status"] + "\n" +
+                    "CARPET AREA: " + flats[i]["carpet_area"] + "(sqft)" + "\n" +
+                    "BUILTUP AREA: " + flats[i]["builtup_area"] + "(sqft)" + "\n" +
+                    "SUPERBUILUP AREA: " + flats[i]["superbuiltup_area"] + "(sqft)" + "\n";
+
+                    customer_details = ""                    
+                    if (!jQuery.isEmptyObject(details))
+                    {
+                        customer_details =
+                            "CUSTOMER NAME: " + customer_name + "\n" +
+                            "ADDRESS: " + city + "\n" +
+                            "MOBILE NO: " + phone_no + "\n";
+                    }
+
+                    title = flat_details + customer_details;
+                    cell.setAttribute("title", title);
+                    /*cell.onmouseover = function () { 
+                        getDetails(this); 
+                    };*/
+
+                    cell.innerHTML =
+                        "<div>" +
+                        "<span class='flat_no'>" + flats[i]["flat_no"] + "</span>" + "<br>" +
+                        "<span class='flat_type'>" + flats[i]["flat_type"] + "</span>" + "<br>" +
+                        "<span class='flat_status'>" + flats[i]["flat_status"] + "</span>" + "<br>" +
+                        "<span class='ownership_status' hidden>" + flats[i]["ownership_status"] + "</span>" + "<br>" +
+                        "</div>";
+                    switch (flats[i]["flat_status"])
+                    {
+                        case "OPEN":
+                            cell.classList = "open";
+                            break;
+                        case "HOLD":
+                            cell.classList = "hold";
+                            break;
+                        case "BOOKED":
+                            cell.classList = "booked";  
+                            break;
+                        case "RESERVED":
+                            cell.classList = "reserved";  
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });            
+        }, 
+        error: function(error) {
+        console.log(error)
+        }
+    });
+}
+
+function filter(e){
+    ownership_status = e.target.value;
+    els = $(".ownership_status");
+
+    for(var i=0; i<els.length; i++){
+        if(ownership_status == "ALL"){
+            classname = els[i].parentElement.children[4].innerHTML.toLowerCase();
+            els[i].parentElement.parentElement.classList = classname; 
+
+            els[i].parentElement.style.visibility = 'visible';
+        }
+
+        if(ownership_status != "ALL"){
+            if(els[i].innerText == ownership_status){
+                classname = els[i].parentElement.children[4].innerHTML.toLowerCase();
+                els[i].parentElement.parentElement.classList = classname; 
+                
+                els[i].parentElement.style.visibility = 'visible';
+            } else{                
+                els[i].parentElement.parentElement.classList = "blank";
+                els[i].parentElement.style.visibility = 'hidden'; 
+            }
+        }
+    }    
+}
+</script>
+
+{% endblock content %}
