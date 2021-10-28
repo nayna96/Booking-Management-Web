@@ -269,6 +269,13 @@ def customer_master(request, customer_name=None):
         "castes_list": castes_list
     })
 
+def if_phno_exist(request, ph_no=None):
+    ph_exists = db.ifPhNoExists(ph_no)
+    response =  {
+            "ph_exists": ph_exists
+        }
+    return JsonResponse(response)
+
 def bank_master(request, bank_name=None):
     bankDetails = db.getDetails("Master", "Bank")
     

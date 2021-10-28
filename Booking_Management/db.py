@@ -240,6 +240,14 @@ def getCastes(db_name="Master", collection_name="Customer"):
             castes_list.append(item["customer_caste"])    
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , castes_list, [])
 
+def ifPhNoExists(ph_no, db_name="Master", collection_name="Customer"):
+    db = client[db_name]
+    collection = db[collection_name]
+    for item in collection.find({}):
+        if item["mobile_no"] == ph_no:    
+            return True
+    return False
+        
 def getCustomersList(db_name="Master", collection_name="Customer"):
     lst = []
 

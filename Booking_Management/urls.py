@@ -78,6 +78,7 @@ urlpatterns = [
     path('ifexists/<str:db_name>/<str:collection_name>/<str:dt>', views.ifExists, name='ifexists'),
     path('get_project_status/<str:project_name>', views.get_project_status, name='get_project_status'),
     path('get_customer_details/<str:project_name>/<str:block_name>/<str:floor_no>/<str:flat_no>/<str:collection_name>', views.get_customer_details, name='get_customer_details'),
+    path('if_phno_exist/<str:ph_no>', views.if_phno_exist, name='if_phno_exist'),
 
     #file ops
     path('view_file/<str:db_name>/<str:docname>/<str:file_name>', views.view_file, name='view_file'),

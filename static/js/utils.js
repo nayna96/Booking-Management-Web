@@ -194,6 +194,9 @@ function showCustomerData(_url){
         document.getElementById("customer_dob").value = formatDate(response["selectedCustomerDetails"]["customer_dob"]);
         document.getElementById("customer_gender").value = response["selectedCustomerDetails"]["customer_gender"];
         document.getElementById("customer_occupation").value = response["selectedCustomerDetails"]["customer_occupation"];
+        document.getElementById("customer_employer_company_name").value = formatDate(response["selectedCustomerDetails"]["customer_employer_company_name"]);
+        document.getElementById("customer_company_address").value = response["selectedCustomerDetails"]["customer_company_address"];
+        document.getElementById("customer_posted_at").value = response["selectedCustomerDetails"]["customer_posted_at"];       
         document.getElementById("customer_caste").value = response["selectedCustomerDetails"]["customer_caste"];
 
         document.getElementById("co-owner_salutation").value = response["selectedCustomerDetails"]["co-owner_salutation"];
@@ -203,7 +206,11 @@ function showCustomerData(_url){
         document.getElementById("co-owner_dob").value = formatDate(response["selectedCustomerDetails"]["co-owner_dob"]);
         document.getElementById("co-owner_gender").value = response["selectedCustomerDetails"]["co-owner_gender"];
         document.getElementById("co-owner_occupation").value = response["selectedCustomerDetails"]["co-owner_occupation"];
+        document.getElementById("co-owner_employer_company_name").value = formatDate(response["selectedCustomerDetails"]["co-owner_employer_company_name"]);
+        document.getElementById("co-owner_company_address").value = response["selectedCustomerDetails"]["co-owner_company_address"];
+        document.getElementById("co-owner_posted_at").value = response["selectedCustomerDetails"]["co-owner_posted_at"];     
         document.getElementById("co-owner_caste").value = response["selectedCustomerDetails"]["co-owner_caste"];
+        document.getElementById("co-owner_relation").value = response["selectedCustomerDetails"]["co-owner_relation"];
 
         document.getElementById("email").value = response["selectedCustomerDetails"]["email"];
         document.getElementById("mobile_no").value = response["selectedCustomerDetails"]["mobile_no"];
@@ -250,6 +257,9 @@ function showCustomerData(_url){
 
         document.getElementById("bank_name").value = response["selectedCustomerDetails"]["bank_name"];
         document.getElementById("branch_name").value = response["selectedCustomerDetails"]["branch_name"];
+        document.getElementById("branch_address").value = response["selectedCustomerDetails"]["branch_address"];
+        document.getElementById("branch_city").value = response["selectedCustomerDetails"]["branch_city"];
+        document.getElementById("ifsc_code").value = response["selectedCustomerDetails"]["ifsc_code"];
         document.getElementById("account_type").value = response["selectedCustomerDetails"]["account_type"];
         document.getElementById("account_no").value = response["selectedCustomerDetails"]["account_no"];
 

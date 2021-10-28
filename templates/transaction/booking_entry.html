@@ -280,7 +280,7 @@
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="sellable_area" id="sellable_area" class="allnums form-control" tabindex="15" required onchange="updateSellableAreaAmount()">
                             </div>
-                            <div class="col-sm-5 mb-1">
+                            <div class="col-sm-4 mb-1">
                                 <label>Rate</label>
                                 <label class="mandat_symbol">*</label>
                                 <input type="text" name="sellable_area_rate" id="sellable_area_rate" class="allnums form-control" tabindex="16" required onchange="updateSellableAreaAmount()">
@@ -292,7 +292,7 @@
                             <div class="col-sm-1 mb-1">
 
                             </div>
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Car Parking Chgs.</label>
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -300,7 +300,7 @@
                                 <input type="text" name="car_parking_chgs" id="car_parking_chgs" class="allnums form-control" tabindex="17" value="0.00" required onchange="updateAmounts()">
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>DG Chgs.</label>
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -308,7 +308,7 @@
                                 <input type="text" name="dg_chgs" id="dg_chgs" class="allnums form-control" tabindex="18" value="0.00" required onchange="updateAmounts()">
                             </div>
                             
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Transformer and Substation Chgs.</label>
                                 <label class="mandat_symbol">*</label>
                             </div>
@@ -316,42 +316,42 @@
                                 <input type="text" name="trans_substation_chgs" id="trans_substation_chgs" class="allnums form-control" tabindex="19" value="0.00" required onchange="updateAmounts()">
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Subtotal</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="subtotal" id="subtotal" class="form-control" value="0.00" disabled>
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Discount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="discount" id="discount" class="allnums form-control" tabindex="20" value="0.00" onchange="updateAmounts()">
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Total</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="total" id="total" class="form-control" value="0.00" disabled>
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Cash Discount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="cash_discount" id="cash_discount" class="allnums form-control" tabindex="21" value="0.00" onchange="updateAmounts()">
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Grand Total</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="grand_total" id="grand_total" class="form-control" value="0.00" disabled>
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Additional GST %</label>
                                 <label class="mandat_symbol">*</label>
                                 <select name="add_gst_pct" id="add_gst_pct" tabindex="22" required onchange="updateAddGSTAmount()">
@@ -365,21 +365,21 @@
                                 <input type="text" name="add_gst" id="add_gst" class="form-control" value="0.00" disabled onchange="updatePayableAmount()">
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Payable Amount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="payable_amount" id="payable_amount" class="form-control" value="0.00" disabled>
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Less Booking Amount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <input type="text" name="less_booking_amount" id="less_booking_amount" class="form-control" value="0.00" readonly>
                             </div>
 
-                            <div class="col-sm-9 mb-1" style="text-align: right;">
+                            <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Loan amount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
@@ -432,6 +432,8 @@ for (var i = 0; i < els.length; i++) {
         showFlats();
     });
 }
+
+//document.getElementById("fs1-fields").addEventListener()
 
 date = getMaxDate();
 date_els = $("input[id^='fs1-'][id$='-payment_date']")

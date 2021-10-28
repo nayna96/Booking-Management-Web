@@ -555,10 +555,10 @@
                         <div class="col-sm-3 mb-1">
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <input type="file" multiple name="" id="" tabindex="" class="file" onchange="updateTable('', '', false)" onclick="this.value = null;"/>
+                            <input type="file" multiple name="cancelled_cheque_passbook" id="cancelled_cheque_passbook" tabindex="" class="file" onchange="updateTable('cancelled_cheque_passbook', 'cancelled_chequePassbook', false)" onclick="this.value = null;"/>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <table id="" class="table filesList">
+                            <table id="cancelled_chequePassbook" class="table filesList">
                             </table>
                         </div>
                         <div class="col-sm-3 mb-1">
@@ -658,7 +658,25 @@ function setGender(e, id){
 }
 
 function copyMobileNo(){
-    $("#whatsapp_no").val($("#mobile_no").val());
+    mobile_no = $("#mobile_no").val();
+
+    _url = "/if_phno_exist/" + mobile_no;
+    $.ajax({      
+        url: _url,
+        async: false,
+        success: function(response){
+            ph_exists = response["ph_exists"];
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+
+    if(ph_exists){
+        alert("Two customers cannot have same phone no!");
+    }
+
+    $("#whatsapp_no").val(mobile_no);
 }
 
 function copyPresentAddress(){

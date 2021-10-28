@@ -140,16 +140,23 @@ def getCustomerData(_id=None, **kwargs):
     doc["customer_dob"] = kwargs["request"].POST.get("customer_dob")
     doc["customer_gender"] = kwargs["request"].POST.get("customer_gender")
     doc["customer_occupation"] = kwargs["request"].POST.get("customer_occupation")
+    doc["customer_employer_company_name"] = kwargs["request"].POST.get("customer_employer_company_name")
+    doc["customer_company_address"] = kwargs["request"].POST.get("customer_company_address")
+    doc["customer_posted_at"] = kwargs["request"].POST.get("customer_posted_at")
     doc["customer_caste"] = kwargs["request"].POST.get("customer_caste")
 
     doc["co-owner_salutation"] = kwargs["request"].POST.get("co-owner_salutation")
-    doc["co-owner_fname"] = kwargs["request"].POST.get("co-owner_fname")
-    doc["co-owner_mname"] = kwargs["request"].POST.get("co-owner_mname")
-    doc["co-owner_lname"] = kwargs["request"].POST.get("co-owner_lname")
+    doc["co-owner_fname"] = kwargs["request"].POST.get("co-owner_fname").replace(" ", "")
+    doc["co-owner_mname"] = kwargs["request"].POST.get("co-owner_mname").replace(" ", "")
+    doc["co-owner_lname"] = kwargs["request"].POST.get("co-owner_lname").replace(" ", "")
     doc["co-owner_dob"] = kwargs["request"].POST.get("co-owner_dob")
     doc["co-owner_gender"] = kwargs["request"].POST.get("co-owner_gender")
     doc["co-owner_occupation"] = kwargs["request"].POST.get("co-owner_occupation")
+    doc["co-owner_employer_company_name"] = kwargs["request"].POST.get("co-owner_employer_company_name")
+    doc["co-owner_company_address"] = kwargs["request"].POST.get("co-owner_company_address")
+    doc["co-owner_posted_at"] = kwargs["request"].POST.get("co-owner_posted_at")
     doc["co-owner_caste"] = kwargs["request"].POST.get("co-owner_caste")
+    doc["co-owner_relation"] = kwargs["request"].POST.get("co-owner_relation")
 
     doc["email"] = kwargs["request"].POST.get("email")
     doc["mobile_no"] = kwargs["request"].POST.get("mobile_no")
@@ -195,6 +202,9 @@ def getCustomerData(_id=None, **kwargs):
 
     doc["bank_name"] = kwargs["request"].POST.get("bank_name")
     doc["branch_name"] = kwargs["request"].POST.get("branch_name")
+    doc["branch_address"] = kwargs["request"].POST.get("branch_address")
+    doc["branch_city"] = kwargs["request"].POST.get("branch_city")
+    doc["ifsc_code"] = kwargs["request"].POST.get("ifsc_code")
     doc["account_type"] = kwargs["request"].POST.get("account_type")
     doc["account_no"] = kwargs["request"].POST.get("account_no")
 
@@ -208,6 +218,7 @@ def getCustomerData(_id=None, **kwargs):
     gst_doc = kwargs["request"].FILES.getlist("gst_doc")
     other_docs = kwargs["request"].FILES.getlist("other_docs")
     brokers_pan_card = kwargs["request"].FILES.getlist("broker's_pan_card")
+    cancelled_cheque_passbook = kwargs["request"].FILES.getlist("cancelled_cheque_passbook")
 
     files = {
         "passport_photo": passport_photo, 
@@ -216,7 +227,8 @@ def getCustomerData(_id=None, **kwargs):
         "voter_id_card": voter_id_card,
         "gst_doc": gst_doc, 
         "other_docs": other_docs,
-        "broker's_pan_card": brokers_pan_card
+        "broker's_pan_card": brokers_pan_card,
+        "cancelled_cheque_passbook": cancelled_cheque_passbook
     }
 
     return [doc, files]

@@ -54,6 +54,8 @@ function showFiles(dbName, collectionName, files_dt) {
                 case "broker's_pan_card":
                     UpdateTable(dbName, "broker's_panCard", _path)
                     break;
+                case "cancelled_cheque_passbook":
+                    UpdateTable(dbName, "cancelled_chequePassbook", _path)
                 default:
                     break;
             }
