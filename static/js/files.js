@@ -56,6 +56,7 @@ function showFiles(dbName, collectionName, files_dt) {
                     break;
                 case "cancelled_cheque_passbook":
                     UpdateTable(dbName, "cancelled_chequePassbook", _path)
+                    break;
                 default:
                     break;
             }
@@ -68,6 +69,22 @@ function showFiles(dbName, collectionName, files_dt) {
                     break;
                 case "agreements_doc":
                     UpdateTable(dbName, "agreementsDoc", _path)
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case "Broker":
+            switch (docName)
+            {
+                case "broker_aadhar_card":
+                    UpdateTable(dbName, "aadharCard", _path)
+                    break;
+                case "broker_pan_card":
+                    UpdateTable(dbName, "panCard", _path)  
+                    break;
+                case "broker_gst_doc":
+                    UpdateTable(dbName, "gstDoc", _path)    
                     break;
                 default:
                     break;

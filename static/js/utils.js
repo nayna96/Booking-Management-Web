@@ -194,7 +194,7 @@ function showCustomerData(_url){
         document.getElementById("customer_dob").value = formatDate(response["selectedCustomerDetails"]["customer_dob"]);
         document.getElementById("customer_gender").value = response["selectedCustomerDetails"]["customer_gender"];
         document.getElementById("customer_occupation").value = response["selectedCustomerDetails"]["customer_occupation"];
-        document.getElementById("customer_employer_company_name").value = formatDate(response["selectedCustomerDetails"]["customer_employer_company_name"]);
+        document.getElementById("customer_employer_company_name").value = response["selectedCustomerDetails"]["customer_employer_company_name"];
         document.getElementById("customer_company_address").value = response["selectedCustomerDetails"]["customer_company_address"];
         document.getElementById("customer_posted_at").value = response["selectedCustomerDetails"]["customer_posted_at"];       
         document.getElementById("customer_caste").value = response["selectedCustomerDetails"]["customer_caste"];
@@ -206,7 +206,7 @@ function showCustomerData(_url){
         document.getElementById("co-owner_dob").value = formatDate(response["selectedCustomerDetails"]["co-owner_dob"]);
         document.getElementById("co-owner_gender").value = response["selectedCustomerDetails"]["co-owner_gender"];
         document.getElementById("co-owner_occupation").value = response["selectedCustomerDetails"]["co-owner_occupation"];
-        document.getElementById("co-owner_employer_company_name").value = formatDate(response["selectedCustomerDetails"]["co-owner_employer_company_name"]);
+        document.getElementById("co-owner_employer_company_name").value = response["selectedCustomerDetails"]["co-owner_employer_company_name"];
         document.getElementById("co-owner_company_address").value = response["selectedCustomerDetails"]["co-owner_company_address"];
         document.getElementById("co-owner_posted_at").value = response["selectedCustomerDetails"]["co-owner_posted_at"];     
         document.getElementById("co-owner_caste").value = response["selectedCustomerDetails"]["co-owner_caste"];
@@ -245,12 +245,6 @@ function showCustomerData(_url){
         document.getElementById("pe_city").value = response["selectedCustomerDetails"]["pe_city"];
         document.getElementById("pe_state").value = response["selectedCustomerDetails"]["pe_state"];
         document.getElementById("pe_pincode").value = response["selectedCustomerDetails"]["pe_pincode"];
-
-        document.getElementById("broker's_salutation").value = response["selectedCustomerDetails"]["broker's_salutation"];
-        document.getElementById("broker's_name").value = response["selectedCustomerDetails"]["broker's_name"];
-        document.getElementById("broker's_address").value = response["selectedCustomerDetails"]["broker's_address"];
-        document.getElementById("broker's_phno").value = response["selectedCustomerDetails"]["broker's_phno"];
-        document.getElementById("broker's_pan_no").value = response["selectedCustomerDetails"]["broker's_pan_no"];
 
         document.getElementById("username").value = response["selectedCustomerDetails"]["username"];
         document.getElementById("password").value = response["selectedCustomerDetails"]["password"];
@@ -319,6 +313,36 @@ function showBankData(_url){
   document.getElementById("btn").name = "Update";   
 }
 
+function showBrokerData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+        var _id = response["selectedBrokerDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("broker_salutation").value = response["selectedBrokerDetails"]["broker_salutation"];
+        document.getElementById("broker_name").value = response["selectedBrokerDetails"]["broker_name"];
+        document.getElementById("broker_address").value = response["selectedBrokerDetails"]["broker_address"];
+        document.getElementById("broker_phno").value = response["selectedBrokerDetails"]["broker_phno"];
+        document.getElementById("brokerage_commission").value = response["selectedBrokerDetails"]["brokerage_commission"];
+        
+        document.getElementById("aadhar_no").value = response["selectedBrokerDetails"]["aadhar_no"];
+        document.getElementById("pan_no").value = response["selectedBrokerDetails"]["pan_no"];
+        document.getElementById("gst_no").value = response["selectedBrokerDetails"]["gst_no"];
+
+        showFiles("Master", "Broker", response["files"]);
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
+}
+
 function showBookingEntry(_url){
   show_modal()
   if(_url != undefined && _url.length > 0){
@@ -344,15 +368,7 @@ function showBookingEntry(_url){
         $("#floor_no").val(response["selectedBookingEntry"]["floor_no"]).change();
         $("#flat_no").val(response["selectedBookingEntry"]["flat_no"]).change();
         document.getElementById("flat_condn").value = response["selectedBookingEntry"]["flat_condn"];
-        document.getElementById("sellable_area").value = response["selectedBookingEntry"]["sellable_area"];
-        document.getElementById("sellable_area_rate").value = response["selectedBookingEntry"]["sellable_area_rate"];
-        document.getElementById("sellable_area_amount").value = response["selectedBookingEntry"]["sellable_area_amount"];
-        $("#car_parking_chgs").val(response["selectedBookingEntry"]["car_parking_chgs"]).change();
-        $("#dg_chgs").val(response["selectedBookingEntry"]["dg_chgs"]).change();
-        $("#trans_substation_chgs").val(response["selectedBookingEntry"]["trans_substation_chgs"]).change();
-        $("#discount").val(response["selectedBookingEntry"]["discount"]).change();
-        $("#cash_discount").val(response["selectedBookingEntry"]["cash_discount"]).change();
-        $("#add_gst_pct").val(response["selectedBookingEntry"]["add_gst_pct"]).change();
+        document.getElementById("broker_name").value = response["selectedBookingEntry"]["broker_name"];
 
         //PAYMENT DETAILS
         payment_details = response["selectedBookingEntry"]["payment_details"];
@@ -373,6 +389,15 @@ function showBookingEntry(_url){
           $("#fs1-" + i + "-amount").val(payment_details[i]["amount"]).change();
         }
 
+        document.getElementById("sellable_area").value = response["selectedBookingEntry"]["sellable_area"];
+        document.getElementById("sellable_area_rate").value = response["selectedBookingEntry"]["sellable_area_rate"];
+        document.getElementById("sellable_area_amount").value = response["selectedBookingEntry"]["sellable_area_amount"];
+        $("#car_parking_chgs").val(response["selectedBookingEntry"]["car_parking_chgs"]).change();
+        $("#dg_chgs").val(response["selectedBookingEntry"]["dg_chgs"]).change();
+        $("#trans_substation_chgs").val(response["selectedBookingEntry"]["trans_substation_chgs"]).change();
+        $("#discount").val(response["selectedBookingEntry"]["discount"]).change();
+        $("#cash_discount").val(response["selectedBookingEntry"]["cash_discount"]).change();
+        $("#add_gst_pct").val(response["selectedBookingEntry"]["add_gst_pct"]).change();
         document.getElementById("less_booking_amount").value = response["selectedBookingEntry"]["less_booking_amount"];
       },
       error: function(error) {

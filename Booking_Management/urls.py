@@ -38,6 +38,9 @@ urlpatterns = [
 
     re_path('bank_master/$', views.bank_master, name='bank_master'),
     path('bank_master/<str:bank_name>', views.bank_master, name='bank_master'),
+
+    re_path('broker_master/$', views.broker_master, name='broker_master'),
+    path('broker_master/<str:broker_name>', views.broker_master, name='broker_master'),
     
     #transaction
     re_path('booking_entry/$', views.booking_entry, name='booking_entry'),

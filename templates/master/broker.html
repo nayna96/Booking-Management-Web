@@ -1,0 +1,243 @@
+{% extends "main_base.html" %}
+
+{% block content %}
+{% load static %}
+<h3>BROKER MASTER</h3>
+
+<button onclick="show_modal()" class="btn btn-primary">Add</button>
+
+<div id="myModal" class="_modal">
+    <div class="_modal-content">        
+        <span class="_close">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">BROKER MASTER</h5>
+            
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-toggle="tab" href="#broker_info" type="button" role="tab" aria-selected="true">Broker</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-toggle="tab" href="#docs" type="button" role="tab" aria-selected="true">Doc Upload</button>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="broker_info" class="tab-pane fade in active show">
+                    <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    <input type="text" name="_id" id="_id" hidden>
+                    <div class="row" hidden>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="1">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="2">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="3">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="4">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="5">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="6">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="7">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="8">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="9">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="10">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="11">
+                        </div>
+                        <div class="col-sm-1 mb-1" style="border: 1px solid;">
+                            <input type="text" class="form-control" value="12">
+                        </div>
+                    </div>
+                    <div class="acc_title" onclick="AccFunc('brokerDetails')">
+                        Broker Details 
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div id="brokerDetails" class="w3-show">
+                        <div class="row">                         
+                            <div class="col-sm-2 mb-1">
+                                <label>Broker</label>
+                                <label class="mandat_symbol">*</label>                                
+                                <select name="broker_salutation" id="broker_salutation" class="form-control" required tabindex="1">
+                                    <option value="" selected>-- Select --</option>
+                                    <option value="MR.">MR.</option>
+                                    <option value="MRS.">MRS.</option>
+                                    <option value="MS.">MS.</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="broker_name" id="broker_name" class="allstring form-control" required tabindex="2">
+                            </div>
+                            <div class="col-sm-4 mb-1">
+                                <label>Address</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="broker_address" id="broker_address" class="allcaps form-control" required tabindex="3">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Phone No.</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="broker_phno" id="broker_phno" class="allnums form-control" maxlength="10" required tabindex="4">
+                            </div>
+                            <div class="col-sm-2 mb-1">
+                                <label>Brokerage commission</label>
+                                <label class="mandat_symbol">*</label>
+                                <input type="text" name="brokerage_commission" id="brokerage_commission" class="allcaps form-control" required tabindex="5">
+                            </div>
+                        </div>					
+                    </div>
+                </div>
+                <div id="docs" class="tab-pane fade">
+                    <div class="row">
+                        <div class="col-sm-4 mb-1">
+                            <label>Doc Type</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Upload</label>
+                        </div>
+                        <div class="col-sm-4 mb-1">
+                            <label>Files</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <label>AADHAR CARD</label>
+                            <label class="mandat_symbol">*</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" name="aadhar_no" id="aadhar_no" maxlength="12" tabindex="1" class="allnums form-control" required>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="broker_aadhar_card" id="broker_aadhar_card" tabindex="2" class="file" onchange="updateTable('broker_aadhar_card', 'aadharCard', false)" onclick="this.value = null;"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <table id="aadharCard" class="table filesList">
+                            </table>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <label>PAN CARD</label>
+                            <label class="mandat_symbol">*</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" name="pan_no" id="pan_no" maxlength="10" tabindex="3" class="allcaps form-control" required>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="broker_pan_card" id="broker_pan_card" tabindex="4" class="file" onchange="updateTable('broker_pan_card', 'panCard', false)" onclick="this.value = null;"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <table id="panCard" class="table filesList">
+                            </table>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <label>GST</label>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="text" name="gst_no" id="gst_no" maxlength="15" tabindex="5" class="allcaps form-control">
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <input type="file" name="broker_gst_doc" id="broker_gst_doc" tabindex="6" class="file" onchange="updateTable('broker_gst_doc', 'gstDoc', false)" onclick="this.value = null;"/>
+                        </div>
+                        <div class="col-sm-3 mb-1">
+                            <table id="gstDoc" class="table filesList">
+                            </table>
+                        </div>
+                    </div>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>
+                    </form>
+                </div>
+            </div>
+        </div>          
+        <div class="modal-footer">
+
+        </div>
+    </div>
+</div>
+
+<table id="fancyTable" class="table fancyTable">
+    <thead>
+        <tr>
+            <th>BROKER'S NAME</th>
+            <th>BROKER'S PHONE NO.</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for broker in brokerDetails %}
+        <tr>
+            <td>
+                <a href="#" onclick="showBrokerData('/broker_master/{{broker.broker_name}}')">{{ broker.broker_name }}</a>                
+            </td>
+            <td>{{ broker.broker_phno }}</td>
+            <td><a class="btn btn-primary" onclick="showBrokerData('/broker_master/{{broker.broker_name}}')">View</a></td>
+            <td><a class="btn btn-primary" onclick="showBrokerData('/broker_master/{{broker.broker_name}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+function formValidation() {
+    if(!requiredValidation()){
+        return false;
+    }
+
+    if($("#broker_phno").val().length < 10){
+        alert("Please enter  a valid phone no.!");
+        return false;
+    }
+
+    if($("#broker_aadhar_no").val().length < 12){
+        alert("Please enter  a valid aadhar no.!");
+        return false; 
+    }
+
+    if($("#broker_pan_no").val().length < 10){ 
+        alert("Please enter  a valid pan no.!");
+        return false;
+    }
+    
+    if($("#broker_gst_no").val().length > 0 && $("#gst_no").val().length < 15){ 
+        alert("Please enter  a valid gst no.!");
+        return false;
+    }
+
+    // IF EXISTS
+    exists = false;
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "broker_name": $("#broker_name").val() }
+        ]
+
+        ifExists("Master", "Broker", dt).done(function(response){
+            exists = response["result"];                 
+        });
+
+        if(exists){
+            alert("Data for this broker already exists!")
+            return false;
+        }
+    }
+
+    alert("Data saved sucessfully!");
+    return true;
+}
+
+</script>
+
+{% endblock content %}

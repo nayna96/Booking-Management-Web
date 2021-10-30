@@ -75,7 +75,13 @@ def getBlockData(_id=None, **kwargs):
 
     doc = {}
     doc["_id"] = p_id + "B" if len(_id) == 0 else _id
-    doc["project_name"] = project_name
+
+    reference_dt = {
+        "$ref": "Project",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["project_name"] = reference_dt
     doc["no_blocks"] = kwargs["request"].POST.get("no_blocks")
 
     n = int(kwargs["request"].POST.get("fs1-fields"))
@@ -189,12 +195,6 @@ def getCustomerData(_id=None, **kwargs):
     doc["pe_city"] = kwargs["request"].POST.get("pe_city")
     doc["pe_state"] = kwargs["request"].POST.get("pe_state")
     doc["pe_pincode"] = kwargs["request"].POST.get("pe_pincode")
-
-    doc["broker's_salutation"] = kwargs["request"].POST.get("broker's_salutation")
-    doc["broker's_name"] = kwargs["request"].POST.get("broker's_name")
-    doc["broker's_address"] = kwargs["request"].POST.get("broker's_address")
-    doc["broker's_phno"] = kwargs["request"].POST.get("broker's_phno")
-    doc["broker's_pan_no"] = kwargs["request"].POST.get("broker's_pan_no")
     
     doc["username"] = kwargs["request"].POST.get("username")
     doc["password"] = kwargs["request"].POST.get("password")
@@ -272,6 +272,31 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
 
     return [doc, files]   
 
+def getBrokerData(_id=None, **kwargs):
+    id = db.getNextId("Master", "Broker")
+    doc = {}
+    doc["_id"] = "BR" + str(id) if len(_id) == 0 else _id
+    doc["broker_salutation"] = kwargs["request"].POST.get("broker_salutation")
+    doc["broker_name"] = kwargs["request"].POST.get("broker_name")
+    doc["broker_address"] = kwargs["request"].POST.get("broker_address")
+    doc["broker_phno"] = kwargs["request"].POST.get("broker_phno")
+    doc["brokerage_commission"] = kwargs["request"].POST.get("brokerage_commission")
+
+    doc["broker_aadhar_no"] = kwargs["request"].POST.get("aadhar_no")
+    broker_aadhar_card = kwargs["request"].FILES.getlist("broker_aadhar_card")
+    doc["broker_pan_no"] = kwargs["request"].POST.get("pan_no")
+    broker_pan_card = kwargs["request"].FILES.getlist("broker_pan_card")
+    doc["broker_gst_no"] = kwargs["request"].POST.get("gst_no")
+    broker_gst_doc = kwargs["request"].FILES.getlist("broker_gst_doc")
+
+    files = {
+        "broker_aadhar_card": broker_aadhar_card, 
+        "broker_pan_card": broker_pan_card,
+        "broker_gst_doc": broker_gst_doc
+    }
+
+    return [doc, files]   
+
 def getBookingEntry(_id=None, **kwargs):
     doc = {}
     reference_id = kwargs["request"].POST.get("reference_id")
@@ -285,15 +310,13 @@ def getBookingEntry(_id=None, **kwargs):
     doc["floor_no"] = kwargs["request"].POST.get("floor_no") 
     doc["flat_no"] = kwargs["request"].POST.get("flat_no") 
     doc["flat_condn"] = kwargs["request"].POST.get("flat_condn")
-    doc["sellable_area"] = kwargs["request"].POST.get("sellable_area")
-    doc["sellable_area_rate"] = kwargs["request"].POST.get("sellable_area_rate")
-    doc["sellable_area_amount"] = kwargs["request"].POST.get("sellable_area_amount")
-    doc["car_parking_chgs"] = kwargs["request"].POST.get("car_parking_chgs")
-    doc["dg_chgs"] = kwargs["request"].POST.get("dg_chgs")
-    doc["trans_substation_chgs"] = kwargs["request"].POST.get("trans_substation_chgs")
-    doc["discount"] = kwargs["request"].POST.get("discount")
-    doc["cash_discount"] = kwargs["request"].POST.get("cash_discount")
-    doc["add_gst_pct"] = kwargs["request"].POST.get("add_gst_pct")
+    
+    reference_dt = {
+        "$ref": "Broker",
+        "$id": "p_id",
+        "$db": "Master"
+    }
+    doc["broker_name"] = reference_dt
 
     n = int(kwargs["request"].POST.get("fs1-fields"))
     payment_details = []
@@ -305,9 +328,18 @@ def getBookingEntry(_id=None, **kwargs):
             "bank_name": kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name"),
             "amount": kwargs["request"].POST.get("fs1-" + str(i) + "-amount")
         }
-        payment_details.append(dt)
+        payment_details.append(dt)    
     doc["payment_details"] = payment_details
-    
+
+    doc["sellable_area"] = kwargs["request"].POST.get("sellable_area")
+    doc["sellable_area_rate"] = kwargs["request"].POST.get("sellable_area_rate")
+    doc["sellable_area_amount"] = kwargs["request"].POST.get("sellable_area_amount")
+    doc["car_parking_chgs"] = kwargs["request"].POST.get("car_parking_chgs")
+    doc["dg_chgs"] = kwargs["request"].POST.get("dg_chgs")
+    doc["trans_substation_chgs"] = kwargs["request"].POST.get("trans_substation_chgs")
+    doc["discount"] = kwargs["request"].POST.get("discount")
+    doc["cash_discount"] = kwargs["request"].POST.get("cash_discount")
+    doc["add_gst_pct"] = kwargs["request"].POST.get("add_gst_pct")    
     doc["less_booking_amount"] = kwargs["request"].POST.get("less_booking_amount")
 
     files = {}

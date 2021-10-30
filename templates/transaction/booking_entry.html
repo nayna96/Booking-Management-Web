@@ -192,9 +192,17 @@
                                     <option value="SEMI-FINISHED">SEMI-FINISHED</option>
                                     <option value="FULLY-FINISHED">FULLY-FINISHED</option>
                                 </select>
-                            </div>
+                            </div>                            
                             <div class="col-sm-3 mb-1">
-
+                                <label>Broker's Name</label>
+                                <label class="mandat_symbol">*</label>
+                                <select name="broker's_name" id="broker's_name" class="form-control" tabindex="10" required>
+                                    <option value="" selected disabled>-- Select --</option>
+                                    <option value="DIRECT">DIRECT</option>
+                                    {% for broker in brokers_list %}
+                                        <option value={{broker}}>{{broker}}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-12 mb-1">
@@ -233,7 +241,7 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-2 mb-1">
-                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" value="new Date().toISOString().slice(0, 10)" onfocusout="maxdateValidation(event)">
+                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" value="" onfocusout="maxdateValidation(event)">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
                                     <select name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="11" onchange="updatePaymentDetails(event)">

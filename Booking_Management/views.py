@@ -96,7 +96,7 @@ def flat_details(request, project_name=None, block_name=None, floor_no=None, fla
 def customer_details(request, customer_name=None):
     customer_name = request.GET.get('customer_name')
 
-    customerDetails = db.getCustomerByName(customer_name)
+    customerDetails = db.getCustomerDetailsByName(customer_name)
     response =  {
         "customerDetails": customerDetails
     } 
@@ -228,7 +228,7 @@ def customer_master(request, customer_name=None):
     castes_list = db.getCastes()
     
     if request.is_ajax():
-        selectedCustomerDetails = db.getCustomerByName(customer_name)
+        selectedCustomerDetails = db.getCustomerDetailsByName(customer_name)
 
         metadata_filters = [
                 {"metadata._id" : selectedCustomerDetails["_id"]}
@@ -320,6 +320,48 @@ def bank_master(request, bank_name=None):
         "bankDetails":bankDetails
     })
 
+def broker_master(request, broker_name=None):
+    brokerDetails = db.getDetails("Master", "Broker")
+    
+    if request.is_ajax():
+        selectedBrokerDetails = db.getBrokerDetailsByName(broker_name)
+
+        metadata_filters = [
+                {"metadata._id" : selectedBrokerDetails["_id"]}
+            ]
+        files = db.GetFiles("Master", metadata_filters)
+
+        response =  {
+            "selectedBankDetails": selectedBrokerDetails,
+            "files": json.loads(json_util.dumps(files))
+        }
+        return JsonResponse(response)
+    
+    if request.method == "POST":
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getBrokerData(_id, request=request)
+        if 'Save' in request.POST:
+            db.InsertData("Master", "Broker", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Master", "Broker", doc, files)
+
+            global toRemoveFiles
+            for toRemoveFile in toRemoveFiles:                
+                dt = [
+                    { "filename": toRemoveFile["file_name"] },
+                    { "metadata._id" : doc["_id"] },
+                    { "metadata.doc_name": toRemoveFile["docname"] }
+                ]
+                db.RemoveFile("Master", dt)
+                toRemoveFiles = []
+
+        return HttpResponseRedirect(request.path_info)
+        
+    return render(request, 'master/broker.html', 
+    {
+        "brokerDetails":brokerDetails
+    })
+
 #transaction
 def booking_entry(request, reference_id=None):
     if reference_id == None:
@@ -329,6 +371,7 @@ def booking_entry(request, reference_id=None):
     projects_list =  db.getProjectsList("Master", "Flat")
     customers_list = db.getCustomersList()
     banks_list = db.getBanks()
+    brokers_list = db.getBrokersList()
     
     if request.is_ajax():
         if reference_id != None:
@@ -357,7 +400,8 @@ def booking_entry(request, reference_id=None):
         "entries":entries,
         "projects_list": projects_list,
         "customers_list": customers_list,
-        "banks_list": banks_list
+        "banks_list": banks_list,
+        "brokers_list": brokers_list
     })
 
 def customer_request(request, reference_id=None):    

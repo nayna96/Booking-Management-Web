@@ -370,40 +370,7 @@
                                 <input type="text" name="pe_pincode" id="pe_pincode" maxlength="6" class="allnums form-control" tabindex="39" required>
                             </div>
                         </div>   
-                    </div>
-                    <div class="acc_title" onclick="AccFunc('other')">
-                        Broker's information
-                        <i class="fa fa-caret-down"></i>
-                    </div>
-                    <div id="other" class="w3-show">
-                        <div class="row">                         
-                            <div class="col-sm-2 mb-1">
-                                <label>Broker</label>                                
-                                <select name="broker's_salutation" id="broker's_salutation" class="form-control" tabindex="40">
-                                    <option value="" selected>-- Select --</option>
-                                    <option value="MR.">MR.</option>
-                                    <option value="MRS.">MRS.</option>
-                                    <option value="MS.">MS.</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-2 mb-1">
-                                <label>Name</label>
-                                <input type="text" name="broker's_name" id="broker's_name" class="allstring form-control" tabindex="41">
-                            </div>
-                            <div class="col-sm-4 mb-1">
-                                <label>Address</label>
-                                <input type="text" name="broker's_address" id="broker's_address" class="allcaps form-control" tabindex="42">
-                            </div>
-                            <div class="col-sm-2 mb-1">
-                                <label>Phone No.</label>
-                                <input type="text" name="broker's_phno" id="broker's_phno" class="allnums form-control" maxlength="10" tabindex="43">
-                            </div>
-                            <div class="col-sm-2 mb-1">
-                                <label>PAN NO.</label>
-                                <input type="text" name="broker's_pan_no" id="broker's_pan_no" class="allcaps form-control" onfocusout="copyBrokerPanNo()" maxlength="10" tabindex="44">
-                            </div>                            
-                        </div>
-                    </div>
+                    </div>                          
                 </div>
                 <div id="credentials" class="tab-pane fade">
                     <div class="row">
@@ -491,11 +458,6 @@
                             <label>Files</label>
                         </div>
                         <div class="col-sm-3 mb-1">
-                            <label style="font-weight: bold;">Customer</label>
-                        </div>
-                        <div class="col-sm-9 mb-1">        
-                        </div>
-                        <div class="col-sm-3 mb-1">
                             <label>AADHAR CARD</label>
                             <label class="mandat_symbol">*</label>
                         </div>
@@ -573,25 +535,7 @@
                         <div class="col-sm-3 mb-1">
                             <table id="otherDocs" class="table filesList">
                             </table>
-                        </div>
-                        <div class="col-sm-3 mb-1">
-                            <label style="font-weight: bold;">Broker</label>
-                        </div>
-                        <div class="col-sm-9 mb-1">        
-                        </div>
-                        <div class="col-sm-3 mb-1">
-                            <label>PAN CARD</label>
-                        </div>
-                        <div class="col-sm-3 mb-1">
-                            <input type="text" id="broker_pan_no" maxlength="10" tabindex="10" class="form-control" disabled>
-                        </div>
-                        <div class="col-sm-3 mb-1">
-                            <input type="file" name="broker's_pan_card" id="broker's_pan_card" tabindex="11" class="file" onchange="updateTable('broker\'s_pan_card', 'broker\'s_panCard', false)" onclick="this.value = null;"/>
-                        </div>
-                        <div class="col-sm-3 mb-1">
-                            <table id="broker's_panCard" class="table filesList">
-                            </table>
-                        </div>
+                        </div>                        
                     </div>
                     <input type="submit" onclick="return formValidation()" id="btn" tabindex="12" class="btn btn-primary" name="Save" value="Save"/>
                     </form>
@@ -830,10 +774,6 @@ function formValidation(){
 
     alert("Data saved sucessfully!");
     return true;
-}
-
-function copyBrokerPanNo(){
-    $("#broker_pan_no").val(document.getElementById("broker's_pan_no").value)
 }
 
 </script>

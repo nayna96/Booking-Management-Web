@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from gridfs import GridFS
 from functools import reduce
+import bson
 
 #connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
 connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
@@ -29,12 +30,24 @@ def getNextId(db_name, collection_name):
 def verifyUser(username, password, db_name="Settings", collection_name="UserMaster"):
     return True
 
+def getDocById(db_name, collection_name, _id):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {"_id": _id}
+
+    return collection.find_one(filter)
+
 def getDetails(db_name, collection_name):
     details = []
     db = client[db_name]
     collection = db[collection_name]
 
     for x in collection.find({}):
+        for key, value in x.items():
+            if isinstance(value, bson.dbref.DBRef):
+                doc = getDocById(value.database, value.collection, value.id)
+                x[key] = doc[key]
         details.append(x)
     return details
 
@@ -381,6 +394,21 @@ def getBanks(db_name="Transaction", collection_name="BookingEntry"):
             if el["bank_name"] != "CASH":
                 banks_list.append(el["bank_name"])    
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , banks_list, [])
+
+def getBrokersList(db_name="Master", collection_name="Broker"):
+    lst = []
+
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = {}
+    
+    documents = collection.find(filter)
+
+    for document in documents:
+        lst.append(document["broker_name"])
+
+    return lst
 
 def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
     entry = []
