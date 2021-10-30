@@ -59,9 +59,8 @@ def getProjectsList(db_name="Master", collection_name="Project"):
     collection = db[collection_name]
 
     filter = {}
-    fields = {"project_name":1, "_id":0}
 
-    documents = collection.find(filter, fields)
+    documents = collection.find(filter)
 
     for document in documents:
         lst.append(document["project_name"])
@@ -69,18 +68,11 @@ def getProjectsList(db_name="Master", collection_name="Project"):
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , lst, [])
 
 def getProjectByName(project_name, db_name="Master", collection_name="Project"):
-    projectDetails = []
-
     db = client[db_name]
     collection = db[collection_name]
 
     filter = { "project_name": project_name }
-    documents = collection.find(filter)
-
-    for document in documents:
-        projectDetails.append(document)
-
-    return projectDetails[0]
+    return collection.find_one(filter)
 
 def getProjectStatus(project_name, db_name="Master", collection_name="Project"):
     details = getProjectByName(project_name)
@@ -88,19 +80,12 @@ def getProjectStatus(project_name, db_name="Master", collection_name="Project"):
 
 #Block Master
 def getBlockDetailsByProject(project_name, db_name="Master", collection_name="Block"):
-    lst = []
-
     db = client[db_name]
     collection = db[collection_name]
 
     filter = { "project_name": project_name }
-    documents = collection.find(filter)
-
-    for document in documents:
-        lst.append(document)
+    return collection.find_one(filter)
     
-    return lst[0]
-
 def getBlocksListByProject(project_name, db_name="Master", collection_name="Block"):
     blocks_list = []
 
@@ -137,9 +122,6 @@ def getFloorsListByBlock(project_name, block_name,
 
 def getFlatDetailsByFloor(project_name, block_name, floor_no, 
                         db_name="Master", collection_name="Flat"):
-    
-    lst = []
-
     db = client[db_name]
     collection = db[collection_name]
 
@@ -148,15 +130,7 @@ def getFlatDetailsByFloor(project_name, block_name, floor_no,
         { "block_name":block_name },
         { "floor_no": floor_no }
     ]
-    documents = collection.find({"$and": filter})
-
-    for document in documents:
-        lst.append(document)
-    
-    if len(lst) > 0:
-        return lst[0]
-    else:
-        return lst
+    return collection.find_one({"$and": filter})
 
 def getFlatsListByFloorNo(project_name, block_name, floor_no, share_type, save_update):
     if save_update == "Save":
@@ -223,17 +197,6 @@ def updateFlatStatus(project_name, block_name, floor_no, flat_no, flat_status,
 
     collection.update_one(filter, update, array_filters=array_filters)
     
-'''def getFlatsByProjectName(db_name, collection_name, project_name):
-    db = client[db_name]
-    collection = db[collection_name]
-    result = collection.Find(a => a["project_name"] == projectName)
-
-    for item in result.ToEnumerable():
-        entry.Add(item.ToDictionary())
-    
-    return entry
-'''
-
 #Customer Master
 def getOccupations(db_name="Master", collection_name="Customer"):
     occupations_list = []
@@ -289,11 +252,7 @@ def getCustomerDetailsByName(customer_name, db_name="Master", collection_name="C
         { "customer_mname": mname },
         { "customer_lname": lname }]
 
-    documents = collection.find({"$and": filter})
-
-    for document in documents:
-        customerDetails.append(document)    
-    return customerDetails[0]
+    return collection.find_one({"$and": filter})
 
 def getCustomerDetailsByFlatNo(project_name, block_name, floor_no, 
         flat_no, collection_name, db_name="Transaction"):
@@ -348,12 +307,7 @@ def getBankDetailsByName(bank_name, db_name="Master", collection_name="Bank"):
     collection = db[collection_name]
 
     filter = { "bank_name": bank_name }
-    documents = collection.find(filter)
-
-    for document in documents:
-        bankDetails.append(document)
-
-    return bankDetails[0]
+    return collection.find_one(filter)
 
 def updateBankDetails(approved_banks, project_name, 
                         db_name = "Master", collection_name = "Bank"):        
@@ -410,6 +364,14 @@ def getBrokersList(db_name="Master", collection_name="Broker"):
 
     return lst
 
+def getBrokerDetailsByName(broker_name, db_name="Master", collection_name="Broker"):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "broker_name": broker_name }
+    
+    return collection.find_one(filter)
+
 def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
     entry = []
 
@@ -417,12 +379,7 @@ def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collecti
     collection = db[collection_name]
 
     filter = { "_id": reference_id }
-    documents = collection.find(filter)
-
-    for document in documents:
-        entry.append(document)
-
-    return entry[0]    
+    return collection.find_one(filter)
         
 def InsertData(db_name, collection_name, doc, files):
     db = InsertDoc(db_name, collection_name, doc)

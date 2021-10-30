@@ -282,11 +282,11 @@ def getBrokerData(_id=None, **kwargs):
     doc["broker_phno"] = kwargs["request"].POST.get("broker_phno")
     doc["brokerage_commission"] = kwargs["request"].POST.get("brokerage_commission")
 
-    doc["broker_aadhar_no"] = kwargs["request"].POST.get("aadhar_no")
+    doc["aadhar_no"] = kwargs["request"].POST.get("aadhar_no")
     broker_aadhar_card = kwargs["request"].FILES.getlist("broker_aadhar_card")
-    doc["broker_pan_no"] = kwargs["request"].POST.get("pan_no")
+    doc["pan_no"] = kwargs["request"].POST.get("pan_no")
     broker_pan_card = kwargs["request"].FILES.getlist("broker_pan_card")
-    doc["broker_gst_no"] = kwargs["request"].POST.get("gst_no")
+    doc["gst_no"] = kwargs["request"].POST.get("gst_no")
     broker_gst_doc = kwargs["request"].FILES.getlist("broker_gst_doc")
 
     files = {

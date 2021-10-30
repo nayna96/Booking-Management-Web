@@ -332,7 +332,7 @@ def broker_master(request, broker_name=None):
         files = db.GetFiles("Master", metadata_filters)
 
         response =  {
-            "selectedBankDetails": selectedBrokerDetails,
+            "selectedBrokerDetails": selectedBrokerDetails,
             "files": json.loads(json_util.dumps(files))
         }
         return JsonResponse(response)
