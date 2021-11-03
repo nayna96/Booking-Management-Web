@@ -261,7 +261,6 @@ function showCustomerData(_url){
         document.getElementById("pan_no").value = response["selectedCustomerDetails"]["pan_no"];
         document.getElementById("voter_id").value = response["selectedCustomerDetails"]["voter_id"];
         document.getElementById("gst_no").value = response["selectedCustomerDetails"]["gst_no"];
-        document.getElementById("broker_pan_no").value = response["selectedCustomerDetails"]["broker's_pan_no"];
 
         showFiles("Master", "Customer", response["files"])
       }, 

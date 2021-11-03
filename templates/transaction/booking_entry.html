@@ -241,10 +241,10 @@
                         <div>   
                             <div class="row fs1" id="fs1-0">  			
                                 <div class="col-sm-2 mb-1">
-                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="10" value="" onfocusout="maxdateValidation(event)">
+                                    <input type="date" name="fs1-0-payment_date" class="form-control" required id="fs1-0-payment_date" tabindex="11" value="" onfocusout="maxdateValidation(event)">
                                 </div>                    
                                 <div class="col-sm-2 mb-1">
-                                    <select name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="11" onchange="updatePaymentDetails(event)">
+                                    <select name="fs1-0-payment_mode" class="form-control" required id="fs1-0-payment_mode" tabindex="12" onchange="updatePaymentDetails(event)">
                                         <option value="" selected disabled>-- Select --</option>
                                         <option value="CASH">CASH</option> 
                                         <option value="CHEQUE">CHEQUE
@@ -255,10 +255,10 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="12">
+                                    <input type="text" name="fs1-0-payment_details" class="allcaps form-control" required id="fs1-0-payment_details" tabindex="13">
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="13" list="bankList">
+                                    <input type="text" name="fs1-0-bank_name" class="allstring form-control" required id="fs1-0-bank_name" tabindex="14" list="bankList">
                                     <datalist id="bankList">
                                         {% for bank in banks_list %}
                                             <option value="{{bank}}">{{bank}}</option>
@@ -266,7 +266,7 @@
                                     </datalist>
                                 </div>
                                 <div class="col-sm-2 mb-1">
-                                    <input type="text" name="fs1-0-amount" class="allnums form-control" required id="fs1-0-amount" tabindex="14" value="0.00" onchange="formatAndAddAmount()">
+                                    <input type="text" name="fs1-0-amount" class="allnums form-control" required id="fs1-0-amount" tabindex="15" value="0.00" onchange="formatAndAddAmount()">
                                 </div>
                                 <div class="col-sm-1 mb-1">                                                                
                                     <a href="javascript:void(0)" onclick="addRow(event, 'fs1')">add</a>
@@ -286,12 +286,12 @@
                             <div class="col-sm-4 mb-1">
                                 <label>Sellable Area</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="sellable_area" id="sellable_area" class="allnums form-control" tabindex="15" required onchange="updateSellableAreaAmount()">
+                                <input type="text" name="sellable_area" id="sellable_area" class="allnums form-control" tabindex="16" required onchange="updateSellableAreaAmount()">
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>Rate</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="sellable_area_rate" id="sellable_area_rate" class="allnums form-control" tabindex="16" required onchange="updateSellableAreaAmount()">
+                                <input type="text" name="sellable_area_rate" id="sellable_area_rate" class="allnums form-control" tabindex="17" required onchange="updateSellableAreaAmount()">
                             </div>
                             <div class="col-sm-2 mb-1">
                                 <label>Amount</label>
@@ -305,7 +305,7 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">                                
-                                <input type="text" name="car_parking_chgs" id="car_parking_chgs" class="allnums form-control" tabindex="17" value="0.00" required onchange="updateAmounts()">
+                                <input type="text" name="car_parking_chgs" id="car_parking_chgs" class="allnums form-control" tabindex="18" value="0.00" required onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-8 mb-1" style="text-align: right;">
@@ -313,7 +313,7 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="dg_chgs" id="dg_chgs" class="allnums form-control" tabindex="18" value="0.00" required onchange="updateAmounts()">
+                                <input type="text" name="dg_chgs" id="dg_chgs" class="allnums form-control" tabindex="19" value="0.00" required onchange="updateAmounts()">
                             </div>
                             
                             <div class="col-sm-8 mb-1" style="text-align: right;">
@@ -321,7 +321,7 @@
                                 <label class="mandat_symbol">*</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="trans_substation_chgs" id="trans_substation_chgs" class="allnums form-control" tabindex="19" value="0.00" required onchange="updateAmounts()">
+                                <input type="text" name="trans_substation_chgs" id="trans_substation_chgs" class="allnums form-control" tabindex="20" value="0.00" required onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-8 mb-1" style="text-align: right;">
@@ -335,7 +335,7 @@
                                 <label>Discount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="discount" id="discount" class="allnums form-control" tabindex="20" value="0.00" onchange="updateAmounts()">
+                                <input type="text" name="discount" id="discount" class="allnums form-control" tabindex="21" value="0.00" onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-8 mb-1" style="text-align: right;">
@@ -349,7 +349,7 @@
                                 <label>Cash Discount</label>
                             </div>
                             <div class="col-sm-2 mb-1">
-                                <input type="text" name="cash_discount" id="cash_discount" class="allnums form-control" tabindex="21" value="0.00" onchange="updateAmounts()">
+                                <input type="text" name="cash_discount" id="cash_discount" class="allnums form-control" tabindex="22" value="0.00" onchange="updateAmounts()">
                             </div>
 
                             <div class="col-sm-8 mb-1" style="text-align: right;">
@@ -362,7 +362,7 @@
                             <div class="col-sm-8 mb-1" style="text-align: right;">
                                 <label>Additional GST %</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="add_gst_pct" id="add_gst_pct" tabindex="22" required onchange="updateAddGSTAmount()">
+                                <select name="add_gst_pct" id="add_gst_pct" tabindex="23" required onchange="updateAddGSTAmount()">
                                     <option value="" selected disabled>-- Select --</option>
                                     <option value="1%">1%</option>
                                     <option value="5%">5%</option>
@@ -395,7 +395,7 @@
                             </div>
                         </div>	                           						
                     </div>
-                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" tabindex="22" name="Save" value="Save"/>
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" tabindex="24" name="Save" value="Save"/>
                     </form>
                 </div>
             </div>
