@@ -196,11 +196,11 @@
                             <div class="col-sm-3 mb-1">
                                 <label>Broker's Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="broker's_name" id="broker's_name" class="form-control" tabindex="10" required>
+                                <select name="broker_name" id="broker_name" class="form-control" tabindex="10" required>
                                     <option value="" selected disabled>-- Select --</option>
                                     <option value="DIRECT">DIRECT</option>
                                     {% for broker in brokers_list %}
-                                        <option value={{broker}}>{{broker}}</option>
+                                        <option value="{{broker}}">{{broker}}</option>
                                     {% endfor %}
                                 </select>
                             </div>

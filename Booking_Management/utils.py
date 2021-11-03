@@ -15,8 +15,15 @@ def getProjectData(_id=None, **kwargs):
     n = int(kwargs["request"].POST.get("fs1-fields"))
     approved_banks = []
     for i in range(n):
+        bank_name = kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name")
+        b_id = db.getBankDetailsByName(short_bank_name=bank_name)["_id"]
+        reference_dt = {
+            "$ref": "Bank",
+            "$id": b_id,
+            "$db": "Master"
+        }
         dt={
-            "bank_name": kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name")
+            "bank_name": reference_dt
         }
         approved_banks.append(dt)
     doc["approved_banks"] = approved_banks
@@ -71,7 +78,7 @@ def getProjectData(_id=None, **kwargs):
 
 def getBlockData(_id=None, **kwargs):
     project_name = kwargs["request"].POST.get("project_name")
-    p_id = db.getProjectByName(project_name)["_id"]
+    p_id = db.getProjectDetailsByName(project_name)["_id"]
 
     doc = {}
     doc["_id"] = p_id + "B" if len(_id) == 0 else _id
@@ -102,16 +109,37 @@ def getBlockData(_id=None, **kwargs):
 
 def getFlatData(_id=None, **kwargs):
     project_name = kwargs["request"].POST.get("project_name")
-    p_id = db.getProjectByName(project_name)["_id"]
+    p_id = db.getProjectDetailsByName(project_name)["_id"]
 
     block_name = kwargs["request"].POST.get("block_name")
     floor_no = kwargs["request"].POST.get("floor_no")
 
     doc = {}
     doc["_id"] =  p_id + "B_" + block_name + "_" + floor_no + "F" if len(_id) == 0 else _id
-    doc["project_name"] = project_name
-    doc["block_name"] = block_name
-    doc["floor_no"] = floor_no
+    
+    reference_dt = {
+        "$ref": "Project",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["project_name"] = reference_dt
+
+    doc["block_name"] = kwargs["request"].POST.get("block_name") 
+    doc["floor_no"] = kwargs["request"].POST.get("floor_no") 
+
+    '''reference_dt = {
+        "$ref": "",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["block_name"] = reference_dt
+
+    reference_dt = {
+        "$ref": "",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["floor_no"] = reference_dt'''
 
     n = int(kwargs["request"].POST.get("fs1-fields"))
     flats = []
@@ -254,8 +282,14 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
         approved_projects = []
         for project in projects:
             if len(project) > 0:
+                p_id = db.getProjectDetailsByName(project)["_id"]
+                reference_dt = {
+                    "$ref": "Project",
+                    "$id": p_id,
+                    "$db": "Master"
+                }    
                 dt={
-                    "name": project
+                    "project_name": reference_dt
                 }
                 approved_projects.append(dt)
         doc["approved_projects"] = approved_projects
@@ -303,20 +337,68 @@ def getBookingEntry(_id=None, **kwargs):
     doc["_id"] = reference_id if len(_id) == 0 else _id
     doc["reference_id"] = doc["_id"]
     doc["booking_date"] = kwargs["request"].POST.get("booking_date") 
-    doc["customer_name"] = kwargs["request"].POST.get("customer_name") 
-    doc["landowner_company_share"] = kwargs["request"].POST.get("landowner_company_share") 
-    doc["project_name"] = kwargs["request"].POST.get("project_name") 
+    
+    customer_name = kwargs["request"].POST.get("customer_name")
+    c_id = db.getCustomerDetailsByName(customer_name)["_id"]
+    reference_dt = {
+        "$ref": "Customer",
+        "$id": c_id,
+        "$db": "Master"
+    }
+    doc["customer_name"] = reference_dt
+
+    doc["landowner_company_share"] = kwargs["request"].POST.get("landowner_company_share")
+
+    project_name = kwargs["request"].POST.get("project_name")
+    p_id = db.getProjectDetailsByName(project_name)["_id"]  
+    reference_dt = {
+        "$ref": "Project",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["project_name"] = reference_dt
+
     doc["block_name"] = kwargs["request"].POST.get("block_name") 
     doc["floor_no"] = kwargs["request"].POST.get("floor_no") 
     doc["flat_no"] = kwargs["request"].POST.get("flat_no") 
-    doc["flat_condn"] = kwargs["request"].POST.get("flat_condn")
-    
+
+    '''block_name = kwargs["request"].POST.get("block_name") 
     reference_dt = {
-        "$ref": "Broker",
-        "$id": "p_id",
+        "$ref": "",
+        "$id": p_id,
         "$db": "Master"
     }
-    doc["broker_name"] = reference_dt
+    doc["block_name"] = reference_dt
+
+    floor_no = kwargs["request"].POST.get("floor_no")
+    reference_dt = {
+        "$ref": "",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["floor_no"] = reference_dt
+
+    flat_no = kwargs["request"].POST.get("flat_no")
+    reference_dt = {
+        "$ref": "",
+        "$id": p_id,
+        "$db": "Master"
+    }
+    doc["flat_no"] = reference_dt'''
+
+    doc["flat_condn"] = kwargs["request"].POST.get("flat_condn")
+    
+    broker_name = kwargs["request"].POST.get("broker_name")
+    if broker_name != "DIRECT":
+        br_id = db.getBrokerDetailsByName(broker_name)["_id"]
+        reference_dt = {
+            "$ref": "Broker",
+            "$id": br_id,
+            "$db": "Master"
+        }
+        doc["broker_name"] = reference_dt
+    else:
+        doc["broker_name"] = broker_name
 
     n = int(kwargs["request"].POST.get("fs1-fields"))
     payment_details = []
@@ -388,7 +470,7 @@ def getUserData(_id=None, **kwargs):
     doc["username"] = kwargs["request"].POST.get("username")
     doc["password"] = kwargs["request"].POST.get("password")
     doc["user_type"] = kwargs["request"].POST.get("user_type")
-    doc["full_name"] = kwargs["request"].POST.get("ful_name")
+    doc["full_name"] = kwargs["request"].POST.get("full_name")
     doc["designation"] = kwargs["request"].POST.get("designation")
 
     files = {}

@@ -55,7 +55,8 @@ urlpatterns = [
     #settings
     path('settings', views.settings, name='settings'),
     path('organisation_master', views.organisation_master, name='organisation_master'),
-    path('user_master', views.user_master, name='user_master'),
+    re_path('user_master/$', views.user_master, name='user_master'),
+    path('user_master/<str:username>', views.user_master, name='user_master'),
 
     #load data
     re_path('load-blocks/$', views.load_blocks, name='load_blocks'),

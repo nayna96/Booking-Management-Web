@@ -117,7 +117,7 @@ def project_master(request, project_name=None):
 
     if request.is_ajax():
         if project_name != None:
-            selectedProjectDetails = db.getProjectByName(project_name)
+            selectedProjectDetails = db.getProjectDetailsByName(project_name)
             
             metadata_filters = [
                 {"metadata._id" : selectedProjectDetails["_id"]}
@@ -487,11 +487,24 @@ def organisation_master(request, org_name=None):
         "organisationDetails":organisationDetails
     })
 
-def user_master(request):
-    userDetails = db.getDetails("Master", "User")
+def user_master(request, username=None):
+    userDetails = db.getDetails("Settings", "UserMaster")
+
+    if request.is_ajax():
+        if username != None:
+            selectedUserDetails = db.getUserDetailsByName(username)
+            response =  {
+                "selectedUserDetails": selectedUserDetails
+            }
+            return JsonResponse(response)
+
     if request.method == "POST":
-        doc  = utils.getUserData(request)
-        db.InsertData("Settings", "UserMaster", doc) 
+        _id = request.POST.get("_id")
+        [doc, files] = utils.getUserData(_id, request=request)
+        if 'Save' in request.POST:
+            db.InsertData("Settings", "UserMaster", doc, files)
+        elif 'Update' in request.POST:
+            db.UpdateData("Settings", "UserMaster", doc, files)
         return HttpResponseRedirect(request.path_info)
     return render(request, 'settings/user_master.html', {"userDetails":userDetails})
 

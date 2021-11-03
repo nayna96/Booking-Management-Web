@@ -4,48 +4,47 @@
 
 <h3>USER MASTER</h3>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Add</button>
+<button onclick="show_modal()" class="btn btn-primary">Add</button>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">USER MASTER</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+<div id="myModal" class="_modal">
+    <div class="_modal-content">        
+        <span class="_close">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">USER MASTER</h5>
+            
+        </div>
             <div class="modal-body">                                        
-                <form method="POST" action="{% url 'user_master' %}">
-                    {% csrf_token %} 
+                <form method="POST" id="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="_id" id="_id" hidden> 
                     <div class="row">
                         <div class="col-sm-6 mb-1">
                             <label>User Name</label>
                             <label class="mandat_symbol">*</label>
-                            <input type="text" class="form-control" name="username" required>
+                            <input type="text" class="form-control" name="username" id="username" required>
                         </div>
                         <div class="col-sm-6 mb-1">
                             <label>Password</label>
                             <label class="mandat_symbol">*</label>
-                            <input type="password" class="form-control" name="password" required>
+                            <input type="password" class="form-control" name="password" id="password" required>
                         </div>                                    
                         <div class="col-sm-6 mb-1">
                             <label>User Type</label>
                             <label class="mandat_symbol">*</label>
-                            <input type="text" class="form-control" name="user_type" required>
+                            <input type="text" class="form-control" name="user_type" id="user_type" required>
                         </div>
                         <div class="col-sm-6 mb-1">
                             <label>Full Name</label>
                             <label class="mandat_symbol">*</label>
-                            <input type="text" class="form-control" name="full_name" required>
+                            <input type="text" class="form-control" name="full_name" id="full_name" required>
                         </div>
                         <div class="col-sm-6 mb-1">
                             <label>Designation</label>
                             <label class="mandat_symbol">*</label>
-                            <input type="text" class="form-control" name="designation" required>
+                            <input type="text" class="form-control" name="designation" id="designation" required>
                         </div>
                     </div>                                            
-                    <input type="submit" class="btn btn-primary" value="Save">    
+                    <input type="submit" onclick="return formValidation()" id="btn" class="btn btn-primary" name="Save" value="Save"/>    
                 </form>
             </div>                   
         </div>    
@@ -65,13 +64,20 @@
         {% for user in userDetails %}
         <tr>
             <td>
-                {{ user.username }} 
+                <a href="#" onclick="showUserData('/user_master/{{user.username}}')">{{ user.username }} </a>                
             </td>
-            <td><a href="#"><i class="fa fa-fw fa-edit"></i></a></td>
-            <td><a href="#"><i class="fa fa-fw fa-trash"></i></a></td>
+            <td><a class="btn btn-primary" onclick="showUserData('/user_master/{{user.username}}')">View</a></td>
+            <td><a class="btn btn-primary" onclick="showUserData('/user_master/{{user.username}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<script type="text/javascript">
+    function formValidation(){
+
+    }
+</script>
 
 {% endblock content %}

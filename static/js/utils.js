@@ -298,7 +298,7 @@ function showBankData(_url){
         projects = ""
         approved_projects = response["selectedBankDetails"]["approved_projects"];
         for (var i=0; i<approved_projects.length; i++){
-          projects += approved_projects[i]["name"] + ",";
+          projects += approved_projects[i]["project_name"] + ",";
         }
         document.getElementById("approved_projects").value = projects;
 
@@ -461,6 +461,13 @@ function showUserData(_url){
       url: _url,
       enctype: 'multipart/form-data',    
       success: function(response){
+        var _id = response["selectedUserDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("username").value = response["selectedUserDetails"]["username"];
+        document.getElementById("password").value = response["selectedUserDetails"]["password"];
+        document.getElementById("user_type").value = response["selectedUserDetails"]["user_type"];
+        document.getElementById("full_name").value = response["selectedUserDetails"]["full_name"];
+        document.getElementById("designation").value = response["selectedUserDetails"]["designation"];
       },
       error: function(error) {
         console.log(error)

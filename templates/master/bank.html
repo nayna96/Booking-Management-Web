@@ -200,7 +200,7 @@
             <td>{{ bank.contact_person_phno }}</td>
             <td>
             {% for project in bank.approved_projects %}
-                {{ project.name }} ,
+                {{ project.project_name }} ,
             {% endfor %}
             </td>
             <td><a class="btn btn-primary" onclick="showBankData('/bank_master/{{bank.bank_name}}')">View</a></td>

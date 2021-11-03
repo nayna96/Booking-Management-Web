@@ -10,7 +10,7 @@ try:
     client = MongoClient(connection_string)
 except:
     pass
-
+    
 def ifExistsDoc(db_name, collection_name, filters):
     db = client[db_name]
     collection = db[collection_name]
@@ -27,7 +27,11 @@ def getNextId(db_name, collection_name):
     collection = db[collection_name]
     return collection.count() + 1
 
-def verifyUser(username, password, db_name="Settings", collection_name="UserMaster"):
+def verifyUser(username, password):
+    if username != "" and password != "":
+        pwd = getUserDetailsByName(username)["password"]
+        if password == pwd:
+            return True
     return True
 
 def getDocById(db_name, collection_name, _id):
@@ -45,9 +49,22 @@ def getDetails(db_name, collection_name):
 
     for x in collection.find({}):
         for key, value in x.items():
-            if isinstance(value, bson.dbref.DBRef):
-                doc = getDocById(value.database, value.collection, value.id)
-                x[key] = doc[key]
+            if type(value) == list:
+                for el in value:
+                    for k,v in el.items():
+                        if isinstance(v, bson.dbref.DBRef):
+                            doc = getDocById(v.database, v.collection, v.id)
+                            if k == "bank_name":
+                                el["bank_name"] = doc["short_bank_name"]
+                            else:
+                                el[k] = doc[k]
+            else:
+                if isinstance(value, bson.dbref.DBRef):
+                    doc = getDocById(value.database, value.collection, value.id)
+                    if key == "customer_name":
+                        x["customer_name"] = doc["customer_fname"] + " " + doc["customer_mname"] + " " + doc["customer_lname"]
+                    else:
+                        x[key] = doc[key]
         details.append(x)
     return details
 
@@ -63,19 +80,29 @@ def getProjectsList(db_name="Master", collection_name="Project"):
     documents = collection.find(filter)
 
     for document in documents:
+        value = document["project_name"]
+        if isinstance(value, bson.dbref.DBRef):
+            doc = getDocById(value.database, value.collection, value.id)
+            document["project_name"] = doc["project_name"]
         lst.append(document["project_name"])
 
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , lst, [])
 
-def getProjectByName(project_name, db_name="Master", collection_name="Project"):
+def getProjectDetailsByName(project_name, db_name="Master", collection_name="Project"):
     db = client[db_name]
     collection = db[collection_name]
 
     filter = { "project_name": project_name }
-    return collection.find_one(filter)
+    document = collection.find_one(filter)
+
+    for bank in document["approved_banks"]:
+        doc = getDocById(bank["bank_name"].database, bank["bank_name"].collection, bank["bank_name"].id)
+        bank["bank_name"] = doc["short_bank_name"]
+
+    return document
 
 def getProjectStatus(project_name, db_name="Master", collection_name="Project"):
-    details = getProjectByName(project_name)
+    details = getProjectDetailsByName(project_name)
     return details["project_status"]
 
 #Block Master
@@ -83,8 +110,12 @@ def getBlockDetailsByProject(project_name, db_name="Master", collection_name="Bl
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = { "project_name": project_name }
-    return collection.find_one(filter)
+    p_id = getProjectDetailsByName(project_name)["_id"]
+    filter = { "project_name.$id": p_id }
+
+    document = collection.find_one(filter)
+    document["project_name"] = project_name
+    return document
     
 def getBlocksListByProject(project_name, db_name="Master", collection_name="Block"):
     blocks_list = []
@@ -92,9 +123,10 @@ def getBlocksListByProject(project_name, db_name="Master", collection_name="Bloc
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = { "project_name": project_name }
-    documents = collection.find(filter)
+    p_id = getProjectDetailsByName(project_name)["_id"]
+    filter = { "project_name.$id": p_id }
 
+    documents = collection.find(filter)
     for document in documents:
         blocks = document["blocks"]
         for block in blocks:
@@ -109,9 +141,10 @@ def getFloorsListByBlock(project_name, block_name,
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = { "project_name": project_name }
-    documents = collection.find(filter)
+    p_id = getProjectDetailsByName(project_name)["_id"]
+    filter = { "project_name.$id": p_id }
 
+    documents = collection.find(filter)
     for document in documents:
         blocks = document["blocks"]
         for block in blocks:
@@ -125,12 +158,15 @@ def getFlatDetailsByFloor(project_name, block_name, floor_no,
     db = client[db_name]
     collection = db[collection_name]
 
+    p_id = getProjectDetailsByName(project_name)["_id"]
     filter = [
-        { "project_name": project_name },
+        { "project_name.$id": p_id },
         { "block_name":block_name },
         { "floor_no": floor_no }
     ]
-    return collection.find_one({"$and": filter})
+    document = collection.find_one({"$and": filter})
+    document["project_name"] = project_name
+    return document
 
 def getFlatsListByFloorNo(project_name, block_name, floor_no, share_type, save_update):
     if save_update == "Save":
@@ -169,9 +205,10 @@ def getNoFlatsByFloor(project_name, block_name, floor_no,
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = {"project_name": project_name}
-    documents = collection.find(filter)
+    p_id = getProjectDetailsByName(project_name)["_id"]
+    filter = { "project_name.$id": p_id }
 
+    documents = collection.find(filter)
     for document in documents:
         blocks = document["blocks"]
         for block in blocks:
@@ -300,28 +337,44 @@ def getBanksList(db_name="Master", collection_name="Bank"):
 
     return lst
 
-def getBankDetailsByName(bank_name, db_name="Master", collection_name="Bank"):
-    bankDetails = []
-
+def getBankDetailsByName(bank_name=None, short_bank_name = None, db_name="Master", collection_name="Bank"):
     db = client[db_name]
     collection = db[collection_name]
 
-    filter = { "bank_name": bank_name }
-    return collection.find_one(filter)
+    if bank_name != None:   
+        filter = { "bank_name": bank_name }
+    elif short_bank_name != None:
+        filter = { "short_bank_name": short_bank_name }
+
+    document = collection.find_one(filter)
+
+    for project in document["approved_projects"]:
+        doc = getDocById(project["project_name"].database, project["project_name"].collection, project["project_name"].id)
+        project["project_name"] = doc["project_name"]
+
+    return document
 
 def updateBankDetails(approved_banks, project_name, 
                         db_name = "Master", collection_name = "Bank"):        
     db = client[db_name]
     collection = db[collection_name]
 
+    p_id = getProjectDetailsByName(project_name)["_id"]
+
     #remove selected project from all banks
     lst = list(collection.find({}))
     for el in lst:
         array = el["approved_projects"]            
-            
-        doc = { "name" : project_name }
-        if doc in array:    
-            array.remove(doc)
+
+        reference_dt = {
+            "$ref": "Project",
+            "$id": p_id,
+            "$db": "Master"
+        }    
+        doc = { "project_name" : reference_dt }
+        for element in array:
+            if doc["project_name"]["$id"] == element["project_name"].id:    
+                array.remove(element)
 
         filter = { "bank_name": el["bank_name"] }
         update = { "$set": { "approved_projects" : array } }
@@ -330,10 +383,16 @@ def updateBankDetails(approved_banks, project_name,
     #add project name in required bank
     for approved_bank in approved_banks:
         if len(approved_bank) > 0:
-            filter1 = { "short_bank_name" : approved_bank }
-            array1 = list(collection.find(filter1))[0]["approved_projects"]
-           
-            doc1 = { "name" : project_name }
+            doc = getDocById(approved_bank["$db"], approved_bank["$ref"], approved_bank["$id"])
+            filter1 = { "short_bank_name" : doc["short_bank_name"] }
+            array1 = collection.find_one(filter1)["approved_projects"]
+            
+            reference_dt = {
+                "$ref": "Project",
+                "$id": p_id,
+                "$db": "Master"
+            }
+            doc1 = { "project_name" : reference_dt }
             array1.append(doc1)            
             
             update1 = { "$set": { "approved_projects" : array1 } }
@@ -373,13 +432,34 @@ def getBrokerDetailsByName(broker_name, db_name="Master", collection_name="Broke
     return collection.find_one(filter)
 
 def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
-    entry = []
-
     db = client[db_name]
     collection = db[collection_name]
 
     filter = { "_id": reference_id }
-    return collection.find_one(filter)
+
+    document = collection.find_one(filter)
+
+    value = document["customer_name"]
+    doc = getDocById(value.database, value.collection, value.id)
+    document["customer_name"] = doc["customer_fname"] + " " + doc["customer_mname"] + " " + doc["customer_lname"]
+    
+    value = document["project_name"]
+    doc = getDocById(value.database, value.collection, value.id)
+    document["project_name"] = doc["project_name"]
+
+    if document["broker_name"] != "DIRECT":
+        value = document["broker_name"]
+        doc = getDocById(value.database, value.collection, value.id)
+        document["broker_name"] = doc["broker_name"]
+
+    return document
+
+def getUserDetailsByName(username, db_name = "Settings", collection_name = "UserMaster"):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "username": username }
+    return collection.find_one(filter)    
         
 def InsertData(db_name, collection_name, doc, files):
     db = InsertDoc(db_name, collection_name, doc)
