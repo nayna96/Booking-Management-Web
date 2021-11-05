@@ -296,8 +296,10 @@ def getCustomerDetailsByFlatNo(project_name, block_name, floor_no,
     db = client[db_name]
     collection = db[collection_name]
 
+    p_id = getProjectDetailsByName(project_name)["_id"]
+
     filter = [
-        { "project_name": project_name },
+        { "project_name.$id": p_id },
         { "block_name": block_name },
         { "floor_no": floor_no },
         { "flat_no": flat_no }
@@ -309,6 +311,8 @@ def getCustomerDetailsByFlatNo(project_name, block_name, floor_no,
     for document in documents:
         if "customer_name" in document:
             customer_name = document["customer_name"]
+            doc = getDocById(customer_name.database, customer_name.collection, customer_name.id)
+            customer_name = doc["customer_fname"] + " " + doc["customer_mname"] + " " + doc["customer_lname"]
         elif "customer_fname" in document and "customer_mname" in document and "customer_lname" in document:
             customer_name = document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"]
         break
