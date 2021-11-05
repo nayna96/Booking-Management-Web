@@ -447,10 +447,11 @@ def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collecti
     doc = getDocById(value.database, value.collection, value.id)
     document["project_name"] = doc["project_name"]
 
-    if document["broker_name"] != "DIRECT":
-        value = document["broker_name"]
-        doc = getDocById(value.database, value.collection, value.id)
-        document["broker_name"] = doc["broker_name"]
+    if "broker_name" in document:
+        if document["broker_name"] != "DIRECT":
+            value = document["broker_name"]
+            doc = getDocById(value.database, value.collection, value.id)
+            document["broker_name"] = doc["broker_name"]
 
     return document
 
