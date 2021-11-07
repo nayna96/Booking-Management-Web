@@ -240,6 +240,29 @@ function updateFloorNos(e){
             removeRow($("#fs1-" + i + "-block_name")[0]);
         }
     }
+
+    no_blocks = $("#no_blocks").val()
+    blocks = getUniqueBlocks();
+    
+    if (blocks.length < no_blocks)
+    {
+       addRow(undefined, 'fs1');
+    }
+}
+
+function getUniqueBlocks(){
+    n = Number($("#fs1-fields").val())
+    array = []
+    for (var i=0;  i<n; i++){
+        block = {
+            "block_name": $("#fs1-" + i + "-block_name").val()
+        }
+        array.push(block)
+    }
+
+    blocks = [...new Set(array.map(item => item.block_name))];
+
+    return blocks
 }
 
 function formValidation(){
@@ -267,20 +290,7 @@ function formValidation(){
     }
 
     no_blocks = Number($("#no_blocks").val())
-
-    n = Number($("#fs1-fields").val())
-    array = []
-    for (var i=0;  i<n; i++){
-        block = {
-            "block_name": $("#fs1-" + i + "-block_name").val(),
-            "no_floors": $("#fs1-" + i + "-no_floors").val(),
-            "floor_no": $("#fs1-" + i + "-floor_no").val(),
-            "no_flats": $("#fs1-" + i + "-no_flats").val()
-        }
-        array.push(block)
-    }
-
-    blocks = [...new Set(array.map(item => item.block_name))];
+    blocks = getUniqueBlocks()
     if (blocks.length < no_blocks)
     {
         alert("Please enter details for all blocks!");

@@ -266,7 +266,11 @@ function updateFlatNo(){
     $("#fs1-0-flat_no").val(value);
     $("#fs1-0-parking_no").val(value);
 
-    length = Number($("#fs1-fields").val())
+    project_name = $("#project_name").val()
+    block_name = $("#block_name").val()
+    floor_no = $("#floor_no").val()
+
+    getNoFlats(project_name, block_name, floor_no);
     n = no_flats - length;
 
     for(var i=0; i<n; i++){
@@ -313,6 +317,7 @@ function getNoFlats(project_name, block_name, floor_no){
 }
 
 function getProjectStatus(){
+    project_name = $("#project_name").val()
     return $.ajax({      
     url: "/get_project_status/" + project_name,
     async: false,

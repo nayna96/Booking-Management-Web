@@ -16,16 +16,17 @@ def getProjectData(_id=None, **kwargs):
     approved_banks = []
     for i in range(n):
         bank_name = kwargs["request"].POST.get("fs1-" + str(i) + "-bank_name")
-        b_id = db.getBankDetailsByName(short_bank_name=bank_name)["_id"]
-        reference_dt = {
-            "$ref": "Bank",
-            "$id": b_id,
-            "$db": "Master"
-        }
-        dt={
-            "bank_name": reference_dt
-        }
-        approved_banks.append(dt)
+        if len(bank_name) > 0:
+            b_id = db.getBankDetailsByName(short_bank_name=bank_name)["_id"]
+            reference_dt = {
+                "$ref": "Bank",
+                "$id": b_id,
+                "$db": "Master"
+            }
+            dt={
+                "bank_name": reference_dt
+            }
+            approved_banks.append(dt)
     doc["approved_banks"] = approved_banks
 
     doc["project_status"] =  kwargs["request"].POST.get("project_status") 
