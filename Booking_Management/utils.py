@@ -1,5 +1,6 @@
 from . import db
 
+#Master
 def getProjectData(_id=None, **kwargs):
     id = db.getNextId("Master", "Project")
     doc = {}
@@ -332,6 +333,7 @@ def getBrokerData(_id=None, **kwargs):
 
     return [doc, files]   
 
+#Transaction
 def getBookingEntry(_id=None, **kwargs):
     doc = {}
     reference_id = kwargs["request"].POST.get("reference_id")
@@ -461,6 +463,159 @@ def getCustomerRequest(_id=None, **kwargs):
     doc["reason_of_unhold"] = kwargs["request"].POST.get("reason_of_unhold")
 
     files = {}
+
+    return [doc, files]
+
+#Settings
+def getOrganisationData(_id=None, **kwargs):
+    id = db.getNextId("Settings", "UserMaster")
+    doc = {}
+    doc["_id"] = "O" + str(id) if len(_id) == 0 else _id
+    
+    doc["organisation_name"] = kwargs["request"].POST.get("organisation_name")
+    doc["estd_on"] = kwargs["request"].POST.get("estd_on")
+    doc["branch"] = kwargs["request"].POST.get("branch")
+    doc["constitution"] = kwargs["request"].POST.get("constitution")    
+    doc["nature_of_business"] = kwargs["request"].POST.get("nature_of_business")
+    doc["start_fin_yr"] = kwargs["request"].POST.get("start_fin_yr")
+    doc["enable_tds_deduction"] = kwargs["request"].POST.get("enable_tds_deduction")
+    doc["tds_deduction_type"] = kwargs["request"].POST.get("tds_deduction_type")    
+    doc["addLine1"] = kwargs["request"].POST.get("addLine1")
+    doc["addLine2"] = kwargs["request"].POST.get("addLine2")
+    doc["city"] = kwargs["request"].POST.get("city")    
+    doc["district"] = kwargs["request"].POST.get("district")
+    doc["state"] = kwargs["request"].POST.get("state")
+    doc["pin"] = kwargs["request"].POST.get("pin")    
+    doc["mobile_no"] = kwargs["request"].POST.get("mobile_no")
+    doc["whatsapp_no"] = kwargs["request"].POST.get("whatsapp_no")
+    doc["email"] = kwargs["request"].POST.get("email")
+
+    doc["pan_no"] = kwargs["request"].POST.get("pan_no")
+    pan_card = kwargs["request"].FILES.getlist("pan_card")
+    doc["tan_no"] = kwargs["request"].POST.get("tan_no")
+    tan_doc = kwargs["request"].FILES.getlist("tan_doc")
+    doc["gstin_no"] = kwargs["request"].POST.get("gstin_no")
+    gst_doc = kwargs["request"].FILES.getlist("gst_doc")
+
+    files = {
+        "pan_card": pan_card,
+        "tan_doc": tan_doc, 
+        "gst_doc": gst_doc, 
+    }
+
+    if doc["constitution"] == "Proprietorship":
+        doc["proprietors's_name"] = kwargs["request"].POST.get("proprietors's_name")
+        doc["p_father's_name"] = kwargs["request"].POST.get("p_father's_name")
+        doc["p_addLine1"] = kwargs["request"].POST.get("p_addLine1")
+        doc["p_addLine2"] = kwargs["request"].POST.get("p_addLine2")
+        doc["p_city"] = kwargs["request"].POST.get("p_city")
+        doc["p_district"] = kwargs["request"].POST.get("p_district")
+        doc["p_state"] = kwargs["request"].POST.get("p_state")
+        doc["p_pin"] = kwargs["request"].POST.get("p_pin")
+        
+        doc["p_aadhar_no"] = kwargs["request"].POST.get("p_aadhar_no")
+        p_aadhar_card = kwargs["request"].FILES.getlist("p_aadhar_card")
+        files["p_aadhar_card"] = p_aadhar_card
+
+    elif doc["constitution"] == "Partnership" or doc["constitution"] == "LLP":
+        no_partners = kwargs["request"].POST.get("no_partners")
+        doc["no_partners"] = no_partners
+
+        partners = []
+        for i in range(no_partners):
+            dt = {
+                "partner's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-partner's_name"),
+                "pa_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_father's_name"),
+                "pa_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_addLine1"),
+                "pa_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_addLine1"),
+                "pa_city": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_city"),
+                "pa_district": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_district"),
+                "pa_state": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_state"),
+                "pa_pin": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_pin"),                
+                "pa_pan_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_pan_no"),
+                "pa_aadhar_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_aadhar_no"),                
+                "pa_interest_pct": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_interest_pct"),
+            }
+            partners.append(dt)
+
+            pa_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pa_pan_card")
+            files["fs1-" + str(i) + "-pa_pan_card"] = pa_pan_card
+
+            pa_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pa_aadhar_card")
+            files["fs1-" + str(i) + "-pa_aadhar_card"] = pa_aadhar_card
+
+        doc["partners"] = partners
+        
+    elif doc["constitution"] == "Private Limited Company":
+        no_directors = kwargs["request"].POST.get("no_directors")
+        doc["no_directors"] = no_directors
+
+        no_promoters = kwargs["request"].POST.get("no_promoters")
+        doc["no_promoters"] = no_promoters
+
+        doc["cin_no"] = kwargs["request"].POST.get("cin_no")
+        cin_doc = kwargs["request"].FILES.getlist("cin_doc")
+        files["cin_doc"] = cin_doc
+
+        directors = []
+        for i in range(no_directors):
+            dt = {
+                "director's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-director's_name"),
+                "d_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-d_father's_name"),
+                "d_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-d_addLine1"),
+                "d_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-d_addLine1"),
+                "d_city": kwargs["request"].POST.get("fs1-" + str(i) + "-d_city"),
+                "d_district": kwargs["request"].POST.get("fs1-" + str(i) + "-d_district"),
+                "d_state": kwargs["request"].POST.get("fs1-" + str(i) + "-d_state"),
+                "d_pin": kwargs["request"].POST.get("fs1-" + str(i) + "-d_pin"),                
+                "d_pan_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_pan_no"),
+                "d_aadhar_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_aadhar_no"),                
+                "d_director_type": kwargs["request"].POST.get("fs1-" + str(i) + "-d_director_type"),
+                "d_din_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_din_no"),
+                "d_valid_upto": kwargs["request"].POST.get("fs1-" + str(i) + "-d_valid_upto")
+            }
+            directors.append(dt)
+
+            d_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_pan_card")
+            files["fs1-" + str(i) + "-d_pan_card"] = d_pan_card
+
+            d_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_aadhar_card")
+            files["fs1-" + str(i) + "-d_aadhar_card"] = d_aadhar_card
+
+            d_din_doc = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_din_doc")
+            files["fs1-" + str(i) + "-d_din_doc"] = d_din_doc
+
+        doc["directors"] = directors
+
+        promoters = []
+        for i in range(no_promoters):
+            dt = {
+                "promoter's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-promoter's_name"),
+                "pr_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_father's_name"),
+                "pr_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_addLine1"),
+                "pr_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_addLine1"),
+                "pr_city": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_city"),
+                "pr_district": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_district"),
+                "pr_state": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_state"),
+                "pr_pin": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pin"),
+                "pr_pan_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pan_no"),
+                "pr_aadhar_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_aadhar_no"),
+                "pr_din_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_din_no"),
+                "pr_valid_upto": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_valid_upto"),
+                "pr_pct_share": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pct_share")
+            }
+            promoters.append(dt)
+
+            pr_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_pan_card")
+            files["fs1-" + str(i) + "-pr_pan_card"] = pr_pan_card
+
+            pr_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_aadhar_card")
+            files["fs1-" + str(i) + "-pr_aadhar_card"] = pr_aadhar_card
+
+            pr_din_doc = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_din_doc")
+            files["fs1-" + str(i) + "-pr_din_doc"] = pr_din_doc
+
+        doc["promoters"] = promoters
 
     return [doc, files]
 

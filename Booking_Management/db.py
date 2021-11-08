@@ -25,7 +25,8 @@ def ifExistsDoc(db_name, collection_name, filters):
 def getNextId(db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
-    return collection.count() + 1
+    for doc in collection.find().sort("_id", -1):
+        return int(doc["_id"][-1]) + 1
 
 def verifyUser(username, password):
     if username != "" and password != "":
