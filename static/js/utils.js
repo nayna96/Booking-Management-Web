@@ -461,11 +461,12 @@ function showOrganisationData(_url){
       enctype: 'multipart/form-data',    
       success: function(response){
         var _id = response["selectedOrganisationDetails"]["_id"];
+        constitution = response["selectedOrganisationDetails"]["constitution"];
         document.getElementById("_id").value = _id;
         document.getElementById("organisation_name").value = response["selectedOrganisationDetails"]["organisation_name"];
         document.getElementById("estd_on").value = response["selectedOrganisationDetails"]["estd_on"];
         document.getElementById("branch").value = response["selectedOrganisationDetails"]["branch"];
-        $("#constitution").val(response["selectedOrganisationDetails"]["constitution"]).change();     
+        $("#constitution").val(constitution).change();     
         document.getElementById("nature_of_business").value = response["selectedOrganisationDetails"]["nature_of_business"];
         document.getElementById("start_fin_yr").value = response["selectedOrganisationDetails"]["start_fin_yr"];
         document.getElementById("enable_tds_deduction").value = response["selectedOrganisationDetails"]["enable_tds_deduction"];
@@ -479,7 +480,84 @@ function showOrganisationData(_url){
         document.getElementById("mobile_no").value = response["selectedOrganisationDetails"]["mobile_no"];
         document.getElementById("whatsapp_no").value = response["selectedOrganisationDetails"]["whatsapp_no"];
         document.getElementById("email").value = response["selectedOrganisationDetails"]["email"];
+        document.getElementById("pan_no").value = response["selectedOrganisationDetails"]["pan_no"];
+        document.getElementById("tan_no").value = response["selectedOrganisationDetails"]["tan_no"];
+        document.getElementById("gstin_no").value = response["selectedOrganisationDetails"]["gstin_no"];
 
+        if(constitution == "Proprietorship"){
+          document.getElementById("proprietors's_name").value = response["selectedOrganisationDetails"]["proprietors's_name"];
+          document.getElementById("p_father's_name").value = response["selectedOrganisationDetails"]["p_father's_name"];
+          document.getElementById("p_addLine1").value = response["selectedOrganisationDetails"]["p_addLine1"];
+          document.getElementById("p_addLine2").value = response["selectedOrganisationDetails"]["p_addLine2"];
+          document.getElementById("p_city").value = response["selectedOrganisationDetails"]["p_city"];
+          document.getElementById("p_district").value = response["selectedOrganisationDetails"]["p_district"];
+          document.getElementById("p_state").value = response["selectedOrganisationDetails"]["p_state"];
+          document.getElementById("p_pin").value = response["selectedOrganisationDetails"]["p_pin"];          
+          document.getElementById("p_aadhar_no").value = response["selectedOrganisationDetails"]["p_aadhar_no"];
+        } 
+        else if (constitution == "Partnership" || constitution == "LLP") {
+          no_partners = response["selectedOrganisationDetails"]["no_partners"];
+          $("#no_partners").val(no_partners).change();
+
+          partners = response["selectedOrganisationDetails"]["partners"]          
+          for (var i=0; i<partners.length; i++) {
+            document.getElementById("fs1-" + i + "-partner's_name").value = partners[i]["partner's_name"];
+            document.getElementById("fs1-" + i + "-pa_father's_name").value = partners[i]["pa_father's_name"];
+            $("#fs1-" + i + "-pa_addLine1").val(partners[i]["pa_addLine1"]);
+            $("#fs1-" + i + "-pa_addLine1").val(partners[i]["pa_addLine2"]);
+            $("#fs1-" + i + "-pa_city").val(partners[i]["pa_city"]);
+            $("#fs1-" + i + "-pa_district").val(partners[i]["pa_district"]);
+            $("#fs1-" + i + "-pa_state").val(partners[i]["pa_state"]);
+            $("#fs1-" + i + "-pa_pin").val(partners[i]["pa_pin"]);           
+            $("#fs1-" + i + "-pa_pan_no").val(partners[i]["pa_pan_no"]);
+            $("#fs1-" + i + "-pa_aadhar_no").val(partners[i]["pa_aadhar_no"]);           
+            $("#fs1-" + i + "-pa_interest_pct").val(partners[i]["pa_interest_pct"]);
+          }
+        } 
+        else if (constitution == "Private Limited Company"){
+          no_directors = response["selectedOrganisationDetails"]["no_directors"];
+          $("#no_directors").val(no_directors).change();
+
+          no_promoters = response["selectedOrganisationDetails"]["no_promoters"];
+          $("#no_promoters").val(no_promoters).change();
+
+          document.getElementById("cin_no").value = response["selectedOrganisationDetails"]["cin_no"];
+        
+          directors = response["selectedOrganisationDetails"]["directors"];          
+          for(var i=0; i<directors.length; i++) {    
+            document.getElementById("fs2-" + i + "-director's_name").value = directors[i]["director's_name"];
+            document.getElementById("fs2-" + i + "-d_father's_name").value = directors[i]["d_father's_name"];
+            $("#fs2-" + i + "-d_addLine1").val(directors[i]["d_addLine1"]);
+            $("#fs2-" + i + "-d_addLine1").val(directors[i]["d_addLine2"]);
+            $("#fs2-" + i + "-d_city").val(directors[i]["d_city"]);
+            $("#fs2-" + i + "-d_district").val(directors[i]["d_district"]);
+            $("#fs2-" + i + "-d_state").val(directors[i]["d_state"]);
+            $("#fs2-" + i + "-d_pin").val(directors[i]["d_pin"]);
+            $("#fs2-" + i + "-d_pan_no").val(directors[i]["d_pan_no"]);
+            $("#fs2-" + i + "-d_aadhar_no").val(directors[i]["d_aadhar_no"]);
+            $("#fs2-" + i + "-d_director_type").val(directors[i]["d_director_type"]);
+            $("#fs2-" + i + "-d_din_no").val(directors[i]["d_din_no"]);
+            $("#fs2-" + i + "-d_valid_upto").val(directors[i]["d_valid_upto"]);
+          }
+            
+          promoters = response["selectedOrganisationDetails"]["promoters"];       
+          for(var i=0; i<promoters.length; i++) {             
+            document.getElementById("fs3-" + str(i) + "-promoter's_name").value = promoters[i]["promoter's_name"];
+            document.getElementById("fs3-" + str(i) + "-pr_father's_name").value = promoters[i]["pr_father's_name"];
+            $("#fs3-" + str(i) + "-pr_addLine1").val(promoters[i]["pr_addLine1"]);
+            $("#fs3-" + str(i) + "-pr_addLine1").val(promoters[i]["pr_addLine2"]);
+            $("#fs3-" + str(i) + "-pr_city").val(promoters[i]["pr_city"]);
+            $("#fs3-" + str(i) + "-pr_district").val(promoters[i]["pr_district"]);
+            $("#fs3-" + str(i) + "-pr_state").val(promoters[i]["pr_state"]);
+            $("#fs3-" + str(i) + "-pr_pin").val(promoters[i]["pr_pin"]);
+            $("#fs3-" + str(i) + "-pr_pan_no").val(promoters[i]["pr_pan_no"]);
+            $("#fs3-" + str(i) + "-pr_aadhar_no").val(promoters[i]["pr_aadhar_no"]);
+            $("#fs3-" + str(i) + "-pr_din_no").val(promoters[i]["pr_din_no"]);
+            $("#fs3-" + str(i) + "-pr_valid_upto").val(promoters[i]["pr_valid_upto"]);
+            $("#fs3-" + str(i) + "-pr_pct_share").val(promoters[i]["pr_pct_share"]);
+          }
+        }
+            
         showFiles("Settings", "OrganisationMaster", response["files"])
       },
       error: function(error) {
