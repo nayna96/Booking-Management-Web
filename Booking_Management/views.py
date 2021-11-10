@@ -443,11 +443,11 @@ def get_customer_details(request, project_name=None, block_name=None, floor_no=N
 def settings(request):
     return render(request, "settings/index.html")
 
-def organisation_master(request, org_name=None):
-    organisationDetails = db.getDetails("Master", "Organisation")
+def organisation_master(request, organisation_name=None):
+    organisationDetails = db.getDetails("Settings", "OrganisationMaster")
 
     if request.is_ajax():
-        selectedOrganisationDetails = db.getOrganisationByName(org_name)
+        selectedOrganisationDetails = db.getOrganisationByName(organisation_name)
 
         metadata_filters = [
                 {"metadata._id" : selectedOrganisationDetails["_id"]}
@@ -466,9 +466,9 @@ def organisation_master(request, org_name=None):
         request=request)
 
         if 'Save' in request.POST:
-            db.InsertData("Settings", "Organisation Master", doc, files)
+            db.InsertData("Settings", "OrganisationMaster", doc, files)
         elif 'Update' in request.POST:
-            db.UpdateData("Settings", "Organisation Master", doc, files)
+            db.UpdateData("Settings", "OrganisationMaster", doc, files)
             
             global toRemoveFiles
             for toRemoveFile in toRemoveFiles:                

@@ -100,26 +100,26 @@
                                 <label class="mandat_symbol">*</label>
                                 <select name="constitution" id="constitution" class="form-control" onchange="showLegalDetails(event)" tabindex="4" required>
                                     <option value="" selected disabled>-- Select --</option>
-                                    <option value="PROPRIETORSHIP">Proprietorship</option>
-                                    <option value="PARTNERSHIP">Partnership</option>
+                                    <option value="Proprietorship">Proprietorship</option>
+                                    <option value="Partnership">Partnership</option>
                                     <option value="LLP">LLP</option>
-                                    <option value="PRIVATE LIMITED COMPANY">Private Limited Company</option>
+                                    <option value="Private Limited Company">Private Limited Company</option>
                                 </select>
                             </div>
                             <div class="col-sm-3 mb-1 Partnership_LLP" style="display: none;">
                                 <label>Number of partners</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_partners" id="no_partners" onchange="cloneDetails('no_partners', ['partner\'s_details', 'partner\'s_docs'])" class="form-control" tabindex="5" required>
+                                <input type="number" name="no_partners" id="no_partners" onchange="cloneDetails('no_partners', ['partner\'s_details', 'partner\'s_docs'])" class="form-control" tabindex="5">
                             </div>
                             <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
                                 <label>No of directors</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_directors" id="no_directors" onchange="cloneDetails('no_directors', ['director\'s_details', 'director\'s_docs'])" class="form-control" tabindex="5" required>
+                                <input type="number" name="no_directors" id="no_directors" onchange="cloneDetails('no_directors', ['director\'s_details', 'director\'s_docs'])" class="form-control" tabindex="5">
                             </div>
                             <div class="col-sm-3 mb-1 Private_Limited_Company" style="display: none;">
                                 <label>No of promoters</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="number" name="no_promoters" id="no_promoters" onchange="cloneDetails('no_promoters', ['promoter\'s_details', 'promoter\'s_docs'])" class="form-control" tabindex="5" required>
+                                <input type="number" name="no_promoters" id="no_promoters" onchange="cloneDetails('no_promoters', ['promoter\'s_details', 'promoter\'s_docs'])" class="form-control" tabindex="5">
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Nature of Business</label>
@@ -203,12 +203,12 @@
                             <div class="col-sm-3 mb-1">
                                 <label>Mobile No</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="mobile_no" id="mobile_no" class="allnums form-control" tabindex="16" required>
+                                <input type="text" name="mobile_no" id="mobile_no" class="allnums form-control" maxlength="10" tabindex="16" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Whatsapp No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="whatsapp_no" id="whatsapp_no" class="allnums form-control" tabindex="17" required>
+                                <input type="text" name="whatsapp_no" id="whatsapp_no" class="allnums form-control" maxlength="10" tabindex="17" required>
                             </div>
                             <div class="col-sm-3 mb-1">
                                 <label>Email ID</label>
@@ -243,7 +243,7 @@
                             <div class="col-sm-3 mb-1">
                                 <label>CIN No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="cin_no" id="cin_no" class="allstring form-control" tabindex="22" required>
+                                <input type="text" name="cin_no" id="cin_no" class="allstring form-control" tabindex="22">
                             </div>                            
                         </div>
                     </div>
@@ -256,17 +256,17 @@
                                     <div class="col-sm-6 mb-1">
                                         <label>Proprietor's Name</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="proprietors's_name" id="proprietors's_name" class="allcaps form-control" tabindex="1" required>
+                                        <input type="text" name="proprietors's_name" id="proprietors's_name" class="allcaps form-control" tabindex="1">
                                     </div>
                                     <div class="col-sm-6 mb-1">
                                         <label>Father's name</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_father's_name" id="p_father's_name" class="allcaps form-control" tabindex="2" required>
+                                        <input type="text" name="p_father's_name" id="p_father's_name" class="allcaps form-control" tabindex="2">
                                     </div>                                   
                                     <div class="col-sm-6 mb-1">
                                         <label>Address Line 1</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_addLine1" id="p_addLine1" class="allcaps form-control" tabindex="3" required>
+                                        <input type="text" name="p_addLine1" id="p_addLine1" class="allcaps form-control" tabindex="3">
                                     </div>
                                     <div class="col-sm-6 mb-1">
                                         <label>Address Line 2</label>
@@ -275,22 +275,22 @@
                                     <div class="col-sm-3 mb-1">
                                         <label>City</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_city" id="p_city" class="allstring form-control" tabindex="5" required>
+                                        <input type="text" name="p_city" id="p_city" class="allstring form-control" tabindex="5">
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>District</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_district" id="p_district" class="allstring form-control" tabindex="6" required>
+                                        <input type="text" name="p_district" id="p_district" class="allstring form-control" tabindex="6">
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>State</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_state" id="p_state" class="allstring form-control" tabindex="7" required>
+                                        <input type="text" name="p_state" id="p_state" class="allstring form-control" tabindex="7">
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>Pin code</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_pin" id="p_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8" required>
+                                        <input type="text" name="p_pin" id="p_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8">
                                     </div>                    
                                     <!--<div class="col-sm-4 mb-1">
                                         <label>FSSI LICENSE No.</label>
@@ -310,7 +310,7 @@
                                     <div class="col-sm-3 mb-1">
                                         <label>Aadhar No.</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_aadhar_no" id="p_aadhar_no" class="allnums form-control" tabindex="9" required>
+                                        <input type="text" name="p_aadhar_no" id="p_aadhar_no" class="allnums form-control" tabindex="9">
                                     </div>
                                 </div>
                             </div>
@@ -331,17 +331,17 @@
                                         <div class="col-sm-6 mb-1">
                                             <label>Partner's Name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-partner's_name" id="fs1-0-partner's_name" class="allcaps form-control" tabindex="1" required>
+                                            <input type="text" name="fs1-0-partner's_name" id="fs1-0-partner's_name" class="allcaps form-control" tabindex="1">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Father's name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_father's_name" id="fs1-0-pa_father's_name" class="allcaps form-control" tabindex="2" required>
+                                            <input type="text" name="fs1-0-pa_father's_name" id="fs1-0-pa_father's_name" class="allcaps form-control" tabindex="2">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 1</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_addLine1" id="fs1-0-pa_addLine1" class="allcaps form-control" tabindex="3" required>
+                                            <input type="text" name="fs1-0-pa_addLine1" id="fs1-0-pa_addLine1" class="allcaps form-control" tabindex="3">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 2</label>
@@ -350,37 +350,37 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>City</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_city" id="fs1-0-pa_city" class="allstring form-control" tabindex="5" required>
+                                            <input type="text" name="fs1-0-pa_city" id="fs1-0-pa_city" class="allstring form-control" tabindex="5">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>District</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_district" id="fs1-0-pa_district" class="allstring form-control" tabindex="6" required>
+                                            <input type="text" name="fs1-0-pa_district" id="fs1-0-pa_district" class="allstring form-control" tabindex="6">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>State</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_state" id="fs1-0-pa_state" class="allstring form-control" tabindex="7" required>
+                                            <input type="text" name="fs1-0-pa_state" id="fs1-0-pa_state" class="allstring form-control" tabindex="7">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Pin code</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_pin" id="fs1-0-pa_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8" required>
+                                            <input type="text" name="fs1-0-pa_pin" id="fs1-0-pa_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_pan_no" id="fs1-0-pa_pan_no" class="allcaps form-control" tabindex="9" required>
+                                            <input type="text" name="fs1-0-pa_pan_no" id="fs1-0-pa_pan_no" class="allcaps form-control" tabindex="9">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_aadhar_no" id="fs1-0-pa_aadhar_no" class="allcaps form-control" tabindex="10" required>
+                                            <input type="text" name="fs1-0-pa_aadhar_no" id="fs1-0-pa_aadhar_no" class="allcaps form-control" tabindex="10">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Percent of Interest</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_interest_pct" id="fs1-0-pa_interest_pct" class="allcaps form-control" tabindex="11" required>
+                                            <input type="text" name="fs1-0-pa_interest_pct" id="fs1-0-pa_interest_pct" class="allcaps form-control" tabindex="11">
                                         </div>
                                     </div>
                                 </div>
@@ -394,7 +394,7 @@
                         </div>
                     </div>
                     <div class="row Private_Limited_Company" style="display: none;">
-                        <div class="director's_details fs1" id="fs1-0">
+                        <div class="director's_details fs2" id="fs2-0">
                             <label style="font-weight: bold;">Director 1</label>
                             <div class="row">                         
                                 <div class="col-sm-10 mb-1">
@@ -402,56 +402,56 @@
                                         <div class="col-sm-6 mb-1">
                                             <label>Director's Name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-director's_name" id="fs1-0-director's_name" class="allcaps form-control" tabindex="1" required>
+                                            <input type="text" name="fs2-0-director's_name" id="fs2-0-director's_name" class="allcaps form-control" tabindex="1">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Father's name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_father's_name" id="fs1-0-d_father's_name" class="allcaps form-control" tabindex="2" required>
+                                            <input type="text" name="fs2-0-d_father's_name" id="fs2-0-d_father's_name" class="allcaps form-control" tabindex="2">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 1</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_addLine1" id="fs1-0-d_addLine1" class="allcaps form-control" tabindex="3" required>
+                                            <input type="text" name="fs2-0-d_addLine1" id="fs2-0-d_addLine1" class="allcaps form-control" tabindex="3">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 2</label>
-                                            <input type="text" name="fs1-0-d_addLine2" id="fs1-0-d_addLine2" class="allcaps form-control" tabindex="4">
+                                            <input type="text" name="fs2-0-d_addLine2" id="fs2-0-d_addLine2" class="allcaps form-control" tabindex="4">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>City</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_city" id="fs1-0-d_city" class="allstring form-control" tabindex="5" required>
+                                            <input type="text" name="fs2-0-d_city" id="fs2-0-d_city" class="allstring form-control" tabindex="5">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>District</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_district" id="fs1-0-d_district" class="allstring form-control" tabindex="6" required>
+                                            <input type="text" name="fs2-0-d_district" id="fs2-0-d_district" class="allstring form-control" tabindex="6">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>State</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_state" id="fs1-0-d_state" class="allstring form-control" tabindex="7" required>
+                                            <input type="text" name="fs2-0-d_state" id="fs2-0-d_state" class="allstring form-control" tabindex="7">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Pin code</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_pin" id="fs1-0-d_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8" required>
+                                            <input type="text" name="fs2-0-d_pin" id="fs2-0-d_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_pan_no" id="fs1-0-d_pan_no" class="allcaps form-control" tabindex="9" required>
+                                            <input type="text" name="fs2-0-d_pan_no" id="fs2-0-d_pan_no" class="allcaps form-control" tabindex="9">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_aadhar_no" id="fs1-0-d_aadhar_no" class="allcaps form-control" tabindex="10" required>
+                                            <input type="text" name="fs2-0-d_aadhar_no" id="fs2-0-d_aadhar_no" class="allcaps form-control" tabindex="10">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Director Type</label>
                                             <label class="mandat_symbol">*</label>
-                                            <select name="fs1-0-d_director_type" id="fs1-0-d_director_type" class="form-control" tabindex="11" required>
+                                            <select name="fs2-0-d_director_type" id="fs2-0-d_director_type" class="form-control" tabindex="11">
                                                 <option value="" selected disabled>-- Select --</option>
                                                 <option value="MANAGING DIRECTOR">Managing Director</option>
                                                 <option value="EXECUTIVE DIRECTOR">Executivr Director</option>
@@ -461,12 +461,12 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>DIN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-d_din_no" id="fs1-0-d_din_no" class="allstring form-control" tabindex="12" required>
+                                            <input type="text" name="fs2-0-d_din_no" id="fs2-0-d_din_no" class="allstring form-control" tabindex="12">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Valid upto</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="date" name="fs1-0-d_valid_upto" id="fs1-0-d_valid_upto" class="form-control" tabindex="13" required>
+                                            <input type="date" name="fs2-0-d_valid_upto" id="fs2-0-d_valid_upto" class="form-control" tabindex="13">
                                         </div>
                                     </div>
                                 </div>
@@ -482,7 +482,7 @@
                 </div>
                 <div id="promoter_details" class="tab-pane fade">
                     <div class="row Private_Limited_Company" style="display: none;">
-                        <div class="promoter's_details fs1" id="fs1-0">
+                        <div class="promoter's_details fs3" id="fs3-0">
                             <label style="font-weight: bold;">Promoter 1</label>
                             <div class="row">                         
                                 <div class="col-sm-10 mb-1">
@@ -490,66 +490,66 @@
                                         <div class="col-sm-6 mb-1">
                                             <label>Promoter's Name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-promoter's_name" id="fs1-0-promoter's_name" class="allcaps form-control" tabindex="1" required>
+                                            <input type="text" name="fs3-0-promoter's_name" id="fs3-0-promoter's_name" class="allcaps form-control" tabindex="1">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Father's name</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_father's_name" id="fs1-0-pr_father's_name" class="allcaps form-control" tabindex="2" required>
+                                            <input type="text" name="fs3-0-pr_father's_name" id="fs3-0-pr_father's_name" class="allcaps form-control" tabindex="2">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 1</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_addLine1" id="fs1-0-pr_addLine1" class="allcaps form-control" tabindex="3" required>
+                                            <input type="text" name="fs3-0-pr_addLine1" id="fs3-0-pr_addLine1" class="allcaps form-control" tabindex="3">
                                         </div>
                                         <div class="col-sm-6 mb-1">
                                             <label>Address Line 2</label>
-                                            <input type="text" name="fs1-0-pr_addLine2" id="fs1-0-pr_addLine2" class="allcaps form-control" tabindex="4">
+                                            <input type="text" name="fs3-0-pr_addLine2" id="fs3-0-pr_addLine2" class="allcaps form-control" tabindex="4">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>City</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_city" id="fs1-0-pr_city" class="allstring form-control" tabindex="5" required>
+                                            <input type="text" name="fs3-0-pr_city" id="fs3-0-pr_city" class="allstring form-control" tabindex="5">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>District</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_district" id="fs1-0-pr_district" class="allstring form-control" tabindex="6" required>
+                                            <input type="text" name="fs3-0-pr_district" id="fs3-0-pr_district" class="allstring form-control" tabindex="6">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>State</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_state" id="fs1-0-pr_state" class="allstring form-control" tabindex="7" required>
+                                            <input type="text" name="fs3-0-pr_state" id="fs3-0-pr_state" class="allstring form-control" tabindex="7">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Pin code</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_pin" id="fs1-0-pr_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8" required>
+                                            <input type="text" name="fs3-0-pr_pin" id="fs3-0-pr_pin" maxlength="6" minlength="6" class="allnums form-control" tabindex="8">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_pan_no" id="fs1-0-pr_pan_no" class="allcaps form-control" tabindex="9" required>
+                                            <input type="text" name="fs3-0-pr_pan_no" id="fs3-0-pr_pan_no" class="allcaps form-control" tabindex="9">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_aadhar_no" id="fs1-0-pr_aadhar_no" class="allcaps form-control" tabindex="10" required>
+                                            <input type="text" name="fs3-0-pr_aadhar_no" id="fs3-0-pr_aadhar_no" class="allcaps form-control" tabindex="10">
                                         </div>                                        
                                         <div class="col-sm-3 mb-1">
                                             <label>DIN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_din_no" id="fs1-0-pr_din_no" class="allstring form-control" tabindex="11" required>
+                                            <input type="text" name="fs3-0-pr_din_no" id="fs3-0-pr_din_no" class="allstring form-control" tabindex="11">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Valid upto</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="date" name="fs1-0-pr_valid_upto" id="fs1-0-pr_valid_upto" class="form-control" tabindex="12" required>
+                                            <input type="date" name="fs3-0-pr_valid_upto" id="fs3-0-pr_valid_upto" class="form-control" tabindex="12">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Number/Percent of Share</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pr_pct_share" id="fs1-0-pr_pct_share" class="form-control" tabindex="13" required>                                            
+                                            <input type="text" name="fs3-0-pr_pct_share" id="fs3-0-pr_pct_share" class="form-control" tabindex="13">                                            
                                             <!-- to be data list -->
                                         </div>
                                     </div>
@@ -634,33 +634,33 @@
                         </div>    
                     </div>
                     <div class="Partnership_LLP" style="display: none;">
-                        <div class="partner's_docs">
+                        <div class="partner's_docs fs4" id="fs4-0">
                             <label style="font-weight: bold;">Partner 1</label>
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
                                     <label>PAN No.</label>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="text" id="_fs1-0-pa_pan_no" class="form-control"/> 
+                                    <input type="text" id="_fs4-0-pa_pan_no" class="form-control"/> 
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="file" name="fs1-0-pa_pan_card" id="fs1-0-pa_pan_card" class="file" onchange="updateTable('fs1-0-pa_pan_card', 'fs1-0-pa_panCard', false)"/>
+                                    <input type="file" name="fs4-0-pa_pan_card" id="fs4-0-pa_pan_card" class="file" onchange="updateTable('fs4-0-pa_pan_card', 'fs4-0-pa_panCard', false)"/>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <table id="fs1-0-pa_panCard" class="table filesList">
+                                    <table id="fs4-0-pa_panCard" class="table filesList">
                                     </table>
                                 </div>
                                 <div class="col-sm-3 mb-1">
                                     <label>Aadhar No.</label>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="text" id="_fs1-0-pa_aadhar_no" class="form-control"/> 
+                                    <input type="text" id="_fs4-0-pa_aadhar_no" class="form-control"/> 
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="file" name="fs1-0-pa_aadhar_card" id="fs1-0-pa_aadhar_card" class="file" onchange="updateTable('fs1-0-pa_aadhar_card', 'fs1-0-pa_aadharCard', false)"/>
+                                    <input type="file" name="fs4-0-pa_aadhar_card" id="fs4-0-pa_aadhar_card" class="file" onchange="updateTable('fs4-0-pa_aadhar_card', 'fs4-0-pa_aadharCard', false)"/>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <table id="fs1-0-pa_aadharCard" class="table filesList">
+                                    <table id="fs4-0-pa_aadharCard" class="table filesList">
                                     </table>
                                 </div>
                             </div>
@@ -683,92 +683,92 @@
                             </div>
                         </div>
                         <div>
-                            <div class="director's_docs">
+                            <div class="director's_docs fs5" id="fs5-0">
                                 <label style="font-weight: bold;">Director 1</label>
                                 <div class="row">
                                     <div class="col-sm-3 mb-1">
                                         <label>PAN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-d_pan_no" class="form-control"/> 
+                                        <input type="text" id="_fs5-0-d_pan_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-d_pan_card" id="fs1-0-d_pan_card" class="file" onchange="updateTable('fs1-0-d_pan_card', 'fs1-0-d_panCard', false)"/>
+                                        <input type="file" name="fs5-0-d_pan_card" id="fs5-0-d_pan_card" class="file" onchange="updateTable('fs5-0-d_pan_card', 'fs5-0-d_panCard', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-d_panCard" class="table filesList">
+                                        <table id="fs5-0-d_panCard" class="table filesList">
                                         </table>
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>Aadhar No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-d_aadhar_no" class="form-control"/> 
+                                        <input type="text" id="_fs5-0-d_aadhar_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-d_aadhar_card" id="fs1-0-d_aadhar_card" class="file" onchange="updateTable('fs1-0-d_aadhar_card', 'fs1-0-d_aadharCard', false)"/>
+                                        <input type="file" name="fs5-0-d_aadhar_card" id="fs5-0-d_aadhar_card" class="file" onchange="updateTable('fs5-0-d_aadhar_card', 'fs5-0-d_aadharCard', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-d_aadharCard" class="table filesList">
+                                        <table id="fs5-0-d_aadharCard" class="table filesList">
                                         </table>
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>DIN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-d_din_no" class="form-control"/> 
+                                        <input type="text" id="_fs5-0-d_din_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-d_din_doc" id="fs1-0-d_din_doc" class="file" onchange="updateTable('fs1-0-d_din_doc', 'fs1-0-d_dinDoc', false)"/>
+                                        <input type="file" name="fs5-0-d_din_doc" id="fs5-0-d_din_doc" class="file" onchange="updateTable('fs5-0-d_din_doc', 'fs5-0-d_dinDoc', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-d_dinDoc" class="table filesList">
+                                        <table id="fs5-0-d_dinDoc" class="table filesList">
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <div class="promoter's_docs">
+                            <div class="promoter's_docs fs6" id="fs6-0">
                                 <label style="font-weight: bold;">Promoter 1</label>
                                 <div class="row">
                                     <div class="col-sm-3 mb-1">
                                         <label>PAN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-pr_pan_no" class="form-control"/> 
+                                        <input type="text" id="_fs6-0-pr_pan_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-pr_pan_card" id="fs1-0-pr_pan_card" class="file" onchange="updateTable('fs1-0-pr_pan_card', 'fs1-0-pr_panCard', false)"/>
+                                        <input type="file" name="fs6-0-pr_pan_card" id="fs6-0-pr_pan_card" class="file" onchange="updateTable('fs6-0-pr_pan_card', 'fs6-0-pr_panCard', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-pr_panCard" class="table filesList">
+                                        <table id="fs6-0-pr_panCard" class="table filesList">
                                         </table>
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>Aadhar No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-pr_aadhar_no" class="form-control"/> 
+                                        <input type="text" id="_fs6-0-pr_aadhar_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-pr_aadhar_card" id="fs1-0-pr_aadhar_card" class="file" onchange="updateTable('fs1-0-pr_aadhar_card', 'fs1-0-pr_aadharCard', false)"/>
+                                        <input type="file" name="fs6-0-pr_aadhar_card" id="fs6-0-pr_aadhar_card" class="file" onchange="updateTable('fs6-0-pr_aadhar_card', 'fs6-0-pr_aadharCard', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-pr_aadharCard" class="table filesList">
+                                        <table id="fs6-0-pr_aadharCard" class="table filesList">
                                         </table>
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <label>DIN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs1-0-pr_din_no" class="form-control"/> 
+                                        <input type="text" id="_fs6-0-pr_din_no" class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="file" name="fs1-0-pr_din_doc" id="fs1-0-pr_din_doc" class="file" onchange="updateTable('fs1-0-pr_din_doc', 'fs1-0-pr_dinDoc', false)"/>
+                                        <input type="file" name="fs6-0-pr_din_doc" id="fs6-0-pr_din_doc" class="file" onchange="updateTable('fs6-0-pr_din_doc', 'fs6-0-pr_dinDoc', false)"/>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <table id="fs1-0-pr_dinDoc" class="table filesList">
+                                        <table id="fs6-0-pr_dinDoc" class="table filesList">
                                         </table>
                                     </div>
                                 </div>
@@ -797,10 +797,10 @@
         {% for organisation in organisationDetails %}
         <tr>
             <td>
-                {{ organisation.name }}
+                <a href="#" onclick="showOrganisationData('/organisation_master/{{organisation.organisation_name}}')">{{ organisation.organisation_name }}</a>                
             </td>
-            <td><a class="btn btn-primary" onclick="showOrganisationData('/organisation_master/{{organisation.name}}')">View</a></td>
-            <td><a class="btn btn-primary" onclick="showOrganisationData('/organisation_master/{{organisation.name}}')"><i class="fa fa-fw fa-edit"></a></td>
+            <td><a class="btn btn-primary" onclick="showOrganisationData('/organisation_master/{{organisation.organisation_name}}')">View</a></td>
+            <td><a class="btn btn-primary" onclick="showOrganisationData('/organisation_master/{{organisation.organisation_name}}')"><i class="fa fa-fw fa-edit"></a></td>
             <td><button class="btn btn-danger"><i class="fa fa-fw fa-trash"></i></button></td>
         </tr>
         {% endfor %}
@@ -811,21 +811,21 @@
 
 function showLegalDetails(e){
     constitution = e.target.value;
-    if(constitution == "PROPRIETORSHIP"){
+    if(constitution == "Proprietorship"){
         $(".Proprietorship").show();        
         $(".Partnership_LLP").hide();
         $(".Private_Limited_Company").hide();
         
         $("#details_tab").text("Proprietor's Details")
 
-    } else if(constitution == "PARTNERSHIP" || constitution == "LLP"){
+    } else if(constitution == "Partnership" || constitution == "LLP"){
         $(".Proprietorship").hide();        
         $(".Partnership_LLP").show();
         $(".Private_Limited_Company").hide();
 
         $("#details_tab").text("Partner's Details")
     
-    } else if(constitution == "PRIVATE LIMITED COMPANY"){
+    } else if(constitution == "Private Limited Company"){
         $(".Proprietorship").hide();        
         $(".Partnership_LLP").hide();
         $(".Private_Limited_Company").show();
@@ -835,9 +835,9 @@ function showLegalDetails(e){
 }
 
 function cloneDetails(_id, classList){
+    var no_partners = Number($("#"+ _id).val());
     classList.forEach ((className) =>
-    {
-        var no_partners = Number($("#"+ _id).val());
+    {        
         var no_divs = document.getElementsByClassName(className).length;
         for(var i=1; i< (no_partners - no_divs + 1); i++){
             var div = document.getElementsByClassName(className)[0],
@@ -888,11 +888,33 @@ function cloneDetails(_id, classList){
         if(className.includes("_docs")){
             children = document.getElementsByClassName(className)
             for(var i=0; i<children.length; i++){
+                _class = children[i].classList[1];
                 row = children[i].children[1];
+                outer_id = _class + "-" + i;
+                children[i].id = outer_id;
                 els = row.children;
-                for(var j=1; j<els.length; j += 4){
-                    input = row.children[j].children[0];
-                    parts = input.id.split("-");
+                for(var j=0; j<els.length; j ++){
+                    input = els[j].children[0];
+                    if(input.tagName == "INPUT" || input.tagName == "TABLE"){
+                        parts = input.id.split("-");
+                        id = outer_id + "-" + parts[2];
+                        if(input.name != undefined){
+                            if(input.name.length > 0){
+                                input.id = id;
+                                input.name = id;
+                                val = input.getAttribute("onchange");
+                                if(val != null){                                    
+                                    tmp = input.parentElement.nextElementSibling.firstElementChild.id;
+                                    temp = outer_id + "-" + tmp.split("-")[2]
+                                    input.setAttribute("onchange", "updateTable('" + id + "', '" + temp + "', false)");
+                                }
+                            } else{
+                                input.id = "_" + id;
+                            }      
+                        } else{
+                            input.id = id;                            
+                        }                                           
+                    }                    
                 }
             }
         }

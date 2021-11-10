@@ -453,6 +453,44 @@ function showCustomerRequest(_url){
   document.getElementById("btn").name = "Update";   
 }
 
+function showOrganisationData(_url){
+  show_modal()
+  if(_url != undefined && _url.length > 0){
+    $.ajax({      
+      url: _url,
+      enctype: 'multipart/form-data',    
+      success: function(response){
+        var _id = response["selectedOrganisationDetails"]["_id"];
+        document.getElementById("_id").value = _id;
+        document.getElementById("organisation_name").value = response["selectedOrganisationDetails"]["organisation_name"];
+        document.getElementById("estd_on").value = response["selectedOrganisationDetails"]["estd_on"];
+        document.getElementById("branch").value = response["selectedOrganisationDetails"]["branch"];
+        $("#constitution").val(response["selectedOrganisationDetails"]["constitution"]).change();     
+        document.getElementById("nature_of_business").value = response["selectedOrganisationDetails"]["nature_of_business"];
+        document.getElementById("start_fin_yr").value = response["selectedOrganisationDetails"]["start_fin_yr"];
+        document.getElementById("enable_tds_deduction").value = response["selectedOrganisationDetails"]["enable_tds_deduction"];
+        document.getElementById("tds_deduction_type").value = response["selectedOrganisationDetails"]["tds_deduction_type"];    
+        document.getElementById("addLine1").value = response["selectedOrganisationDetails"]["addLine1"];
+        document.getElementById("addLine2").value = response["selectedOrganisationDetails"]["addLine2"];
+        document.getElementById("city").value = response["selectedOrganisationDetails"]["city"];    
+        document.getElementById("district").value = response["selectedOrganisationDetails"]["district"];
+        document.getElementById("state").value = response["selectedOrganisationDetails"]["state"];
+        document.getElementById("pin").value = response["selectedOrganisationDetails"]["pin"];    
+        document.getElementById("mobile_no").value = response["selectedOrganisationDetails"]["mobile_no"];
+        document.getElementById("whatsapp_no").value = response["selectedOrganisationDetails"]["whatsapp_no"];
+        document.getElementById("email").value = response["selectedOrganisationDetails"]["email"];
+
+        showFiles("Settings", "OrganisationMaster", response["files"])
+      },
+      error: function(error) {
+        console.log(error)
+      }
+    });
+  }
+  document.getElementById("btn").value = "Update";
+  document.getElementById("btn").name = "Update";   
+}
+
 function showUserData(_url){
   show_modal()
   if(_url != undefined && _url.length > 0){

@@ -468,7 +468,7 @@ def getCustomerRequest(_id=None, **kwargs):
 
 #Settings
 def getOrganisationData(_id=None, **kwargs):
-    id = db.getNextId("Settings", "UserMaster")
+    id = db.getNextId("Settings", "OrganisationMaster")
     doc = {}
     doc["_id"] = "O" + str(id) if len(_id) == 0 else _id
     
@@ -522,7 +522,7 @@ def getOrganisationData(_id=None, **kwargs):
         doc["no_partners"] = no_partners
 
         partners = []
-        for i in range(no_partners):
+        for i in range(int(no_partners)):
             dt = {
                 "partner's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-partner's_name"),
                 "pa_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_father's_name"),
@@ -538,11 +538,11 @@ def getOrganisationData(_id=None, **kwargs):
             }
             partners.append(dt)
 
-            pa_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pa_pan_card")
-            files["fs1-" + str(i) + "-pa_pan_card"] = pa_pan_card
+            pa_pan_card = kwargs["request"].FILES.getlist("fs4-" + str(i) + "-pa_pan_card")
+            files["pa_" + str(i + 1) + "_pan_card"] = pa_pan_card
 
-            pa_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pa_aadhar_card")
-            files["fs1-" + str(i) + "-pa_aadhar_card"] = pa_aadhar_card
+            pa_aadhar_card = kwargs["request"].FILES.getlist("fs4-" + str(i) + "-pa_aadhar_card")
+            files["pa_" + str(i + 1) + "_aadhar_card"] = pa_aadhar_card
 
         doc["partners"] = partners
         
@@ -558,62 +558,62 @@ def getOrganisationData(_id=None, **kwargs):
         files["cin_doc"] = cin_doc
 
         directors = []
-        for i in range(no_directors):
+        for i in range(int(no_directors)):
             dt = {
-                "director's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-director's_name"),
-                "d_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-d_father's_name"),
-                "d_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-d_addLine1"),
-                "d_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-d_addLine1"),
-                "d_city": kwargs["request"].POST.get("fs1-" + str(i) + "-d_city"),
-                "d_district": kwargs["request"].POST.get("fs1-" + str(i) + "-d_district"),
-                "d_state": kwargs["request"].POST.get("fs1-" + str(i) + "-d_state"),
-                "d_pin": kwargs["request"].POST.get("fs1-" + str(i) + "-d_pin"),                
-                "d_pan_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_pan_no"),
-                "d_aadhar_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_aadhar_no"),                
-                "d_director_type": kwargs["request"].POST.get("fs1-" + str(i) + "-d_director_type"),
-                "d_din_no": kwargs["request"].POST.get("fs1-" + str(i) + "-d_din_no"),
-                "d_valid_upto": kwargs["request"].POST.get("fs1-" + str(i) + "-d_valid_upto")
+                "director's_name": kwargs["request"].POST.get("fs2-" + str(i) + "-director's_name"),
+                "d_father's_name": kwargs["request"].POST.get("fs2-" + str(i) + "-d_father's_name"),
+                "d_addLine1": kwargs["request"].POST.get("fs2-" + str(i) + "-d_addLine1"),
+                "d_addLine2": kwargs["request"].POST.get("fs2-" + str(i) + "-d_addLine1"),
+                "d_city": kwargs["request"].POST.get("fs2-" + str(i) + "-d_city"),
+                "d_district": kwargs["request"].POST.get("fs2-" + str(i) + "-d_district"),
+                "d_state": kwargs["request"].POST.get("fs2-" + str(i) + "-d_state"),
+                "d_pin": kwargs["request"].POST.get("fs2-" + str(i) + "-d_pin"),                
+                "d_pan_no": kwargs["request"].POST.get("fs2-" + str(i) + "-d_pan_no"),
+                "d_aadhar_no": kwargs["request"].POST.get("fs2-" + str(i) + "-d_aadhar_no"),                
+                "d_director_type": kwargs["request"].POST.get("fs2-" + str(i) + "-d_director_type"),
+                "d_din_no": kwargs["request"].POST.get("fs2-" + str(i) + "-d_din_no"),
+                "d_valid_upto": kwargs["request"].POST.get("fs2-" + str(i) + "-d_valid_upto")
             }
             directors.append(dt)
 
-            d_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_pan_card")
-            files["fs1-" + str(i) + "-d_pan_card"] = d_pan_card
+            d_pan_card = kwargs["request"].FILES.getlist("fs5-" + str(i) + "-d_pan_card")
+            files["d_" + str(i + 1) + "_pan_card"] = d_pan_card
 
-            d_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_aadhar_card")
-            files["fs1-" + str(i) + "-d_aadhar_card"] = d_aadhar_card
+            d_aadhar_card = kwargs["request"].FILES.getlist("fs5-" + str(i) + "-d_aadhar_card")
+            files["d_" + str(i + 1) + "_aadhar_card"] = d_aadhar_card
 
-            d_din_doc = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-d_din_doc")
-            files["fs1-" + str(i) + "-d_din_doc"] = d_din_doc
+            d_din_doc = kwargs["request"].FILES.getlist("fs5-" + str(i) + "-d_din_doc")
+            files["d_" + str(i + 1) + "_din_doc"] = d_din_doc
 
         doc["directors"] = directors
 
         promoters = []
-        for i in range(no_promoters):
+        for i in range(int(no_promoters)):
             dt = {
-                "promoter's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-promoter's_name"),
-                "pr_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_father's_name"),
-                "pr_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_addLine1"),
-                "pr_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_addLine1"),
-                "pr_city": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_city"),
-                "pr_district": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_district"),
-                "pr_state": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_state"),
-                "pr_pin": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pin"),
-                "pr_pan_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pan_no"),
-                "pr_aadhar_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_aadhar_no"),
-                "pr_din_no": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_din_no"),
-                "pr_valid_upto": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_valid_upto"),
-                "pr_pct_share": kwargs["request"].POST.get("fs1-" + str(i) + "-pr_pct_share")
+                "promoter's_name": kwargs["request"].POST.get("fs3-" + str(i) + "-promoter's_name"),
+                "pr_father's_name": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_father's_name"),
+                "pr_addLine1": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_addLine1"),
+                "pr_addLine2": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_addLine1"),
+                "pr_city": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_city"),
+                "pr_district": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_district"),
+                "pr_state": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_state"),
+                "pr_pin": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_pin"),
+                "pr_pan_no": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_pan_no"),
+                "pr_aadhar_no": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_aadhar_no"),
+                "pr_din_no": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_din_no"),
+                "pr_valid_upto": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_valid_upto"),
+                "pr_pct_share": kwargs["request"].POST.get("fs3-" + str(i) + "-pr_pct_share")
             }
             promoters.append(dt)
 
-            pr_pan_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_pan_card")
-            files["fs1-" + str(i) + "-pr_pan_card"] = pr_pan_card
+            pr_pan_card = kwargs["request"].FILES.getlist("fs6-" + str(i) + "-pr_pan_card")
+            files["pr_" + str(i + 1) + "_pan_card"] = pr_pan_card
 
-            pr_aadhar_card = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_aadhar_card")
-            files["fs1-" + str(i) + "-pr_aadhar_card"] = pr_aadhar_card
+            pr_aadhar_card = kwargs["request"].FILES.getlist("fs6-" + str(i) + "-pr_aadhar_card")
+            files["pr_" + str(i + 1) + "_aadhar_card"] = pr_aadhar_card
 
-            pr_din_doc = kwargs["request"].FILES.getlist("fs1-" + str(i) + "-pr_din_doc")
-            files["fs1-" + str(i) + "-pr_din_doc"] = pr_din_doc
+            pr_din_doc = kwargs["request"].FILES.getlist("fs6-" + str(i) + "-pr_din_doc")
+            files["pr_" + str(i + 1) + "_din_doc"] = pr_din_doc
 
         doc["promoters"] = promoters
 

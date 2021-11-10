@@ -25,6 +25,9 @@ def ifExistsDoc(db_name, collection_name, filters):
 def getNextId(db_name, collection_name):
     db = client[db_name]
     collection = db[collection_name]
+    n = collection.count()
+    if n == 0:
+        return 1
     for doc in collection.find().sort("_id", -1):
         return int(doc["_id"][-1]) + 1
 
@@ -459,6 +462,13 @@ def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collecti
             document["broker_name"] = doc["broker_name"]
 
     return document
+
+def getOrganisationByName(organisation_name, db_name = "Settings", collection_name = "OrganisationMaster"):
+    db = client[db_name]
+    collection = db[collection_name]
+
+    filter = { "organisation_name": organisation_name }
+    return collection.find_one(filter)  
 
 def getUserDetailsByName(username, db_name = "Settings", collection_name = "UserMaster"):
     db = client[db_name]
