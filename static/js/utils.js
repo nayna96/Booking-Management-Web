@@ -480,9 +480,9 @@ function showOrganisationData(_url){
         document.getElementById("mobile_no").value = response["selectedOrganisationDetails"]["mobile_no"];
         document.getElementById("whatsapp_no").value = response["selectedOrganisationDetails"]["whatsapp_no"];
         document.getElementById("email").value = response["selectedOrganisationDetails"]["email"];
-        document.getElementById("pan_no").value = response["selectedOrganisationDetails"]["pan_no"];
-        document.getElementById("tan_no").value = response["selectedOrganisationDetails"]["tan_no"];
-        document.getElementById("gstin_no").value = response["selectedOrganisationDetails"]["gstin_no"];
+        $("#pan_no").val(response["selectedOrganisationDetails"]["pan_no"]).change();
+        $("#tan_no").val(response["selectedOrganisationDetails"]["tan_no"]).change();
+        $("#gstin_no").val(response["selectedOrganisationDetails"]["gstin_no"]).change();
 
         if(constitution == "Proprietorship"){
           document.getElementById("proprietors's_name").value = response["selectedOrganisationDetails"]["proprietors's_name"];
@@ -493,7 +493,7 @@ function showOrganisationData(_url){
           document.getElementById("p_district").value = response["selectedOrganisationDetails"]["p_district"];
           document.getElementById("p_state").value = response["selectedOrganisationDetails"]["p_state"];
           document.getElementById("p_pin").value = response["selectedOrganisationDetails"]["p_pin"];          
-          document.getElementById("p_aadhar_no").value = response["selectedOrganisationDetails"]["p_aadhar_no"];
+          $("#p_aadhar_no").val(response["selectedOrganisationDetails"]["p_aadhar_no"]).change();
         } 
         else if (constitution == "Partnership" || constitution == "LLP") {
           no_partners = response["selectedOrganisationDetails"]["no_partners"];
@@ -504,13 +504,13 @@ function showOrganisationData(_url){
             document.getElementById("fs1-" + i + "-partner's_name").value = partners[i]["partner's_name"];
             document.getElementById("fs1-" + i + "-pa_father's_name").value = partners[i]["pa_father's_name"];
             $("#fs1-" + i + "-pa_addLine1").val(partners[i]["pa_addLine1"]);
-            $("#fs1-" + i + "-pa_addLine1").val(partners[i]["pa_addLine2"]);
+            $("#fs1-" + i + "-pa_addLine2").val(partners[i]["pa_addLine2"]);
             $("#fs1-" + i + "-pa_city").val(partners[i]["pa_city"]);
             $("#fs1-" + i + "-pa_district").val(partners[i]["pa_district"]);
             $("#fs1-" + i + "-pa_state").val(partners[i]["pa_state"]);
             $("#fs1-" + i + "-pa_pin").val(partners[i]["pa_pin"]);           
-            $("#fs1-" + i + "-pa_pan_no").val(partners[i]["pa_pan_no"]);
-            $("#fs1-" + i + "-pa_aadhar_no").val(partners[i]["pa_aadhar_no"]);           
+            $("#fs1-" + i + "-pa_pan_no").val(partners[i]["pa_pan_no"]).change();
+            $("#fs1-" + i + "-pa_aadhar_no").val(partners[i]["pa_aadhar_no"]).change();           
             $("#fs1-" + i + "-pa_interest_pct").val(partners[i]["pa_interest_pct"]);
           }
         } 
@@ -521,7 +521,7 @@ function showOrganisationData(_url){
           no_promoters = response["selectedOrganisationDetails"]["no_promoters"];
           $("#no_promoters").val(no_promoters).change();
 
-          document.getElementById("cin_no").value = response["selectedOrganisationDetails"]["cin_no"];
+          $("#cin_no").val(response["selectedOrganisationDetails"]["cin_no"]).change();
         
           directors = response["selectedOrganisationDetails"]["directors"];          
           for(var i=0; i<directors.length; i++) {    
@@ -533,10 +533,10 @@ function showOrganisationData(_url){
             $("#fs2-" + i + "-d_district").val(directors[i]["d_district"]);
             $("#fs2-" + i + "-d_state").val(directors[i]["d_state"]);
             $("#fs2-" + i + "-d_pin").val(directors[i]["d_pin"]);
-            $("#fs2-" + i + "-d_pan_no").val(directors[i]["d_pan_no"]);
-            $("#fs2-" + i + "-d_aadhar_no").val(directors[i]["d_aadhar_no"]);
+            $("#fs2-" + i + "-d_pan_no").val(directors[i]["d_pan_no"]).change();
+            $("#fs2-" + i + "-d_aadhar_no").val(directors[i]["d_aadhar_no"]).change();
             $("#fs2-" + i + "-d_director_type").val(directors[i]["d_director_type"]);
-            $("#fs2-" + i + "-d_din_no").val(directors[i]["d_din_no"]);
+            $("#fs2-" + i + "-d_din_no").val(directors[i]["d_din_no"]).change();
             $("#fs2-" + i + "-d_valid_upto").val(directors[i]["d_valid_upto"]);
           }
             
@@ -550,9 +550,9 @@ function showOrganisationData(_url){
             $("#fs3-" + str(i) + "-pr_district").val(promoters[i]["pr_district"]);
             $("#fs3-" + str(i) + "-pr_state").val(promoters[i]["pr_state"]);
             $("#fs3-" + str(i) + "-pr_pin").val(promoters[i]["pr_pin"]);
-            $("#fs3-" + str(i) + "-pr_pan_no").val(promoters[i]["pr_pan_no"]);
-            $("#fs3-" + str(i) + "-pr_aadhar_no").val(promoters[i]["pr_aadhar_no"]);
-            $("#fs3-" + str(i) + "-pr_din_no").val(promoters[i]["pr_din_no"]);
+            $("#fs3-" + str(i) + "-pr_pan_no").val(promoters[i]["pr_pan_no"]).change();
+            $("#fs3-" + str(i) + "-pr_aadhar_no").val(promoters[i]["pr_aadhar_no"]).change();
+            $("#fs3-" + str(i) + "-pr_din_no").val(promoters[i]["pr_din_no"]).change();
             $("#fs3-" + str(i) + "-pr_valid_upto").val(promoters[i]["pr_valid_upto"]);
             $("#fs3-" + str(i) + "-pr_pct_share").val(promoters[i]["pr_pct_share"]);
           }

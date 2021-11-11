@@ -226,24 +226,24 @@
                             <div class="col-sm-4 mb-1">
                                 <label>PAN No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" maxlength="10" tabindex="19" required>
+                                <input type="text" name="pan_no" id="pan_no" class="allcaps form-control" maxlength="10" tabindex="19" required onchange="copyToDoc(event)">
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>TAN No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="tan_no" id="tan_no" class="allcaps form-control" maxlength="10" tabindex="20" required>
+                                <input type="text" name="tan_no" id="tan_no" class="allcaps form-control" maxlength="10" tabindex="20" required onchange="copyToDoc(event)">
                             </div>
                             <div class="col-sm-4 mb-1">
                                 <label>GSTIN No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="gstin_no" id="gstin_no" class="allcaps form-control" maxlength="15" tabindex="21" required>
+                                <input type="text" name="gstin_no" id="gstin_no" class="allcaps form-control" maxlength="15" tabindex="21" required onchange="copyToDoc(event)">
                             </div>                            
                         </div>
                         <div class="row Private_Limited_Company" style="display: none;">                            
                             <div class="col-sm-3 mb-1">
                                 <label>CIN No.</label>
                                 <label class="mandat_symbol">*</label>
-                                <input type="text" name="cin_no" id="cin_no" maxlength="21" class="allcaps form-control" tabindex="22">
+                                <input type="text" name="cin_no" id="cin_no" maxlength="21" class="allcaps form-control" tabindex="22" onchange="copyToDoc(event)">
                             </div>                            
                         </div>
                     </div>
@@ -310,7 +310,7 @@
                                     <div class="col-sm-3 mb-1">
                                         <label>Aadhar No.</label>
                                         <label class="mandat_symbol">*</label>
-                                        <input type="text" name="p_aadhar_no" id="p_aadhar_no" maxlength="12" class="allnums form-control" tabindex="9">
+                                        <input type="text" name="p_aadhar_no" id="p_aadhar_no" maxlength="12" class="allnums form-control" tabindex="9" onchange="copyToDoc(event)">
                                     </div>
                                 </div>
                             </div>
@@ -370,12 +370,12 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_pan_no" id="fs1-0-pa_pan_no" maxlength="10" class="allcaps form-control" tabindex="9">
+                                            <input type="text" name="fs1-0-pa_pan_no" id="fs1-0-pa_pan_no" maxlength="10" class="allcaps form-control" tabindex="9" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs1-0-pa_aadhar_no" id="fs1-0-pa_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10">
+                                            <input type="text" name="fs1-0-pa_aadhar_no" id="fs1-0-pa_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Percent of Interest</label>
@@ -441,12 +441,12 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs2-0-d_pan_no" id="fs2-0-d_pan_no" maxlength="10" class="allcaps form-control" tabindex="9">
+                                            <input type="text" name="fs2-0-d_pan_no" id="fs2-0-d_pan_no" maxlength="10" class="allcaps form-control" tabindex="9" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs2-0-d_aadhar_no" id="fs2-0-d_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10">
+                                            <input type="text" name="fs2-0-d_aadhar_no" id="fs2-0-d_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Director Type</label>
@@ -461,7 +461,7 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>DIN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs2-0-d_din_no" id="fs2-0-d_din_no" maxlength="8" class="allcaps form-control" tabindex="12">
+                                            <input type="text" name="fs2-0-d_din_no" id="fs2-0-d_din_no" maxlength="8" class="allcaps form-control" tabindex="12" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Valid upto</label>
@@ -529,17 +529,17 @@
                                         <div class="col-sm-3 mb-1">
                                             <label>PAN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs3-0-pr_pan_no" id="fs3-0-pr_pan_no" maxlength="10" class="allcaps form-control" tabindex="9">
+                                            <input type="text" name="fs3-0-pr_pan_no" id="fs3-0-pr_pan_no" maxlength="10" class="allcaps form-control" tabindex="9" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Aadhar No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs3-0-pr_aadhar_no" id="fs3-0-pr_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10">
+                                            <input type="text" name="fs3-0-pr_aadhar_no" id="fs3-0-pr_aadhar_no" maxlength="12" class="allnums form-control" tabindex="10" onchange="copyToDoc(event)">
                                         </div>                                        
                                         <div class="col-sm-3 mb-1">
                                             <label>DIN No.</label>
                                             <label class="mandat_symbol">*</label>
-                                            <input type="text" name="fs3-0-pr_din_no" id="fs3-0-pr_din_no" maxlength="8" class="allcaps form-control" tabindex="11">
+                                            <input type="text" name="fs3-0-pr_din_no" id="fs3-0-pr_din_no" maxlength="8" class="allcaps form-control" tabindex="11" onchange="copyToDoc(event)">
                                         </div>
                                         <div class="col-sm-3 mb-1">
                                             <label>Valid upto</label>
@@ -641,7 +641,7 @@
                                     <label>PAN No.</label>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="text" id="_fs4-0-pa_pan_no" disabled class="form-control"/> 
+                                    <input type="text" id="_fs1-0-pa_pan_no" disabled class="form-control"/> 
                                 </div>
                                 <div class="col-sm-3 mb-1">
                                     <input type="file" name="fs4-0-pa_pan_card" id="fs4-0-pa_pan_card" class="file" onchange="updateTable('fs4-0-pa_pan_card', 'fs4-0-pa_panCard', false)"/>
@@ -654,7 +654,7 @@
                                     <label>Aadhar No.</label>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <input type="text" id="_fs4-0-pa_aadhar_no" disabled class="form-control"/> 
+                                    <input type="text" id="_fs1-0-pa_aadhar_no" disabled class="form-control"/> 
                                 </div>
                                 <div class="col-sm-3 mb-1">
                                     <input type="file" name="fs4-0-pa_aadhar_card" id="fs4-0-pa_aadhar_card" class="file" onchange="updateTable('fs4-0-pa_aadhar_card', 'fs4-0-pa_aadharCard', false)"/>
@@ -690,7 +690,7 @@
                                         <label>PAN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs5-0-d_pan_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs2-0-d_pan_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs5-0-d_pan_card" id="fs5-0-d_pan_card" class="file" onchange="updateTable('fs5-0-d_pan_card', 'fs5-0-d_panCard', false)"/>
@@ -703,7 +703,7 @@
                                         <label>Aadhar No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs5-0-d_aadhar_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs2-0-d_aadhar_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs5-0-d_aadhar_card" id="fs5-0-d_aadhar_card" class="file" onchange="updateTable('fs5-0-d_aadhar_card', 'fs5-0-d_aadharCard', false)"/>
@@ -716,7 +716,7 @@
                                         <label>DIN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs5-0-d_din_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs2-0-d_din_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs5-0-d_din_doc" id="fs5-0-d_din_doc" class="file" onchange="updateTable('fs5-0-d_din_doc', 'fs5-0-d_dinDoc', false)"/>
@@ -736,7 +736,7 @@
                                         <label>PAN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs6-0-pr_pan_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs3-0-pr_pan_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs6-0-pr_pan_card" id="fs6-0-pr_pan_card" class="file" onchange="updateTable('fs6-0-pr_pan_card', 'fs6-0-pr_panCard', false)"/>
@@ -749,7 +749,7 @@
                                         <label>Aadhar No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs6-0-pr_aadhar_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs3-0-pr_aadhar_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs6-0-pr_aadhar_card" id="fs6-0-pr_aadhar_card" class="file" onchange="updateTable('fs6-0-pr_aadhar_card', 'fs6-0-pr_aadharCard', false)"/>
@@ -762,7 +762,7 @@
                                         <label>DIN No.</label>
                                     </div>
                                     <div class="col-sm-3 mb-1">
-                                        <input type="text" id="_fs6-0-pr_din_no" disabled class="form-control"/> 
+                                        <input type="text" id="_fs3-0-pr_din_no" disabled class="form-control"/> 
                                     </div>
                                     <div class="col-sm-3 mb-1">
                                         <input type="file" name="fs6-0-pr_din_doc" id="fs6-0-pr_din_doc" class="file" onchange="updateTable('fs6-0-pr_din_doc', 'fs6-0-pr_dinDoc', false)"/>
@@ -808,13 +808,25 @@
 </table>
 
 <script type="text/javascript">
-//max date
+date = getMaxDate();
+document.getElementById("estd_on").setAttribute("max", date);
+document.getElementById("start_fin_yr").setAttribute("max", date);
 
-//copy pan no etc to doc
+function  copyToDoc(e) {
+    id = e.target.id;
+    val = e.target.value;
+
+    document.getElementById("_" + id).value = val;
+}
 
 //partner 2 etc - null
 
 //excel sheet
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 function showLegalDetails(e){
     constitution = e.target.value;
@@ -916,7 +928,7 @@ function cloneDetails(_id, classList){
                                     input.setAttribute("onchange", "updateTable('" + id + "', '" + temp + "', false)");
                                 }
                             } else{
-                                input.id = "_" + id;
+                                input.id = input.id.split("-")[0] + "-" + id.split("-")[1] + "-" + input.id.split("-")[2];
                             }      
                         } else{
                             input.id = id;                            
@@ -947,20 +959,110 @@ function formValidation(){
         return false;   
     }
 
-    var tan_no = $("#tan_no").val();
+    /*var tan_no = $("#tan_no").val();
     var regex = /^S4[0-9]{5}$^S1/;
     if(!regex.test(tan_no)){      
         alert("Please enter a valid tan no!");    
         return false;   
-    }
+    }*/
 
     var gst_no = $("#gstin_no").val();
     if (gst_no.length > 0) {
-        var regex = new RegExp('^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');    
+        var regex = new RegExp("^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$");    
         if (!regex.test(gst_no)) {
             alert("Please enter a valid gst no!");       
-            return true;    
+            return false;    
         } 
+    }
+
+    /*var cin_no = $("#cin_no").val();
+    var regex = ;
+    if(!regex.test(cin_no)){      
+        alert("Please enter a valid cin no!");    
+        return false;   
+    }*/
+
+    if($("#p_aadhar_no").val().length < 12){
+        alert("Please enter  a valid aadhar no.!");
+        return false; 
+    }
+
+    els = $("input[id^='fs1-'][id$='-pa_pan_no']")
+    for(let i=0; i < els.length; i++){
+        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        if(!regex.test(els[i].val())){      
+            alert("Please enter a valid pan no!");    
+            return false;   
+        }
+    }
+
+    els = $("input[id^='fs1-'][id$='-pa_aadhar_no']")
+    for(let i=0; i < els.length; i++){
+        if(els[i].val().length < 12){
+            alert("Please enter  a valid aadhar no.!");
+            return false; 
+        }
+    }   
+
+    els = $("input[id^='fs1-'][id$='-d_pan_no']")
+    for(let i=0; i < els.length; i++){
+        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        if(!regex.test(els[i].val())){      
+            alert("Please enter a valid pan no!");    
+            return false;   
+        }
+    }
+    
+    els = $("input[id^='fs1-'][id$='-d_aadhar_no']")
+    for(let i=0; i < els.length; i++){
+        if(els[i].val().length < 12){
+            alert("Please enter  a valid aadhar no.!");
+            return false; 
+        }
+    }
+    
+    els = $("input[id^='fs1-'][id$='-d_din_no']")
+    for(let i=0; i < els.length; i++){
+
+    }
+
+    els = $("input[id^='fs1-'][id$='-pr_pan_no']")
+    for(let i=0; i < els.length; i++){
+        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+        if(!regex.test(els[i].val())){      
+            alert("Please enter a valid pan no!");    
+            return false;   
+        }
+    }
+    
+    els = $("input[id^='fs1-'][id$='-pr_aadhar_no']")
+    for(let i=0; i < els.length; i++){
+        if(els[i].val().length < 12){
+            alert("Please enter  a valid aadhar no.!");
+            return false; 
+        }
+    }
+
+    els = $("input[id^='fs1-'][id$='-pr_din_no']")
+    for(let i=0; i < els.length; i++){
+
+    }
+
+    // IF EXISTS
+    exists = false;
+    if($("#btn").val() == "Save"){
+        dt = [
+            { "organisation_name": $("#organisation_name").val() }
+        ]
+
+        ifExists("Settings", "OrganisationMaster", dt).done(function(response){
+            exists = response["result"];
+        });
+
+        if(exists){
+            alert("Data for this organisation already exists!")
+            return false;
+        }
     }
 
     alert("Data saved sucessfully!");

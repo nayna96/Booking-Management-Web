@@ -527,7 +527,7 @@ def getOrganisationData(_id=None, **kwargs):
                 "partner's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-partner's_name"),
                 "pa_father's_name": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_father's_name"),
                 "pa_addLine1": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_addLine1"),
-                "pa_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_addLine1"),
+                "pa_addLine2": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_addLine2"),
                 "pa_city": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_city"),
                 "pa_district": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_district"),
                 "pa_state": kwargs["request"].POST.get("fs1-" + str(i) + "-pa_state"),

@@ -90,11 +90,55 @@ function showFiles(dbName, collectionName, files_dt) {
                     break;
             }
             break;
-        case "OrganisationMaster":
-            switch (docName)
+        case "OrganisationMaster":            
+            switch (true)
             {
-                case "":
-                    UpdateTable(dbName, "", _path)
+                case /^pan_card$/.test(docName):
+                    UpdateTable(dbName, "panCard", _path)
+                    break;
+                case /^tan_doc$/.test(docName):
+                    UpdateTable(dbName, "tanDoc", _path)
+                    break;
+                case /^gst_doc$/.test(docName):
+                    UpdateTable(dbName, "gstDoc", _path)
+                    break;
+                case /^cin_doc$/.test(docName):
+                    UpdateTable(dbName, "cinDoc", _path)
+                    break;
+                case /^p_aadhar_card$/.test(docName):
+                    UpdateTable(dbName, "p_aadharCard", _path)
+                    break;
+                case /^pa_[0-9]{1}_pan_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs4-" + (i - 1) + "-pa_panCard", _path)
+                    break;
+                case /^pa_[0-9]{1}_aadhar_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs4-" + (i - 1) + "-pa_aadharCard", _path)
+                    break;
+                case /^d_[0-9]{1}_pan_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs5-" + (i - 1) + "-d_panCard", _path)
+                    break;
+                case /^d_[0-9]{1}_aadhar_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs5-" + (i - 1) + "-d_aadharCard", _path)
+                    break;
+                case /^d_[0-9]{1}_din_doc$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs5-" + (i - 1) + "-d_dinDoc", _path)
+                    break;
+                case /^pr_[0-9]{1}_pan_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs6-" + (i - 1) + "-pr_panCard", _path)
+                    break;
+                case /^pr_[0-9]{1}_aadhar_card$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs6-" + (i - 1) + "-pr_aadharCard", _path)
+                    break;
+                case /^pr_[0-9]{1}_din_doc$/.test(docName):
+                    i = docName.split("_")[1]; 
+                    UpdateTable(dbName, "fs6-" + (i - 1) + "-pr_dinDoc", _path)
                     break;
                 default:
                     break;
