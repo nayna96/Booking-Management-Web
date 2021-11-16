@@ -242,9 +242,9 @@ function updateFloorNos(e){
     }
 
     no_blocks = $("#no_blocks").val()
-    blocks = getUniqueBlocks();
+    unique_blocks = getUniqueBlocks();
     
-    if (blocks.length < no_blocks)
+    if (unique_blocks.length < no_blocks)
     {
        addRow(undefined, 'fs1');
     }
@@ -260,9 +260,9 @@ function getUniqueBlocks(){
         array.push(block)
     }
 
-    blocks = [...new Set(array.map(item => item.block_name))];
+    unique_blocks = [...new Set(array.map(item => item.block_name))];
 
-    return blocks
+    return unique_blocks
 }
 
 function formValidation(){

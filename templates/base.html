@@ -48,7 +48,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">      
                         {% for organisation in request.session.organisations_list %}
-                        <a class="dropdown-item" href="#">{{ organisation }}</a>
+                        <a class="dropdown-item" href="/home/{{ organisation }}">{{ organisation }}</a>
                         {% endfor %}
                         <hr>
                         <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>

@@ -6,8 +6,11 @@ from bson import json_util
 
 toRemoveFiles = []
 
-def home(request): 
+def home(request, organisation=None):
+    if organisation != None:
+        request.session['organisation'] = organisation 
     return render(request, 'index.html')
+    #return HttpResponseRedirect(request.path_info)
 
 def login(request):
     error_msg = ""
@@ -122,7 +125,7 @@ def get_no_flats(request, project_name=None, block_name=None, floor_no=None):
 #master
 def project_master(request, project_name=None):
     projectDetails = db.getDetails(request.session['organisation'], "Master", "Project")
-    banks_list =  db.getBanksList()
+    banks_list =  db.getBanksList(request.session['organisation'])
 
     if request.is_ajax():
         if project_name != None:
@@ -173,7 +176,7 @@ def project_master(request, project_name=None):
     
 def block_master(request, project_name=None):
     blockDetails = db.getDetails(request.session['organisation'], "Master", "Block")
-    projects_list =  db.getProjectsList()
+    projects_list =  db.getProjectsList(request.session['organisation'])
 
     if request.is_ajax():
         response = {}
@@ -186,7 +189,7 @@ def block_master(request, project_name=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBlockData(_id, request.session['organisation'], 
+        [doc, files] = utils.getBlockData(_id, 
         request=request)
 
         if 'Save' in request.POST:
@@ -203,7 +206,7 @@ def block_master(request, project_name=None):
 
 def flat_master(request, project_name=None, block_name=None, floor_no=None):
     flatDetails = db.getDetails(request.session['organisation'], "Master", "Flat")
-    projects_list =  db.getProjectsList("Master", "Block")
+    projects_list =  db.getProjectsList(request.session['organisation'], "Master", "Block")
 
     if request.is_ajax():
         response = {}
@@ -216,7 +219,7 @@ def flat_master(request, project_name=None, block_name=None, floor_no=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getFlatData(_id, request.session['organisation'],  
+        [doc, files] = utils.getFlatData(_id, 
         request=request)
 
         if 'Save' in request.POST:
@@ -377,10 +380,10 @@ def booking_entry(request, reference_id=None):
         reference_id = db.getNextId("Transaction", "BookingEntry")
 
     entries = db.getDetails(request.session['organisation'], "Transaction", "BookingEntry")
-    projects_list =  db.getProjectsList("Master", "Flat")
-    customers_list = db.getCustomersList()
+    projects_list =  db.getProjectsList(request.session['organisation'], "Master", "Flat")
+    customers_list = db.getCustomersList(request.session['organisation'])
     banks_list = db.getBanks()
-    brokers_list = db.getBrokersList()
+    brokers_list = db.getBrokersList(request.session['organisation'])
     
     if request.is_ajax():
         if reference_id != None:
@@ -392,7 +395,7 @@ def booking_entry(request, reference_id=None):
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBookingEntry(_id, request.session['organisation'], 
+        [doc, files] = utils.getBookingEntry(_id,
         request=request)
         if 'Save' in request.POST:
             db.InsertData("Transaction", "BookingEntry", doc, files)
@@ -418,7 +421,7 @@ def customer_request(request, reference_id=None):
 
 #report
 def flat_booking_status(request):
-    projects_list =  db.getProjectsList()
+    projects_list =  db.getProjectsList(request.session['organisation'])
     return render(request, 'report/flat_booking_status.html', 
     {
         "projects_list": projects_list
@@ -456,7 +459,7 @@ def organisation_master(request, organisation_name=None):
     organisationDetails = db.getDetails(request.session['organisation'], "Settings", "OrganisationMaster")
 
     if request.is_ajax():
-        selectedOrganisationDetails = db.getOrganisationByName(organisation_name)
+        selectedOrganisationDetails = db.getOrganisationDetailsByName(organisation_name)
 
         metadata_filters = [
                 {"metadata._id" : selectedOrganisationDetails["_id"]}
@@ -471,7 +474,7 @@ def organisation_master(request, organisation_name=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getOrganisationData(_id, request.session['organisation'], 
+        [doc, files] = utils.getOrganisationData(_id, 
         request=request)
 
         if 'Save' in request.POST:

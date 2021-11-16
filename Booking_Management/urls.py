@@ -22,7 +22,8 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('login', views.organisation_login, name='org_login'),
     path('logout', views.logout, name='logout'),
-    path('home', views.home, name='home'),
+    re_path('home/$', views.home, name='home'),
+    path('home/<str:organisation>', views.home, name='home'),
 
     #master
     re_path('project_master/$', views.project_master, name='project_master'),

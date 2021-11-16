@@ -3,8 +3,8 @@ from gridfs import GridFS
 from functools import reduce
 import bson
 
-connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
@@ -80,15 +80,29 @@ def getDetails(organisation, db_name, collection_name):
             document = getDocById(x["organisation_name"].database, x["organisation_name"].collection, x["organisation_name"].id)
             if document["organisation_name"] == organisation:
                 doc = getDocs(x)
-                details.append(doc)      
+                details.append(doc)
         else:
-            doc = getDocs(x)
-            details.append(doc)      
-    
+            if db_name == "Settings" and collection_name == "OrganisationMaster":
+                doc = getDocs(x)
+                details.append(doc)      
+            else:
+                organisation_name = getOrganisationByProject(x["project_name"])
+                if organisation_name == organisation:
+                    doc = getDocs(x)
+                    details.append(doc)
     return details
 
+def getOrganisationByProject(project_name):
+    if type(project_name) == str:
+        id = getProjectDetailsByName(project_name)["_id"]
+        document = getDocById("Master", "Project", id)
+    else:
+        document = getDocById(project_name.database, project_name.collection, project_name.id)
+    org = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    return org["organisation_name"]
+
 #Project Master
-def getProjectsList(db_name="Master", collection_name="Project"):
+def getProjectsList(organisation, db_name="Master", collection_name="Project"):
     lst = []
 
     db = client[db_name]
@@ -98,12 +112,14 @@ def getProjectsList(db_name="Master", collection_name="Project"):
 
     documents = collection.find(filter)
 
-    for document in documents:
+    for document in documents:        
         value = document["project_name"]
-        if isinstance(value, bson.dbref.DBRef):
-            doc = getDocById(value.database, value.collection, value.id)
-            document["project_name"] = doc["project_name"]
-        lst.append(document["project_name"])
+        organisation_name = getOrganisationByProject(value)
+        if organisation_name == organisation:
+            if isinstance(value, bson.dbref.DBRef):
+                doc = getDocById(value.database, value.collection, value.id)
+                document["project_name"] = doc["project_name"]
+            lst.append(document["project_name"])
 
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , lst, [])
 
@@ -283,7 +299,7 @@ def ifPhNoExists(ph_no, db_name="Master", collection_name="Customer"):
             return True
     return False
         
-def getCustomersList(db_name="Master", collection_name="Customer"):
+def getCustomersList(organisation, db_name="Master", collection_name="Customer"):
     lst = []
 
     db = client[db_name]
@@ -294,12 +310,13 @@ def getCustomersList(db_name="Master", collection_name="Customer"):
     documents = collection.find(filter)
 
     for document in documents:
-        lst.append(document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"])
+        organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
+        if organisation_name == organisation:
+            lst.append(document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"])
 
     return lst
 
 def getCustomerDetailsByName(customer_name, db_name="Master", collection_name="Customer"):
-    customerDetails = []
     fname = customer_name.split(' ')[0]
     mname = customer_name.split(' ')[1]
     lname = customer_name.split(' ')[2]
@@ -311,7 +328,11 @@ def getCustomerDetailsByName(customer_name, db_name="Master", collection_name="C
         { "customer_mname": mname },
         { "customer_lname": lname }]
 
-    return collection.find_one({"$and": filter})
+    document = collection.find_one({"$and": filter})
+    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]
+
+    return document
 
 def getCustomerDetailsByFlatNo(project_name, block_name, floor_no, 
         flat_no, collection_name, db_name="Transaction"):
@@ -347,19 +368,20 @@ def getCustomerDetailsByFlatNo(project_name, block_name, floor_no,
     else:
         return {}
         
-def getBanksList(db_name="Master", collection_name="Bank"):
+def getBanksList(organisation, db_name="Master", collection_name="Bank"):
     lst = []
 
     db = client[db_name]
     collection = db[collection_name]
 
     filter = {}
-    fields = {"short_bank_name":1, "_id":0}
-
-    documents = collection.find(filter, fields)
+    
+    documents = collection.find(filter)
 
     for document in documents:
-        lst.append(document["short_bank_name"])
+        organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
+        if organisation_name == organisation:
+            lst.append(document["short_bank_name"])
 
     return lst
 
@@ -373,6 +395,8 @@ def getBankDetailsByName(bank_name=None, short_bank_name = None, db_name="Master
         filter = { "short_bank_name": short_bank_name }
 
     document = collection.find_one(filter)
+    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]
 
     for project in document["approved_projects"]:
         doc = getDocById(project["project_name"].database, project["project_name"].collection, project["project_name"].id)
@@ -434,7 +458,7 @@ def getBanks(db_name="Transaction", collection_name="BookingEntry"):
                 banks_list.append(el["bank_name"])    
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , banks_list, [])
 
-def getBrokersList(db_name="Master", collection_name="Broker"):
+def getBrokersList(organisation, db_name="Master", collection_name="Broker"):
     lst = []
 
     db = client[db_name]
@@ -445,7 +469,9 @@ def getBrokersList(db_name="Master", collection_name="Broker"):
     documents = collection.find(filter)
 
     for document in documents:
-        lst.append(document["broker_name"])
+        organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
+        if organisation_name == organisation:
+            lst.append(document["broker_name"])
 
     return lst
 
@@ -455,7 +481,11 @@ def getBrokerDetailsByName(broker_name, db_name="Master", collection_name="Broke
 
     filter = { "broker_name": broker_name }
     
-    return collection.find_one(filter)
+    document = collection.find_one(filter)
+    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]
+
+    return document
 
 def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collection_name = "BookingEntry"):
     db = client[db_name]
