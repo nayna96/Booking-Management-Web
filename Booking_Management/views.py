@@ -6,26 +6,35 @@ from bson import json_util
 
 toRemoveFiles = []
 
-def home(request):    
+def home(request): 
     return render(request, 'index.html')
 
 def login(request):
     error_msg = ""
+    organisations_list = db.getOrganisationsList()
+    request.session['organisations_list'] = organisations_list   
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
+
+        request.session['username'] = username
+
         if db.verifyUser(username, password):        
             return render(request, 'organisation_login.html')
         else:
             error_msg = "Invalid username and password"
     return render(request, 'login.html', {"error_msg": error_msg})
 
+def logout(request):
+    return render(request, 'login.html')
+
 def organisation_login(request):
-    if request.method == "POST":
-        organisation = request.POST.get('orhanisation')
-        branch = request.POST.get('branch')
-        fin_year = request.POST.get('fin_year')
-        return render(request, 'index.html', {"organisation": organisation})
+    if request.method == "POST":        
+        request.session['organisation'] = request.POST.get('organisation')
+        request.session['branch'] = request.POST.get('branch')
+        request.session['fin_year'] = request.POST.get('fin_yr')
+
+        return render(request, 'index.html')
     return render(request, 'organisation_login.html')
 
 #AJAX CALLS
@@ -112,7 +121,7 @@ def get_no_flats(request, project_name=None, block_name=None, floor_no=None):
 
 #master
 def project_master(request, project_name=None):
-    projectDetails = db.getDetails("Master", "Project")
+    projectDetails = db.getDetails(request.session['organisation'], "Master", "Project")
     banks_list =  db.getBanksList()
 
     if request.is_ajax():
@@ -132,7 +141,7 @@ def project_master(request, project_name=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getProjectData(_id, 
+        [doc, files] = utils.getProjectData(_id, request.session['organisation'], 
         request=request)
         
         if 'Save' in request.POST:
@@ -163,7 +172,7 @@ def project_master(request, project_name=None):
     })
     
 def block_master(request, project_name=None):
-    blockDetails = db.getDetails("Master", "Block")
+    blockDetails = db.getDetails(request.session['organisation'], "Master", "Block")
     projects_list =  db.getProjectsList()
 
     if request.is_ajax():
@@ -177,7 +186,7 @@ def block_master(request, project_name=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBlockData(_id, 
+        [doc, files] = utils.getBlockData(_id, request.session['organisation'], 
         request=request)
 
         if 'Save' in request.POST:
@@ -193,7 +202,7 @@ def block_master(request, project_name=None):
     })
 
 def flat_master(request, project_name=None, block_name=None, floor_no=None):
-    flatDetails = db.getDetails("Master", "Flat")
+    flatDetails = db.getDetails(request.session['organisation'], "Master", "Flat")
     projects_list =  db.getProjectsList("Master", "Block")
 
     if request.is_ajax():
@@ -207,7 +216,7 @@ def flat_master(request, project_name=None, block_name=None, floor_no=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getFlatData(_id, 
+        [doc, files] = utils.getFlatData(_id, request.session['organisation'],  
         request=request)
 
         if 'Save' in request.POST:
@@ -223,7 +232,7 @@ def flat_master(request, project_name=None, block_name=None, floor_no=None):
     })
 
 def customer_master(request, customer_name=None):
-    customerDetails = db.getDetails("Master", "Customer")
+    customerDetails = db.getDetails(request.session['organisation'], "Master", "Customer")
     occupations_list = db.getOccupations()
     castes_list = db.getCastes()
     
@@ -243,7 +252,7 @@ def customer_master(request, customer_name=None):
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getCustomerData(_id, 
+        [doc, files] = utils.getCustomerData(_id, request.session['organisation'], 
         request=request)
         if 'Save' in request.POST:
             db.InsertData("Master", "Customer", doc, files)
@@ -277,7 +286,7 @@ def if_phno_exist(request, ph_no=None):
     return JsonResponse(response)
 
 def bank_master(request, bank_name=None):
-    bankDetails = db.getDetails("Master", "Bank")
+    bankDetails = db.getDetails(request.session['organisation'], "Master", "Bank")
     
     if request.is_ajax():
         selectedBankDetails = db.getBankDetailsByName(bank_name)
@@ -296,7 +305,7 @@ def bank_master(request, bank_name=None):
     if request.method == "POST":
         _id = request.POST.get("_id")
         approved_projects = request.POST.get("approved_projects")
-        [doc, files] = utils.getBankData(_id, approved_projects,
+        [doc, files] = utils.getBankData(_id, request.session['organisation'], approved_projects,
         request=request)
         if 'Save' in request.POST:
             db.InsertData("Master", "Bank", doc, files)
@@ -321,7 +330,7 @@ def bank_master(request, bank_name=None):
     })
 
 def broker_master(request, broker_name=None):
-    brokerDetails = db.getDetails("Master", "Broker")
+    brokerDetails = db.getDetails(request.session['organisation'], "Master", "Broker")
     
     if request.is_ajax():
         selectedBrokerDetails = db.getBrokerDetailsByName(broker_name)
@@ -339,7 +348,7 @@ def broker_master(request, broker_name=None):
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBrokerData(_id, request=request)
+        [doc, files] = utils.getBrokerData(_id, request.session['organisation'], request=request)
         if 'Save' in request.POST:
             db.InsertData("Master", "Broker", doc, files)
         elif 'Update' in request.POST:
@@ -367,7 +376,7 @@ def booking_entry(request, reference_id=None):
     if reference_id == None:
         reference_id = db.getNextId("Transaction", "BookingEntry")
 
-    entries = db.getDetails("Transaction", "BookingEntry")
+    entries = db.getDetails(request.session['organisation'], "Transaction", "BookingEntry")
     projects_list =  db.getProjectsList("Master", "Flat")
     customers_list = db.getCustomersList()
     banks_list = db.getBanks()
@@ -383,7 +392,7 @@ def booking_entry(request, reference_id=None):
     
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getBookingEntry(_id, 
+        [doc, files] = utils.getBookingEntry(_id, request.session['organisation'], 
         request=request)
         if 'Save' in request.POST:
             db.InsertData("Transaction", "BookingEntry", doc, files)
@@ -444,7 +453,7 @@ def settings(request):
     return render(request, "settings/index.html")
 
 def organisation_master(request, organisation_name=None):
-    organisationDetails = db.getDetails("Settings", "OrganisationMaster")
+    organisationDetails = db.getDetails(request.session['organisation'], "Settings", "OrganisationMaster")
 
     if request.is_ajax():
         selectedOrganisationDetails = db.getOrganisationByName(organisation_name)
@@ -462,7 +471,7 @@ def organisation_master(request, organisation_name=None):
 
     if request.method == 'POST':        
         _id = request.POST.get("_id")
-        [doc, files] = utils.getOrganisationData(_id, 
+        [doc, files] = utils.getOrganisationData(_id, request.session['organisation'], 
         request=request)
 
         if 'Save' in request.POST:
@@ -488,7 +497,7 @@ def organisation_master(request, organisation_name=None):
     })
 
 def user_master(request, username=None):
-    userDetails = db.getDetails("Settings", "UserMaster")
+    userDetails = db.getDetails(request.session['organisation'], "Settings", "UserMaster")
 
     if request.is_ajax():
         if username != None:
@@ -500,7 +509,7 @@ def user_master(request, username=None):
 
     if request.method == "POST":
         _id = request.POST.get("_id")
-        [doc, files] = utils.getUserData(_id, request=request)
+        [doc, files] = utils.getUserData(_id, request.session['organisation'], request=request)
         if 'Save' in request.POST:
             db.InsertData("Settings", "UserMaster", doc, files)
         elif 'Update' in request.POST:

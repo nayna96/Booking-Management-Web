@@ -202,7 +202,6 @@ function showFlats(){
 
 $(document).ready(function() {
   $("#fancyTable").fancyTable({
-    sortColumn:0,
     pagination: true,
     perPage:10,
     globalSearch:true

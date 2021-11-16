@@ -3,8 +3,8 @@ from gridfs import GridFS
 from functools import reduce
 import bson
 
-#connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
-connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
+connection_string = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
+#connection_string = "mongodb+srv://admin:admin@cluster0.vlkpb.mongodb.net/test?authSource=admin&replicaSet=atlas-uip17y-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true&ssl_cert_reqs=CERT_NONE"
 
 try:
     client = MongoClient(connection_string)
@@ -33,9 +33,11 @@ def getNextId(db_name, collection_name):
 
 def verifyUser(username, password):
     if username != "" and password != "":
-        pwd = getUserDetailsByName(username)["password"]
-        if password == pwd:
-            return True
+        doc = getUserDetailsByName(username)
+        if doc != None:
+            pwd = doc["password"]
+            if password == pwd:
+                return True
     return True
 
 def getDocById(db_name, collection_name, _id):
@@ -46,30 +48,43 @@ def getDocById(db_name, collection_name, _id):
 
     return collection.find_one(filter)
 
-def getDetails(db_name, collection_name):
+def getDocs(x):
+    
+    for key, value in x.items():
+        if type(value) == list:
+            for el in value:
+                for k,v in el.items():
+                    if isinstance(v, bson.dbref.DBRef):
+                        doc = getDocById(v.database, v.collection, v.id)
+                        if k == "bank_name":
+                            el["bank_name"] = doc["short_bank_name"]
+                        else:
+                            el[k] = doc[k]
+        else:
+            if isinstance(value, bson.dbref.DBRef):
+                doc = getDocById(value.database, value.collection, value.id)
+                if key == "customer_name":
+                    x["customer_name"] = doc["customer_fname"] + " " + doc["customer_mname"] + " " + doc["customer_lname"]
+                else:
+                    x[key] = doc[key]
+    return x
+
+def getDetails(organisation, db_name, collection_name):
     details = []
+
     db = client[db_name]
     collection = db[collection_name]
 
     for x in collection.find({}):
-        for key, value in x.items():
-            if type(value) == list:
-                for el in value:
-                    for k,v in el.items():
-                        if isinstance(v, bson.dbref.DBRef):
-                            doc = getDocById(v.database, v.collection, v.id)
-                            if k == "bank_name":
-                                el["bank_name"] = doc["short_bank_name"]
-                            else:
-                                el[k] = doc[k]
-            else:
-                if isinstance(value, bson.dbref.DBRef):
-                    doc = getDocById(value.database, value.collection, value.id)
-                    if key == "customer_name":
-                        x["customer_name"] = doc["customer_fname"] + " " + doc["customer_mname"] + " " + doc["customer_lname"]
-                    else:
-                        x[key] = doc[key]
-        details.append(x)
+        if "organisation_name" in x and type(x["organisation_name"]) != str :
+            document = getDocById(x["organisation_name"].database, x["organisation_name"].collection, x["organisation_name"].id)
+            if document["organisation_name"] == organisation:
+                doc = getDocs(x)
+                details.append(doc)      
+        else:
+            doc = getDocs(x)
+            details.append(doc)      
+    
     return details
 
 #Project Master
@@ -102,6 +117,9 @@ def getProjectDetailsByName(project_name, db_name="Master", collection_name="Pro
     for bank in document["approved_banks"]:
         doc = getDocById(bank["bank_name"].database, bank["bank_name"].collection, bank["bank_name"].id)
         bank["bank_name"] = doc["short_bank_name"]
+
+    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]
 
     return document
 
@@ -463,7 +481,14 @@ def getBookingEntryByReferenceId(reference_id, db_name = "Transaction", collecti
 
     return document
 
-def getOrganisationByName(organisation_name, db_name = "Settings", collection_name = "OrganisationMaster"):
+def getOrganisationsList(db_name = "Settings", collection_name = "OrganisationMaster"):
+    lst = []
+    organisationDetails = getDetails(None, db_name, collection_name)
+    for detail in organisationDetails:
+        lst.append(detail["organisation_name"])
+    return lst
+
+def getOrganisationDetailsByName(organisation_name, db_name = "Settings", collection_name = "OrganisationMaster"):
     db = client[db_name]
     collection = db[collection_name]
 

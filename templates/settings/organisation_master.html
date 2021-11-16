@@ -982,42 +982,50 @@ function formValidation(){
         return false;   
     }*/
 
-    if($("#p_aadhar_no").val().length < 12){
+    if($("#p_aadhar_no").val().length > 0 && $("#p_aadhar_no").val().length < 12){
         alert("Please enter  a valid aadhar no.!");
         return false; 
     }
 
     els = $("input[id^='fs1-'][id$='-pa_pan_no']")
     for(let i=0; i < els.length; i++){
-        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-        if(!regex.test(els[i].val())){      
-            alert("Please enter a valid pan no!");    
-            return false;   
+        if(els[i].value.length > 0){
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if(!regex.test(els[i].value)){      
+                alert("Please enter a valid pan no!");    
+                return false;   
+            }
         }
     }
 
     els = $("input[id^='fs1-'][id$='-pa_aadhar_no']")
     for(let i=0; i < els.length; i++){
-        if(els[i].val().length < 12){
-            alert("Please enter  a valid aadhar no.!");
-            return false; 
+        if(els[i].value.length > 0){
+            if(els[i].value.length < 12){
+                alert("Please enter  a valid aadhar no.!");
+                return false; 
+            }
         }
     }   
 
     els = $("input[id^='fs1-'][id$='-d_pan_no']")
     for(let i=0; i < els.length; i++){
-        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-        if(!regex.test(els[i].val())){      
-            alert("Please enter a valid pan no!");    
-            return false;   
+        if(els[i].value.length > 0){
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if(!regex.test(els[i].value)){      
+                alert("Please enter a valid pan no!");    
+                return false;   
+            }
         }
     }
     
     els = $("input[id^='fs1-'][id$='-d_aadhar_no']")
     for(let i=0; i < els.length; i++){
-        if(els[i].val().length < 12){
-            alert("Please enter  a valid aadhar no.!");
-            return false; 
+        if(els[i].value.length > 0){
+            if(els[i].value.length < 12){
+                alert("Please enter  a valid aadhar no.!");
+                return false; 
+            }
         }
     }
     
@@ -1028,18 +1036,22 @@ function formValidation(){
 
     els = $("input[id^='fs1-'][id$='-pr_pan_no']")
     for(let i=0; i < els.length; i++){
-        var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-        if(!regex.test(els[i].val())){      
-            alert("Please enter a valid pan no!");    
-            return false;   
+        if(els[i].value.length > 0){
+            var regex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            if(!regex.test(els[i].value)){      
+                alert("Please enter a valid pan no!");    
+                return false;   
+            }
         }
     }
     
     els = $("input[id^='fs1-'][id$='-pr_aadhar_no']")
     for(let i=0; i < els.length; i++){
-        if(els[i].val().length < 12){
-            alert("Please enter  a valid aadhar no.!");
-            return false; 
+        if(els[i].value.length > 0){
+            if(els[i].value.length < 12){
+                alert("Please enter  a valid aadhar no.!");
+                return false; 
+            }
         }
     }
 

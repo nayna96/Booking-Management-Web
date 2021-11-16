@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AUM ASSETS AND PROJECTS</title>
+    <title>REAL ESTATE MANAGEMENT</title>
    
     <!-- Custom styles for this template -->
     {% load static %}
@@ -16,23 +16,27 @@
   <body class="text-center">
     {{ error_msg }}
     
-<main class="form-signin">
+    <main class="form-signin">
     <form method="POST" action="{% url 'org_login' %}"> 
-        {% csrf_token %}   
-        <h1 class="h3 mb-3 fw-normal">Log in</h1>
+      {% csrf_token %}   
+      <h1 class="h3 mb-3 fw-normal">Log in</h1>
         
-            <select class="form-control" name="organisation">
-                <option>HINDUSTAN DISTRIBUTORS</option>
-            </select>
-            <select class="form-control" name="branch">
-                <option>BHUBANESWAR</option>
-            </select>
-            <select class="form-control" name="fin_yr">
-                <option>2021-2022</option>
-            </select>      
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>    
-  </form>
-  
-</main>    
+      <select class="form-control" name="organisation">
+      {% for organisation in request.session.organisations_list %}
+        <option value="{{ organisation }}">{{ organisation }}</option>
+      {% endfor %}
+      </select>
+      <select class="form-control" name="branch">
+        <option value="ANUGUL">ANUGUL</option>
+        <option value="BHUBANESWAR">BHUBANESWAR</option>
+      </select>
+      <select class="form-control" name="fin_yr">
+        <option>2021-2022</option>
+        <option>2022-2023</option>
+      </select>
+                  
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Submit</button>    
+    </form>  
+    </main>    
   </body>
 </html>

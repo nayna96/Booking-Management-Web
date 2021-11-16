@@ -62,8 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'Booking_Management.context_processors.navbardata',
+                'django.contrib.messages.context_processors.messages'
             ],
         },
     },

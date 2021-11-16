@@ -1,10 +1,19 @@
 from . import db
 
 #Master
-def getProjectData(_id=None, **kwargs):
+def getProjectData(_id=None, organisation=None, **kwargs):
     id = db.getNextId("Master", "Project")
     doc = {}
     doc["_id"] = "P" + str(id) if len(_id) == 0 else _id
+    
+    o_id = db.getOrganisationDetailsByName(organisation)["_id"]
+    reference_dt = {
+        "$ref": "OrganisationMaster",
+        "$id": o_id,
+        "$db": "Settings"
+    }
+    doc["organisation_name"] = reference_dt
+
     doc["project_name"] = kwargs["request"].POST.get("project_name")                
     doc["addLine1"] = kwargs["request"].POST.get("addLine1")
     doc["addLine2"] = kwargs["request"].POST.get("addLine2")
@@ -164,10 +173,18 @@ def getFlatData(_id=None, **kwargs):
 
     return [doc, files]
 
-def getCustomerData(_id=None, **kwargs):
+def getCustomerData(_id=None, organisation=None, **kwargs):
     id = db.getNextId("Master", "Customer")
     doc = {}
     doc["_id"] = "C" + str(id) if len(_id) == 0 else _id
+
+    o_id = db.getOrganisationDetailsByName(organisation)["_id"]
+    reference_dt = {
+        "$ref": "OrganisationMaster",
+        "$id": o_id,
+        "$db": "Settings"
+    }
+    doc["organisation_name"] = reference_dt
 
     doc["customer_salutation"] = kwargs["request"].POST.get("customer_salutation")
     doc["customer_fname"] = kwargs["request"].POST.get("customer_fname").replace(" ", "")
@@ -263,10 +280,19 @@ def getCustomerData(_id=None, **kwargs):
 
     return [doc, files]
 
-def getBankData(_id=None, approved_projects=None, **kwargs):
+def getBankData(_id=None, organisation=None, approved_projects=None, **kwargs):
     id = db.getNextId("Master", "Bank")
     doc = {}
     doc["_id"] = "B" + str(id) if len(_id) == 0 else _id
+
+    o_id = db.getOrganisationDetailsByName(organisation)["_id"]
+    reference_dt = {
+        "$ref": "OrganisationMaster",
+        "$id": o_id,
+        "$db": "Settings"
+    }
+
+    doc["organisation_name"] = reference_dt
     doc["bank_name"] =kwargs["request"].POST.get("bank_name")
     doc["short_bank_name"] = kwargs["request"].POST.get("short_bank_name")
     doc["branch"] = kwargs["request"].POST.get("branch")
@@ -308,10 +334,19 @@ def getBankData(_id=None, approved_projects=None, **kwargs):
 
     return [doc, files]   
 
-def getBrokerData(_id=None, **kwargs):
+def getBrokerData(_id=None, organisation=None, **kwargs):
     id = db.getNextId("Master", "Broker")
     doc = {}
     doc["_id"] = "BR" + str(id) if len(_id) == 0 else _id
+
+    o_id = db.getOrganisationDetailsByName(organisation)["_id"]
+    reference_dt = {
+        "$ref": "OrganisationMaster",
+        "$id": o_id,
+        "$db": "Settings"
+    }
+    doc["organisation_name"] = reference_dt
+
     doc["broker_salutation"] = kwargs["request"].POST.get("broker_salutation")
     doc["broker_name"] = kwargs["request"].POST.get("broker_name")
     doc["broker_address"] = kwargs["request"].POST.get("broker_address")
