@@ -26,19 +26,19 @@ def getNextId(db_name, collection_name, organisation=None):
     db = client[db_name]
     collection = db[collection_name]
 
-    if organisation != None:
+    '''if organisation != None:
         count = 0
         for doc in collection.find():
             organisation_name = getOrganisationByProject(doc["project_name"])
             if organisation_name == organisation:
                 count += 1
         return count
-    else:
-        n = collection.count()
-        if n == 0:
-            return 1
-        for doc in collection.find().sort("_id", -1):
-            return int(doc["_id"][-1]) + 1
+    else:'''
+    n = collection.count()
+    if n == 0:
+        return 1
+    for doc in collection.find().sort("_id", -1):
+        return int(doc["_id"][-1]) + 1
 
 def verifyUser(username, password):
     if username != "" and password != "":
@@ -95,10 +95,10 @@ def getDetails(organisation, db_name, collection_name):
                 doc = getDocs(x)
                 details.append(doc)      
             else:
-                organisation_name = getOrganisationByProject(x["project_name"])
-                if organisation_name == organisation:
-                    doc = getDocs(x)
-                    details.append(doc)
+                '''organisation_name = getOrganisationByProject(x["project_name"])
+                if organisation_name == organisation:'''
+                doc = getDocs(x)
+                details.append(doc)
     return details
 
 def getOrganisationByProject(project_name):
@@ -123,12 +123,12 @@ def getProjectsList(organisation, db_name="Master", collection_name="Project"):
 
     for document in documents:        
         value = document["project_name"]
-        organisation_name = getOrganisationByProject(value)
-        if organisation_name == organisation:
-            if isinstance(value, bson.dbref.DBRef):
-                doc = getDocById(value.database, value.collection, value.id)
-                document["project_name"] = doc["project_name"]
-            lst.append(document["project_name"])
+        '''organisation_name = getOrganisationByProject(value)
+        if organisation_name == organisation:'''
+        if isinstance(value, bson.dbref.DBRef):
+            doc = getDocById(value.database, value.collection, value.id)
+            document["project_name"] = doc["project_name"]
+        lst.append(document["project_name"])
 
     return reduce(lambda acc,elem: acc+[elem] if not elem in acc else acc , lst, [])
 
@@ -143,8 +143,8 @@ def getProjectDetailsByName(project_name, db_name="Master", collection_name="Pro
         doc = getDocById(bank["bank_name"].database, bank["bank_name"].collection, bank["bank_name"].id)
         bank["bank_name"] = doc["short_bank_name"]
 
-    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
-    document["organisation_name"] = doc["organisation_name"]
+    '''doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]'''
 
     return document
 
@@ -319,9 +319,9 @@ def getCustomersList(organisation, db_name="Master", collection_name="Customer")
     documents = collection.find(filter)
 
     for document in documents:
-        organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
-        if organisation_name == organisation:
-            lst.append(document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"])
+        '''organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
+        if organisation_name == organisation:'''
+        lst.append(document["customer_fname"] + " " + document["customer_mname"] + " " + document["customer_lname"])
 
     return lst
 
@@ -338,8 +338,8 @@ def getCustomerDetailsByName(customer_name, db_name="Master", collection_name="C
         { "customer_lname": lname }]
 
     document = collection.find_one({"$and": filter})
-    doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
-    document["organisation_name"] = doc["organisation_name"]
+    '''doc = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)
+    document["organisation_name"] = doc["organisation_name"]'''
 
     return document
 
@@ -388,9 +388,9 @@ def getBanksList(organisation, db_name="Master", collection_name="Bank"):
     documents = collection.find(filter)
 
     for document in documents:
-        organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
-        if organisation_name == organisation:
-            lst.append(document["short_bank_name"])
+        '''organisation_name = getDocById(document["organisation_name"].database, document["organisation_name"].collection, document["organisation_name"].id)["organisation_name"]
+        if organisation_name == organisation:'''
+        lst.append(document["short_bank_name"])
 
     return lst
 
