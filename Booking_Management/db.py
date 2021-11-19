@@ -22,14 +22,23 @@ def ifExistsDoc(db_name, collection_name, filters):
             
     return False
         
-def getNextId(db_name, collection_name):
+def getNextId(db_name, collection_name, organisation=None):
     db = client[db_name]
     collection = db[collection_name]
-    n = collection.count()
-    if n == 0:
-        return 1
-    for doc in collection.find().sort("_id", -1):
-        return int(doc["_id"][-1]) + 1
+
+    if organisation != None:
+        count = 0
+        for doc in collection.find():
+            organisation_name = getOrganisationByProject(doc["project_name"])
+            if organisation_name == organisation:
+                count += 1
+        return count
+    else:
+        n = collection.count()
+        if n == 0:
+            return 1
+        for doc in collection.find().sort("_id", -1):
+            return int(doc["_id"][-1]) + 1
 
 def verifyUser(username, password):
     if username != "" and password != "":

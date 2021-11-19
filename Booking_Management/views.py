@@ -377,7 +377,8 @@ def broker_master(request, broker_name=None):
 #transaction
 def booking_entry(request, reference_id=None):
     if reference_id == None:
-        reference_id = db.getNextId("Transaction", "BookingEntry")
+        o_id = db.getOrganisationDetailsByName(request.session['organisation'])["_id"]
+        reference_id = o_id + "-" + str(db.getNextId("Transaction", "BookingEntry", request.session['organisation']))
 
     entries = db.getDetails(request.session['organisation'], "Transaction", "BookingEntry")
     projects_list =  db.getProjectsList(request.session['organisation'], "Master", "Flat")

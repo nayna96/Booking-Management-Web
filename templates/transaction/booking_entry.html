@@ -16,7 +16,7 @@
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Project</button>
+                    <button class="nav-link active" data-toggle="tab" href="#project_info" type="button" role="tab" aria-selected="true">Booking Entry</button>
                 </li>
             </ul>
             <div class="tab-content">
@@ -131,7 +131,7 @@
                             <div class="col-sm-3 mb-1">
                                 <label>Project Name</label>
                                 <label class="mandat_symbol">*</label>
-                                <select name="project_name" id="project_name" class="form-control" tabindex="5" required>
+                                <select name="project_name" id="project_name" class="form-control" tabindex="5" onchange="disableEnableStatus()" required>
                                     <option value="" selected disabled>-- Select --</option>
                                 {% for project in projects_list %}
                                     <option value="{{project}}">{{project}}</option>
@@ -451,6 +451,31 @@ for(let i=0; i<date_els.length; i++){
 }
 document.getElementById("booking_date").setAttribute("max", date);
 document.getElementById("booking_date").setAttribute("value", date);
+
+$("#land-owner_share").attr("disabled",false);
+
+function disableEnableStatus(){
+    getProjectStatus()
+    if(project_status == "Company Project"){
+        $("#land-owner_share").attr("disabled",true);
+    } else{
+        $("#land-owner_share").attr("disabled",false);
+    }
+}
+
+function getProjectStatus(){
+    project_name = $("#project_name").val()
+    return $.ajax({      
+    url: "/get_project_status/" + project_name,
+    async: false,
+    success: function(response){
+        project_status = response["project_status"]
+    }, 
+    error: function(error) {
+      console.log(error)
+    }
+  });
+}
 
 function commas(e){
     e.value = Number(e.value.replace(/,/g, "")).toLocaleString('en-IN') + ".00";

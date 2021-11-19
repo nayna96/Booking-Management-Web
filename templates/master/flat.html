@@ -16,7 +16,7 @@
         <div class="modal-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" data-toggle="tab" href="#flat_info" type="button" role="tab" aria-selected="true">Project</button>
+                    <button class="nav-link active" data-toggle="tab" href="#flat_info" type="button" role="tab" aria-selected="true">Flat</button>
                 </li>
             </ul>
             <div class="tab-content">
@@ -256,10 +256,10 @@ function updateFlatNo(){
         $("#fs1-" + i + "-ownership_status").val("");        
     }
 
-    _name = $("#block_name").val().split("-")[1];
-    if(_name == undefined){
+    /*_name = $("#block_name").val().split("-")[1];
+    if(_name == undefined){*/
         _name = $("#block_name").val();
-    }
+    //}    
     _no = $("#floor_no").val()[0];
 
     value = _name + "-" + _no;
